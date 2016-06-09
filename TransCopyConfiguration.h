@@ -2,7 +2,8 @@
 #define TransCopyConfiguration_h
 
 #include "TransCopyConfiguration.h"
-#include <string>
+
+#include "Configuration.h"
 
 
 class TransCopyConfiguration {
@@ -13,7 +14,9 @@ class TransCopyConfiguration {
 
 	std::string getDestinationPath();
 
-    int withGui();
+    bool withGui();	
+	
+	void setConfiguration(Configuration* configuration);
 
 	static TransCopyConfiguration&  getConfiguration();
 	
@@ -26,7 +29,7 @@ public:
  private:
 	std::string playlistPath;
 	std::string destinationPath;
-	int gui;
+	bool gui;
 };
 
 #endif // TransCopyConfiguration_h

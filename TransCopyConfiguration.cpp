@@ -7,18 +7,19 @@ using namespace std;
 
 std::string TransCopyConfiguration::getPlaylistPath()
 {
+	return this->playlistPath;
 }
 
 
 std::string TransCopyConfiguration::getDestinationPath()
-
 {
+	return this->playlistPath;
 }
 
 
-int TransCopyConfiguration::withGui()
+bool TransCopyConfiguration::withGui()
 {
-    return 0;
+    return this->gui;
 }
 
 
@@ -28,5 +29,14 @@ TransCopyConfiguration& TransCopyConfiguration::getConfiguration(){
 }
 
 TransCopyConfiguration::TransCopyConfiguration(){
+	this->gui = false;
 	cout<<"Configuration make";
+}
+
+void TransCopyConfiguration::setConfiguration(Configuration *configuration){
+	this->playlistPath = configuration->playlistPath;
+	
+	this->destinationPath = configuration->destinationPath;
+	
+	this->gui = configuration->gui;
 }

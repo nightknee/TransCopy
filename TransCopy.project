@@ -98,5 +98,6 @@
     <File Name="TransCopy.cpp"/>
     <File Name="TransCopyConfiguration.cpp"/>
     <File Name="TransCopyConfiguration.h"/>
+    <File Name="Configuration.h"/>
   </VirtualDirectory>
 </CodeLite_Project>

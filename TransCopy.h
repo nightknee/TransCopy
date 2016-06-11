@@ -19,6 +19,9 @@ public:
     static string Mail;
     static string GitHub;
 	void messageRun();
+	
+private:
+	void setDefaultSettigs();
 };
 
 #endif // TRANSCOPY_H

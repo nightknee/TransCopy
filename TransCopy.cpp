@@ -4,6 +4,7 @@
 TransCopy::TransCopy()
 {	
 	this->messageRun();
+	this->setDefaultSettigs();
 }
 
 TransCopy::~TransCopy()
@@ -25,4 +26,16 @@ void TransCopy::messageRun(){
         <<"\t \t \t"<<this->Version<<" \t"<<endl<<endl
         <<"\t \t \t"<<this->Mail<<endl<<endl
         <<"\t \t"<< this->GitHub<<endl;
+}
+
+void TransCopy::setDefaultSettigs(){
+	Configuration *defaultConfiguration = new Configuration;
+	
+	defaultConfiguration->gui = false;
+	defaultConfiguration->playlistPath = "pls.pls";
+	defaultConfiguration->destinationPath = "";
+	
+	TransCopyConfiguration::getConfiguration().setConfiguration(defaultConfiguration);
+	
+	delete defaultConfiguration;
 }

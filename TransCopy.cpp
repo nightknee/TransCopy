@@ -4,7 +4,6 @@
 TransCopy::TransCopy()
 {	
 	this->messageRun();
-	this->setDefaultSettigs();
 }
 
 TransCopy::~TransCopy()
@@ -12,7 +11,40 @@ TransCopy::~TransCopy()
 }
 
 int TransCopy::run(int argc,char** argv){	
+	this->setSettingsFromArgs(argc,argv);
+	
 	return 0;
+}
+
+void TransCopy::setSettingsFromArgs(int argc,char** argv){
+	Configuration *defaultConfiguration = new Configuration;
+	string temp_argv;
+	for(int i = 0; i < argc ; i++){
+		temp_argv = argv[i];
+		if(temp_argv == "-p"){			
+			defaultConfiguration->playlistPath = argv[i+1];
+		}
+		else if(temp_argv == "-d"){			
+			defaultConfiguration->destinationPath = argv[i+1];
+		}
+		else if(temp_argv == "-h" || temp_argv == "--help"){			
+			this->helpMessage();
+		}			
+	}
+	
+	defaultConfiguration->gui = false;
+	
+	TransCopyConfiguration::getConfiguration().setConfiguration(defaultConfiguration);
+	
+	delete defaultConfiguration;
+}
+
+void TransCopy::showConfiguration(){
+	TransCopyConfiguration configuration = TransCopyConfiguration::getConfiguration();
+	
+	std::cout<<configuration.getDestinationPath()
+			 <<endl<<configuration.getPlaylistPath()
+			 <<endl<<configuration.withGui()<<endl;
 }
 
 string TransCopy::Name = "TransCopy";
@@ -28,14 +60,6 @@ void TransCopy::messageRun(){
         <<"\t \t"<< this->GitHub<<endl;
 }
 
-void TransCopy::setDefaultSettigs(){
-	Configuration *defaultConfiguration = new Configuration;
+void TransCopy::helpMessage(){
 	
-	defaultConfiguration->gui = false;
-	defaultConfiguration->playlistPath = "pls.pls";
-	defaultConfiguration->destinationPath = "";
-	
-	TransCopyConfiguration::getConfiguration().setConfiguration(defaultConfiguration);
-	
-	delete defaultConfiguration;
 }

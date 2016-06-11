@@ -21,7 +21,9 @@ public:
 	void messageRun();
 	
 private:
-	void setDefaultSettigs();
+	void setSettingsFromArgs(int argc,char** argv);
+	void helpMessage();
+	void showConfiguration();
 };
 
 #endif // TRANSCOPY_H

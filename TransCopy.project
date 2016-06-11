@@ -1,7 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CodeLite_Project Name="TransCopy" InternalType="Console">
+  <Plugins>
+    <Plugin Name="CMakePlugin">
+      <![CDATA[[{
+  "name": "Debug",
+  "enabled": false,
+  "buildDirectory": "build",
+  "sourceDirectory": "$(ProjectPath)",
+  "generator": "",
+  "buildType": "",
+  "arguments": [],
+  "parentProject": ""
+ }, {
+  "name": "Release",
+  "enabled": false,
+  "buildDirectory": "build",
+  "sourceDirectory": "$(ProjectPath)",
+  "generator": "",
+  "buildType": "",
+  "arguments": [],
+  "parentProject": ""
+ }]]]>
+    </Plugin>
+    <Plugin Name="qmake">
+      <![CDATA[00010001N0005Debug000000000000]]>
+    </Plugin>
+  </Plugins>
   <Description/>
   <Dependencies/>
+  <VirtualDirectory Name="src">
+    <File Name="main.cpp"/>
+    <File Name="TransCopy.h"/>
+    <File Name="TransCopy.cpp"/>
+    <File Name="TransCopyConfiguration.cpp"/>
+    <File Name="TransCopyConfiguration.h"/>
+    <File Name="Configuration.h"/>
+    <File Name="AbstractParse.h"/>
+    <File Name="Song.cpp"/>
+    <File Name="Song.h"/>
+    <File Name="Songs.cpp"/>
+    <File Name="Songs.h"/>
+  </VirtualDirectory>
   <Settings Type="Executable">
     <GlobalSettings>
       <Compiler Options="" C_Options="" Assembler="">
@@ -92,12 +131,4 @@
       </Completion>
     </Configuration>
   </Settings>
-  <VirtualDirectory Name="src">
-    <File Name="main.cpp"/>
-    <File Name="TransCopy.h"/>
-    <File Name="TransCopy.cpp"/>
-    <File Name="TransCopyConfiguration.cpp"/>
-    <File Name="TransCopyConfiguration.h"/>
-    <File Name="Configuration.h"/>
-  </VirtualDirectory>
 </CodeLite_Project>

@@ -60,7 +60,7 @@ AS       := /usr/bin/as
 ## User defined environment variables
 ##
 CodeLiteDir:=/usr/share/codelite
-Objects0=$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/TransCopy.cpp$(ObjectSuffix) $(IntermediateDirectory)/TransCopyConfiguration.cpp$(ObjectSuffix) $(IntermediateDirectory)/Song.cpp$(ObjectSuffix) $(IntermediateDirectory)/Songs.cpp$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/TransCopy.cpp$(ObjectSuffix) $(IntermediateDirectory)/TransCopyConfiguration.cpp$(ObjectSuffix) $(IntermediateDirectory)/Song.cpp$(ObjectSuffix) $(IntermediateDirectory)/Songs.cpp$(ObjectSuffix) $(IntermediateDirectory)/PlsParser.cpp$(ObjectSuffix) 
 
 
 
@@ -130,6 +130,14 @@ $(IntermediateDirectory)/Songs.cpp$(DependSuffix): Songs.cpp
 
 $(IntermediateDirectory)/Songs.cpp$(PreprocessSuffix): Songs.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Songs.cpp$(PreprocessSuffix) "Songs.cpp"
+
+$(IntermediateDirectory)/PlsParser.cpp$(ObjectSuffix): PlsParser.cpp $(IntermediateDirectory)/PlsParser.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/karwan/C++/TransCopy/TransCopy/PlsParser.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/PlsParser.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/PlsParser.cpp$(DependSuffix): PlsParser.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/PlsParser.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/PlsParser.cpp$(DependSuffix) -MM "PlsParser.cpp"
+
+$(IntermediateDirectory)/PlsParser.cpp$(PreprocessSuffix): PlsParser.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/PlsParser.cpp$(PreprocessSuffix) "PlsParser.cpp"
 
 
 -include $(IntermediateDirectory)/*$(DependSuffix)

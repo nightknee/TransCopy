@@ -1,7 +1,8 @@
 #ifndef AbstractPlaylistParse_h
-#define AbstractPlaylistParse
+#define AbstractPlaylistParse_h
 
 #include <string>
+#include <fstream>
 
 #include "Songs.h"
 
@@ -12,9 +13,11 @@ class AbstractPlaylistParse  {
 	virtual std::string getPath(std::string line) = 0;
 	virtual std::string getFileName(std::string line) = 0;
 	virtual std::string getExtenstion(std::string fileName) = 0;
+	virtual int getFileLenght() = 0;
+	virtual bool validatePlaylist() = 0 ;
 	
-private:
 	Songs parsedSongs;
+	std::fstream playlistHandler;
 };
 
 #endif // AbstractPlaylistParse

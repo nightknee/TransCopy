@@ -60,7 +60,7 @@ AS       := /usr/bin/as
 ## User defined environment variables
 ##
 CodeLiteDir:=/usr/share/codelite
-Objects0=$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/TransCopy.cpp$(ObjectSuffix) $(IntermediateDirectory)/TransCopyConfiguration.cpp$(ObjectSuffix) $(IntermediateDirectory)/Song.cpp$(ObjectSuffix) $(IntermediateDirectory)/Songs.cpp$(ObjectSuffix) $(IntermediateDirectory)/PlsParser.cpp$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/TransCopy.cpp$(ObjectSuffix) $(IntermediateDirectory)/TransCopyConfiguration.cpp$(ObjectSuffix) $(IntermediateDirectory)/Song.cpp$(ObjectSuffix) $(IntermediateDirectory)/Songs.cpp$(ObjectSuffix) $(IntermediateDirectory)/PlsParser.cpp$(ObjectSuffix) $(IntermediateDirectory)/PlaylistParserContainer.cpp$(ObjectSuffix) 
 
 
 
@@ -138,6 +138,14 @@ $(IntermediateDirectory)/PlsParser.cpp$(DependSuffix): PlsParser.cpp
 
 $(IntermediateDirectory)/PlsParser.cpp$(PreprocessSuffix): PlsParser.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/PlsParser.cpp$(PreprocessSuffix) "PlsParser.cpp"
+
+$(IntermediateDirectory)/PlaylistParserContainer.cpp$(ObjectSuffix): PlaylistParserContainer.cpp $(IntermediateDirectory)/PlaylistParserContainer.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/karwan/C++/TransCopy/TransCopy/PlaylistParserContainer.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/PlaylistParserContainer.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/PlaylistParserContainer.cpp$(DependSuffix): PlaylistParserContainer.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/PlaylistParserContainer.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/PlaylistParserContainer.cpp$(DependSuffix) -MM "PlaylistParserContainer.cpp"
+
+$(IntermediateDirectory)/PlaylistParserContainer.cpp$(PreprocessSuffix): PlaylistParserContainer.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/PlaylistParserContainer.cpp$(PreprocessSuffix) "PlaylistParserContainer.cpp"
 
 
 -include $(IntermediateDirectory)/*$(DependSuffix)

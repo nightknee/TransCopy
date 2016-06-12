@@ -42,6 +42,8 @@
     <File Name="AbstractPlaylistParse.h"/>
     <File Name="PlsParser.cpp"/>
     <File Name="PlsParser.h"/>
+    <File Name="PlaylistParserContainer.cpp"/>
+    <File Name="PlaylistParserContainer.h"/>
   </VirtualDirectory>
   <Settings Type="Executable">
     <GlobalSettings>

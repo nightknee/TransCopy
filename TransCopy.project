@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CodeLite_Project Name="TransCopy" InternalType="Console">
   <Plugins>
+    <Plugin Name="qmake">
+      <![CDATA[00010001N0005Debug000000000000]]>
+    </Plugin>
     <Plugin Name="CMakePlugin">
       <![CDATA[[{
   "name": "Debug",
@@ -22,9 +25,6 @@
   "parentProject": ""
  }]]]>
     </Plugin>
-    <Plugin Name="qmake">
-      <![CDATA[00010001N0005Debug000000000000]]>
-    </Plugin>
   </Plugins>
   <Description/>
   <Dependencies/>
@@ -35,11 +35,11 @@
     <File Name="TransCopyConfiguration.cpp"/>
     <File Name="TransCopyConfiguration.h"/>
     <File Name="Configuration.h"/>
-    <File Name="AbstractParse.h"/>
     <File Name="Song.cpp"/>
     <File Name="Song.h"/>
     <File Name="Songs.cpp"/>
     <File Name="Songs.h"/>
+    <File Name="AbstractPlaylistParse.h"/>
   </VirtualDirectory>
   <Settings Type="Executable">
     <GlobalSettings>

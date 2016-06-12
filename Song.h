@@ -9,18 +9,18 @@ public:
 	Song();
 	~Song();
 	
-	void setTitle(std::string title);
+	void setFileName(std::string fileName);
 	void setPath(std::string path);
 	void setExntenstion(std::string extension);
 	void setAuthor(std::string author);
 	
-	std::string getTitle();
+	std::string getFileName();
 	std::string getPath();
 	std::string getExntenstion();
 	std::string getAuthor();
 	
 private:
-	std::string _title;
+	std::string _fileName;
 	std::string _path;
 	std::string _extension;
 	std::string _author;

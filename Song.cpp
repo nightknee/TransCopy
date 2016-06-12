@@ -8,8 +8,8 @@ Song::~Song()
 {
 }
 
-void Song::setTitle(std::string title){
-	this->_title = title;
+void Song::setFileName(std::string fileName){
+	this->_fileName = fileName;
 }
 void Song::setPath(std::string path){
 	this->_path = path;
@@ -20,8 +20,8 @@ void Song::setExntenstion(std::string extension){
 void Song::setAuthor(std::string author){
 	this->_author = author;
 }
-std::string Song::getTitle(){
-	return this->_title;
+std::string Song::getFileName(){
+	return this->_fileName;
 }
 std::string Song::getPath(){
 	return this->_path;

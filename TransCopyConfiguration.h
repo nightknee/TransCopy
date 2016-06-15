@@ -8,7 +8,9 @@
 
 class TransCopyConfiguration {
 
- public:
+public:
+ 
+	TransCopyConfiguration();
 
 	std::string getPlaylistPath();
 
@@ -19,14 +21,8 @@ class TransCopyConfiguration {
 	void setConfiguration(Configuration* configuration);
 
 	static TransCopyConfiguration&  getConfiguration();
-	
 
-public:
-	
-	
-	TransCopyConfiguration();
-
- private:
+private:
 	std::string playlistPath;
 	std::string destinationPath;
 	bool gui;

@@ -7,17 +7,17 @@
 #include "Songs.h"
 
 class AbstractPlaylistParse  {
-	
-	virtual int parse(std::string filePath) = 0;
-	virtual Songs& getParsedSongs() = 0;
-	virtual std::string getPath(std::string line) = 0;
-	virtual std::string getFileName(std::string line) = 0;
-	virtual std::string getExtenstion(std::string fileName) = 0;
-	virtual int getFileLenght() = 0;
-	virtual bool validatePlaylist() = 0 ;
-	
-	Songs parsedSongs;
-	std::fstream playlistHandler;
+	public:
+		virtual int parse(std::string filePath) = 0;
+		virtual Songs& getParsedSongs() = 0;
+		virtual std::string getPath(std::string line) = 0;
+		virtual std::string getFileName(std::string line) = 0;
+		virtual std::string getExtenstion(std::string fileName) = 0;
+		virtual int getFileLenght() = 0;
+		virtual bool validatePlaylist() = 0 ;
+	protected:
+		Songs parsedSongs;
+		std::fstream playlistHandler;
 };
 
 #endif // AbstractPlaylistParse

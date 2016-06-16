@@ -7,6 +7,8 @@
 #include "TransCopyConfiguration.h"
 #include "PlaylistParserContainer.h"
 #include "AbstractPlaylistParse.h"
+#include "MainExceptionHandler.h"
+#include "Exceptions/BaseException.h"
 
 using namespace std;
 class TransCopy

@@ -12,8 +12,12 @@ TransCopy::~TransCopy()
 
 int TransCopy::run(int argc,char** argv){	
 	this->setSettingsFromArgs(argc,argv);
-	this->parser = PlaylistParserContainer::getInstance().findParser(".mp3");	
-	this->parser->parse("sdas");
+	try{
+		this->parser = PlaylistParserContainer::getInstance().findParser(".mp4");	
+	}
+	catch(BaseException *e){
+		MainExceptionHandler::handleException(e);
+	}
 	return 0;
 }
 

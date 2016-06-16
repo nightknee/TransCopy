@@ -44,6 +44,10 @@
     <File Name="PlsParser.h"/>
     <File Name="PlaylistParserContainer.cpp"/>
     <File Name="PlaylistParserContainer.h"/>
+    <File Name="Exceptions/BaseException.h"/>
+    <File Name="Exceptions/NotFoundParserException.h"/>
+    <File Name="MainExceptionHandler.h"/>
+    <File Name="MainExceptionHandler.cpp"/>
   </VirtualDirectory>
   <Settings Type="Executable">
     <GlobalSettings>

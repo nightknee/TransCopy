@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=karwan
-Date                   :=15/06/16
+Date                   :=16/06/16
 CodeLitePath           :=/home/karwan/.codelite
 LinkerName             :=/usr/bin/g++
 SharedObjectLinkerName :=/usr/bin/g++ -shared -fPIC
@@ -60,7 +60,7 @@ AS       := /usr/bin/as
 ## User defined environment variables
 ##
 CodeLiteDir:=/usr/share/codelite
-Objects0=$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/TransCopy.cpp$(ObjectSuffix) $(IntermediateDirectory)/TransCopyConfiguration.cpp$(ObjectSuffix) $(IntermediateDirectory)/Song.cpp$(ObjectSuffix) $(IntermediateDirectory)/Songs.cpp$(ObjectSuffix) $(IntermediateDirectory)/PlsParser.cpp$(ObjectSuffix) $(IntermediateDirectory)/PlaylistParserContainer.cpp$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/TransCopy.cpp$(ObjectSuffix) $(IntermediateDirectory)/TransCopyConfiguration.cpp$(ObjectSuffix) $(IntermediateDirectory)/Song.cpp$(ObjectSuffix) $(IntermediateDirectory)/Songs.cpp$(ObjectSuffix) $(IntermediateDirectory)/PlsParser.cpp$(ObjectSuffix) $(IntermediateDirectory)/PlaylistParserContainer.cpp$(ObjectSuffix) $(IntermediateDirectory)/MainExceptionHandler.cpp$(ObjectSuffix) 
 
 
 
@@ -146,6 +146,14 @@ $(IntermediateDirectory)/PlaylistParserContainer.cpp$(DependSuffix): PlaylistPar
 
 $(IntermediateDirectory)/PlaylistParserContainer.cpp$(PreprocessSuffix): PlaylistParserContainer.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/PlaylistParserContainer.cpp$(PreprocessSuffix) "PlaylistParserContainer.cpp"
+
+$(IntermediateDirectory)/MainExceptionHandler.cpp$(ObjectSuffix): MainExceptionHandler.cpp $(IntermediateDirectory)/MainExceptionHandler.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/karwan/C++/TransCopy/TransCopy/MainExceptionHandler.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/MainExceptionHandler.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/MainExceptionHandler.cpp$(DependSuffix): MainExceptionHandler.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/MainExceptionHandler.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/MainExceptionHandler.cpp$(DependSuffix) -MM "MainExceptionHandler.cpp"
+
+$(IntermediateDirectory)/MainExceptionHandler.cpp$(PreprocessSuffix): MainExceptionHandler.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/MainExceptionHandler.cpp$(PreprocessSuffix) "MainExceptionHandler.cpp"
 
 
 -include $(IntermediateDirectory)/*$(DependSuffix)

@@ -1,1 +1,1 @@
-./Debug/main.cpp.o ./Debug/TransCopy.cpp.o ./Debug/TransCopyConfiguration.cpp.o ./Debug/Song.cpp.o ./Debug/Songs.cpp.o ./Debug/PlsParser.cpp.o ./Debug/PlaylistParserContainer.cpp.o
+./Debug/main.cpp.o ./Debug/TransCopy.cpp.o ./Debug/TransCopyConfiguration.cpp.o ./Debug/Song.cpp.o ./Debug/Songs.cpp.o ./Debug/PlsParser.cpp.o ./Debug/PlaylistParserContainer.cpp.o ./Debug/MainExceptionHandler.cpp.o

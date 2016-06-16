@@ -7,6 +7,7 @@
 
 #include "AbstractPlaylistParse.h"
 #include "PlsParser.h"
+#include "Exceptions/BaseException.h"
 
 typedef std::map<std::string,AbstractPlaylistParse*> playlistMap;
 class PlaylistParserContainer {

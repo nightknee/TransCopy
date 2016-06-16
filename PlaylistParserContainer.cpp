@@ -1,4 +1,6 @@
 #include "PlaylistParserContainer.h"
+#include "Exceptions/NotFoundParserException.h"
+
 #include <iostream>
 
 PlaylistParserContainer::PlaylistParserContainer(){
@@ -7,11 +9,10 @@ PlaylistParserContainer::PlaylistParserContainer(){
 
 AbstractPlaylistParse* PlaylistParserContainer::findParser(std::string playlistExtension){
 	playlistMap::iterator It = this->parsers.find(playlistExtension);
-	/**
-	 * @todo Not found parser exception 
-	 */ 
+
 	if(It == this->parsers.end()){
-		std::cout<<"Blad"<<std::endl;
+		throw new NotFoundParserException("Not found "+playlistExtension+" parser.");
+		
 	}
 	AbstractPlaylistParse *parser = It->second;
 	return parser;

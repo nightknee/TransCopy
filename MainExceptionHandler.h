@@ -10,7 +10,6 @@ class MainExceptionHandler
 public:
 	MainExceptionHandler();
 	static void handleException(BaseException* e);
-	static bool showExceptionName();
 };
 
 #endif // MAINEXCEPTIONHANDLER_H

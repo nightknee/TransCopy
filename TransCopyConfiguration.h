@@ -18,6 +18,8 @@ public:
 
     bool withGui();	
 	
+	bool isDebug();
+	
 	void setConfiguration(Configuration* configuration);
 
 	static TransCopyConfiguration&  getConfiguration();
@@ -26,6 +28,7 @@ private:
 	std::string playlistPath;
 	std::string destinationPath;
 	bool gui;
+	bool debug;
 };
 
 #endif // TransCopyConfiguration_h

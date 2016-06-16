@@ -27,6 +27,7 @@ TransCopyConfiguration& TransCopyConfiguration::getConfiguration(){
 
 TransCopyConfiguration::TransCopyConfiguration(){
 	this->gui = false;
+	this->debug = true;
 }
 
 void TransCopyConfiguration::setConfiguration(Configuration *configuration){
@@ -35,4 +36,8 @@ void TransCopyConfiguration::setConfiguration(Configuration *configuration){
 	this->destinationPath = configuration->destinationPath;
 	
 	this->gui = configuration->gui;
+}
+
+bool TransCopyConfiguration::isDebug(){
+	return this->debug;
 }

@@ -31,30 +31,20 @@ void TransCopy::setSettingsFromArgs(int argc,char** argv){
 	delete defaultConfiguration;
 }
 
-Configuration* TransCopy::parseCmdArgs(int argc,char** argv){
-	Configuration *_tempConfiguration = new Configuration;
-	
+Configuration* TransCopy::parseCmdArgs(int argc,char** argv){		
 	po::options_description desc("Options");
-	desc.add_options()
-		("help,h","help message")
-		("file-path,f",po::value< std::string >()->required(),"Path to list files")
-		("destination-path,d",po::value< std::string >()->required(),"Path when copy files");
+	
+	this->prepareCmdDescription(desc);	
 		
 	po::variables_map vm;
 	
 	try{
 		po::store(po::parse_command_line(argc,argv,desc),vm);
-		po::notify(vm);
-				
-			if(vm.count("file-path")){
-			_tempConfiguration->playlistPath = vm["file-path"].as<std::string>();
-		}
+		po::notify(vm);			
 		
-		if(vm.count("destination-path")){
-			_tempConfiguration->destinationPath = vm["destination-path"].as<std::string>();
-		}
+		Configuration *tempConfiguration = this->setConfigurationFromCmd(vm);
 		
-		return _tempConfiguration;
+		return tempConfiguration;
 	
 	}catch(const po::error &e){
 		if(vm.count("help")){
@@ -62,9 +52,29 @@ Configuration* TransCopy::parseCmdArgs(int argc,char** argv){
 		}else{
 			std::cout<<e.what()<<std::endl;					
 		}
-		return _tempConfiguration;
+		return this->setConfigurationFromCmd(vm);
 	}
 	
+}
+
+Configuration* TransCopy::setConfigurationFromCmd(po::variables_map &vm){
+	Configuration *_tempConfiguration = new Configuration;
+	
+	if(vm.count("file-path")){
+		_tempConfiguration->playlistPath = vm["file-path"].as<std::string>();
+	}
+		
+	if(vm.count("destination-path")){
+		_tempConfiguration->destinationPath = vm["destination-path"].as<std::string>();
+	}
+	return _tempConfiguration;
+}
+
+void TransCopy::prepareCmdDescription(po::options_description &desc){
+	desc.add_options()
+		("help,h","help message")
+		("file-path,f",po::value< std::string >()->required(),"Path to list files")
+		("destination-path,d",po::value< std::string >()->required(),"Path when copy files");
 }
 
 void TransCopy::showConfiguration(){

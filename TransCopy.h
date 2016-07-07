@@ -28,8 +28,13 @@ public:
 	void messageRun();
 	
 private:
+	/**cmd options:*/
 	void setSettingsFromArgs(int argc,char** argv);
 	Configuration* parseCmdArgs(int argc,char** argv);
+	void prepareCmdDescription(po::options_description &desc);
+	Configuration *setConfigurationFromCmd(po::variables_map &vm);
+	/** end cmd options*/
+	
 	void helpMessage();
 	void showConfiguration();
 	AbstractPlaylistParse *parser;

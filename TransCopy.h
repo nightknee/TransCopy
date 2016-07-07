@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
+#include <boost/program_options.hpp>
 
 #include "TransCopyConfiguration.h"
 #include "PlaylistParserContainer.h"
@@ -10,22 +12,24 @@
 #include "MainExceptionHandler.h"
 #include "Exceptions/BaseException.h"
 
-using namespace std;
+namespace po = boost::program_options;
+
 class TransCopy
 {
 public:
 	TransCopy();	
 	~TransCopy();
 	int run(int argc,char** argv);
-	static string Name;
-    static string Version;
-    static string DevName ;
-    static string Mail;
-    static string GitHub;
+	static std::string Name;
+    static std::string Version;
+    static std::string DevName ;
+    static std::string Mail;
+    static std::string GitHub;
 	void messageRun();
 	
 private:
 	void setSettingsFromArgs(int argc,char** argv);
+	Configuration* parseCmdArgs(int argc,char** argv);
 	void helpMessage();
 	void showConfiguration();
 	AbstractPlaylistParse *parser;

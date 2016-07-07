@@ -13,7 +13,7 @@ TransCopy::~TransCopy()
 int TransCopy::run(int argc,char** argv){	
 	this->setSettingsFromArgs(argc,argv);
 	try{
-		this->parser = PlaylistParserContainer::getInstance().findParser(".mp4");	
+		this->parser = PlaylistParserContainer::getInstance().findParser(".mp3");	
 	}
 	catch(BaseException *e){
 		MainExceptionHandler::handleException(e);
@@ -22,20 +22,7 @@ int TransCopy::run(int argc,char** argv){
 }
 
 void TransCopy::setSettingsFromArgs(int argc,char** argv){
-	Configuration *defaultConfiguration = new Configuration;
-	string temp_argv;
-	for(int i = 0; i < argc ; i++){
-		temp_argv = argv[i];
-		if(temp_argv == "-p"){			
-			defaultConfiguration->playlistPath = argv[i+1];
-		}
-		else if(temp_argv == "-d"){			
-			defaultConfiguration->destinationPath = argv[i+1];
-		}
-		else if(temp_argv == "-h" || temp_argv == "--help"){			
-			this->helpMessage();
-		}			
-	}
+	Configuration *defaultConfiguration = this->parseCmdArgs(argc,argv);	
 	
 	defaultConfiguration->gui = false;
 	
@@ -44,25 +31,61 @@ void TransCopy::setSettingsFromArgs(int argc,char** argv){
 	delete defaultConfiguration;
 }
 
+Configuration* TransCopy::parseCmdArgs(int argc,char** argv){
+	Configuration *_tempConfiguration = new Configuration;
+	
+	po::options_description desc("Options");
+	desc.add_options()
+		("help,h","help message")
+		("file-path,f",po::value< std::string >()->required(),"Path to list files")
+		("destination-path,d",po::value< std::string >()->required(),"Path when copy files");
+		
+	po::variables_map vm;
+	
+	try{
+		po::store(po::parse_command_line(argc,argv,desc),vm);
+		po::notify(vm);
+				
+			if(vm.count("file-path")){
+			_tempConfiguration->playlistPath = vm["file-path"].as<std::string>();
+		}
+		
+		if(vm.count("destination-path")){
+			_tempConfiguration->destinationPath = vm["destination-path"].as<std::string>();
+		}
+		
+		return _tempConfiguration;
+	
+	}catch(const po::error &e){
+		if(vm.count("help")){
+			std::cout<<desc<<std::endl;			
+		}else{
+			std::cout<<e.what()<<std::endl;					
+		}
+		return _tempConfiguration;
+	}
+	
+}
+
 void TransCopy::showConfiguration(){
 	TransCopyConfiguration configuration = TransCopyConfiguration::getConfiguration();
 	
 	std::cout<<configuration.getDestinationPath()
-			 <<endl<<configuration.getPlaylistPath()
-			 <<endl<<configuration.withGui()<<endl;
+			 <<std::endl<<configuration.getPlaylistPath()
+			 <<std::endl<<configuration.withGui()<<std::endl;
 }
 
-string TransCopy::Name = "TransCopy";
-string TransCopy::Version = "0.01";
-string TransCopy::DevName = "Mateusz Karwan";
-string TransCopy::Mail = "nightknee@gmail.com";
-string TransCopy::GitHub = "https://github.com/nightknee/TransCopy";
+std::string TransCopy::Name = "TransCopy";
+std::string TransCopy::Version = "0.01";
+std::string TransCopy::DevName = "Mateusz Karwan";
+std::string TransCopy::Mail = "nightknee@gmail.com";
+std::string TransCopy::GitHub = "https://github.com/nightknee/TransCopy";
 
 void TransCopy::messageRun(){
-    cout<<"\t \t \t"<<this->Name<<"\t"<<endl<<endl
-        <<"\t \t \t"<<this->Version<<" \t"<<endl<<endl
-        <<"\t \t \t"<<this->Mail<<endl<<endl
-        <<"\t \t"<< this->GitHub<<endl;
+    std::cout<<"\t \t \t"<<this->Name<<"\t"<<std::endl<<std::endl
+        <<"\t \t \t"<<this->Version<<" \t"<<std::endl<<std::endl
+        <<"\t \t \t"<<this->Mail<<std::endl<<std::endl
+        <<"\t \t"<< this->GitHub<<std::endl;
 }
 
 void TransCopy::helpMessage(){

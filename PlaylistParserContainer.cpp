@@ -11,7 +11,7 @@ AbstractPlaylistParse* PlaylistParserContainer::findParser(std::string playlistE
 	playlistMap::iterator It = this->parsers.find(playlistExtension);
 
 	if(It == this->parsers.end()){
-		throw new NotFoundParserException("Not found "+playlistExtension+" parser.");
+		throw new NotFoundParserException();
 		
 	}
 	AbstractPlaylistParse *parser = It->second;

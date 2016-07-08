@@ -11,11 +11,11 @@ TransCopy::~TransCopy()
 }
 
 int TransCopy::run(int argc,char** argv){	
-	this->setSettingsFromArgs(argc,argv);
 	try{
-		this->parser = PlaylistParserContainer::getInstance().findParser(".mp3");	
+		this->setSettingsFromArgs(argc,argv);
+		this->parser = PlaylistParserContainer::getInstance().findParser(".mp4");	
 	}
-	catch(BaseException *e){
+	catch(std::exception& e){
 		MainExceptionHandler::handleException(e);
 	}
 	return 0;

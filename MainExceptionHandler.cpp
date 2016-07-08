@@ -2,7 +2,10 @@
 #include "TransCopyConfiguration.h"
 
 
-void MainExceptionHandler::handleException(BaseException* e){
-	TransCopyConfiguration::getConfiguration().isDebug() ? std::cout<<e->getExceptionName()<<": " : std::cout<<"";
-	std::cout<<e->getMessage()<<std::endl;
+void MainExceptionHandler::handleException(BaseException& e){
+	std::cout<<e.what()<<std::endl;
+}
+
+void MainExceptionHandler::handleException(std::exception& e){
+	std::cout<<e.what()<<std::endl;
 }

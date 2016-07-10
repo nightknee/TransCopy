@@ -39,6 +39,7 @@ private:
 	void showConfiguration();
 	AbstractPlaylistParse *parser;
 	
+	
 };
 
 #endif // TRANSCOPY_H

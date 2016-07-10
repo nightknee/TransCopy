@@ -1,5 +1,4 @@
 #include "MainExceptionHandler.h"
-#include "TransCopyConfiguration.h"
 
 
 void MainExceptionHandler::handleException(BaseException& e){

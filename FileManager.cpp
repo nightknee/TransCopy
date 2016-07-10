@@ -8,3 +8,8 @@ FileManager::~FileManager()
 {
 }
 
+bool FileManager::isFileExist(std::string filePath){
+	
+}
+
+

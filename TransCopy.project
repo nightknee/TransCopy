@@ -48,6 +48,10 @@
     <File Name="Exceptions/NotFoundParserException.h"/>
     <File Name="MainExceptionHandler.h"/>
     <File Name="MainExceptionHandler.cpp"/>
+    <File Name="File.h"/>
+    <File Name="File.cpp"/>
+    <File Name="FileManager.h"/>
+    <File Name="FileManager.cpp"/>
   </VirtualDirectory>
   <Settings Type="Executable">
     <GlobalSettings>

@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=karwan
-Date                   :=08/07/16
+Date                   :=10/07/16
 CodeLitePath           :=/home/karwan/.codelite
 LinkerName             :=/usr/bin/g++
 SharedObjectLinkerName :=/usr/bin/g++ -shared -fPIC
@@ -60,7 +60,8 @@ AS       := /usr/bin/as
 ## User defined environment variables
 ##
 CodeLiteDir:=/usr/share/codelite
-Objects0=$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/TransCopy.cpp$(ObjectSuffix) $(IntermediateDirectory)/TransCopyConfiguration.cpp$(ObjectSuffix) $(IntermediateDirectory)/Song.cpp$(ObjectSuffix) $(IntermediateDirectory)/Songs.cpp$(ObjectSuffix) $(IntermediateDirectory)/PlsParser.cpp$(ObjectSuffix) $(IntermediateDirectory)/PlaylistParserContainer.cpp$(ObjectSuffix) $(IntermediateDirectory)/MainExceptionHandler.cpp$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/TransCopy.cpp$(ObjectSuffix) $(IntermediateDirectory)/TransCopyConfiguration.cpp$(ObjectSuffix) $(IntermediateDirectory)/Song.cpp$(ObjectSuffix) $(IntermediateDirectory)/Songs.cpp$(ObjectSuffix) $(IntermediateDirectory)/PlsParser.cpp$(ObjectSuffix) $(IntermediateDirectory)/PlaylistParserContainer.cpp$(ObjectSuffix) $(IntermediateDirectory)/MainExceptionHandler.cpp$(ObjectSuffix) $(IntermediateDirectory)/File.cpp$(ObjectSuffix) $(IntermediateDirectory)/FileManager.cpp$(ObjectSuffix) \
+	
 
 
 
@@ -154,6 +155,22 @@ $(IntermediateDirectory)/MainExceptionHandler.cpp$(DependSuffix): MainExceptionH
 
 $(IntermediateDirectory)/MainExceptionHandler.cpp$(PreprocessSuffix): MainExceptionHandler.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/MainExceptionHandler.cpp$(PreprocessSuffix) "MainExceptionHandler.cpp"
+
+$(IntermediateDirectory)/File.cpp$(ObjectSuffix): File.cpp $(IntermediateDirectory)/File.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/karwan/C++/TransCopy/TransCopy/File.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/File.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/File.cpp$(DependSuffix): File.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/File.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/File.cpp$(DependSuffix) -MM "File.cpp"
+
+$(IntermediateDirectory)/File.cpp$(PreprocessSuffix): File.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/File.cpp$(PreprocessSuffix) "File.cpp"
+
+$(IntermediateDirectory)/FileManager.cpp$(ObjectSuffix): FileManager.cpp $(IntermediateDirectory)/FileManager.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/karwan/C++/TransCopy/TransCopy/FileManager.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/FileManager.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/FileManager.cpp$(DependSuffix): FileManager.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/FileManager.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/FileManager.cpp$(DependSuffix) -MM "FileManager.cpp"
+
+$(IntermediateDirectory)/FileManager.cpp$(PreprocessSuffix): FileManager.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/FileManager.cpp$(PreprocessSuffix) "FileManager.cpp"
 
 
 -include $(IntermediateDirectory)/*$(DependSuffix)

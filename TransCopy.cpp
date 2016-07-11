@@ -13,7 +13,8 @@ TransCopy::~TransCopy()
 int TransCopy::run(int argc,char** argv){	
 	try{
 		this->setSettingsFromArgs(argc,argv);
-		this->parser = PlaylistParserContainer::getInstance().findParser(".");	
+		
+		this->parser = PlaylistParserContainer::getInstance().findParser(".");
 	}
 	catch(std::exception& e){
 		MainExceptionHandler::handleException(e);

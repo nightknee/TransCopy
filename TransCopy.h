@@ -11,6 +11,7 @@
 #include "AbstractPlaylistParse.h"
 #include "MainExceptionHandler.h"
 #include "Exceptions/BaseException.h"
+#include "FileManager.h"
 
 namespace po = boost::program_options;
 

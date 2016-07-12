@@ -14,10 +14,11 @@ int TransCopy::run(int argc,char** argv){
 	try{
 		this->setSettingsFromArgs(argc,argv);
 		
-		this->parser = PlaylistParserContainer::getInstance().findParser(".");
+		this->checkExistingPathAndFile();
 	}
 	catch(std::exception& e){
 		MainExceptionHandler::handleException(e);
+		return 1;
 	}
 	return 0;
 }
@@ -51,7 +52,7 @@ Configuration* TransCopy::parseCmdArgs(int argc,char** argv){
 		if(vm.count("help")){
 			std::cout<<desc<<std::endl;			
 		}else{
-			std::cout<<e.what()<<std::endl;					
+			std::cout<<e.what()<<std::endl;
 		}
 		return this->setConfigurationFromCmd(vm);
 	}
@@ -74,8 +75,8 @@ Configuration* TransCopy::setConfigurationFromCmd(po::variables_map &vm){
 void TransCopy::prepareCmdDescription(po::options_description &desc){
 	desc.add_options()
 		("help,h","help message")
-		("file-path,f",po::value< std::string >()->required(),"Path to list files")
-		("destination-path,d",po::value< std::string >()->required(),"Path when copy files");
+		("file-path,f","Path to list files")
+		("destination-path,d","Path when copy files");
 }
 
 void TransCopy::showConfiguration(){
@@ -92,6 +93,8 @@ std::string TransCopy::DevName = "Mateusz Karwan";
 std::string TransCopy::Mail = "nightknee@gmail.com";
 std::string TransCopy::GitHub = "https://github.com/nightknee/TransCopy";
 
+std::mutex TransCopy::checkFilesMutex;
+
 void TransCopy::messageRun(){
     std::cout<<"\t \t \t"<<this->Name<<"\t"<<std::endl<<std::endl
         <<"\t \t \t"<<this->Version<<" \t"<<std::endl<<std::endl
@@ -101,4 +104,52 @@ void TransCopy::messageRun(){
 
 void TransCopy::helpMessage(){
 	
+}
+
+void TransCopy::setFileToParse(std::shared_ptr<File> f){
+	this->fileToParse = f;
+}
+
+std::shared_ptr<File> TransCopy::getFileToParse(){
+	return this->fileToParse;
+}
+
+void TransCopy::checkExistingPathAndFile(){
+	std::cout<<"Check existing path and file to parse:"<<std::endl;
+	
+	std::thread fileToParse (&TransCopy::checkFileToParse,this);
+	std::thread checkPath (&TransCopy::checkPath,this);
+	
+	fileToParse.join();
+	checkPath.join();
+}
+
+void TransCopy::checkFileToParse(){
+	TransCopy::checkFilesMutex.lock();	
+	
+	std::string msg = "Check file to parse";
+	std::cout<<msg<<"..."<<std::flush;
+	
+	if(FileManager::fileExist(TransCopyConfiguration::getConfiguration().getPlaylistPath())){
+		std::cout<<"\r"<<msg<<" [OK]"<<std::flush;
+	}else{
+		std::cout<<"\r"<<msg<<" [Error]"<<std::flush;
+	}
+	std::cout<<std::endl<<std::flush;
+	this->checkFilesMutex.unlock();
+}
+
+void TransCopy::checkPath(){
+	this->checkFilesMutex.lock();	
+	
+	std::string msg = "Check path";
+	std::cout<<msg<<"..."<<std::flush;
+	
+	if(FileManager::isAPath(TransCopyConfiguration::getConfiguration().getDestinationPath())){
+		std::cout<<"\r"<<msg<<" [OK]"<<std::flush;
+	}else{
+		std::cout<<"\r"<<msg<<" [Error]"<<std::flush;
+	}
+	std::cout<<std::endl<<std::flush;
+	this->checkFilesMutex.unlock();
 }

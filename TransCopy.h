@@ -4,6 +4,8 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <thread>
+#include <mutex>
 #include <boost/program_options.hpp>
 
 #include "TransCopyConfiguration.h"
@@ -18,16 +20,22 @@ namespace po = boost::program_options;
 class TransCopy
 {
 public:
+//Public functions
 	TransCopy();	
 	~TransCopy();
 	int run(int argc,char** argv);
+	void messageRun();
+	std::shared_ptr<File> getFileToParse();
+	void setFileToParse(std::shared_ptr<File> f);
+
+//Public variables: 
 	static std::string Name;
     static std::string Version;
     static std::string DevName ;
     static std::string Mail;
     static std::string GitHub;
-	void messageRun();
 	
+//Private functions:
 private:
 	/**cmd options:*/
 	void setSettingsFromArgs(int argc,char** argv);
@@ -37,10 +45,16 @@ private:
 	/** end cmd options*/
 	
 	void helpMessage();
-	void showConfiguration();
-	AbstractPlaylistParse *parser;
-	
-	
+	void showConfiguration();	
+	void checkExistingPathAndFile();
+	void checkFileToParse();
+	void checkPath();
+
+//Private variables	
+private:
+	std::shared_ptr<File> fileToParse;
+	AbstractPlaylistParse *parser;	
+	static std::mutex  checkFilesMutex;
 };
 
 #endif // TRANSCOPY_H

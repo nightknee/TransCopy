@@ -16,6 +16,7 @@ public:
 	~FileManager();
 
 	static bool fileExist(std::string filePath);
+	static bool isAPath(std::string path);
 	static File* createFileObject(std::string filePath);
 };
 

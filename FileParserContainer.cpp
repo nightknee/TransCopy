@@ -1,13 +1,13 @@
-#include "PlaylistParserContainer.h"
+#include "FileParserContainer.h"
 #include "Exceptions/NotFoundParserException.h"
 
 #include <iostream>
 
-PlaylistParserContainer::PlaylistParserContainer(){
+FileParserContainer::FileParserContainer(){
 	this->insertParser(".mp3",new PlsParser);
 }
 
-AbstractFileParse* PlaylistParserContainer::findParser(std::string playlistExtension){
+AbstractFileParse* FileParserContainer::findParser(std::string playlistExtension){
 	playlistMap::iterator It = this->parsers.find(playlistExtension);
 
 	if(It == this->parsers.end()){
@@ -18,11 +18,11 @@ AbstractFileParse* PlaylistParserContainer::findParser(std::string playlistExten
 	return parser;
 }
 
-void PlaylistParserContainer::insertParser(std::string playlistExtenstion,AbstractFileParse* newParser){
+void FileParserContainer::insertParser(std::string playlistExtenstion,AbstractFileParse* newParser){
 	this->parsers.insert(std::pair<std::string,AbstractFileParse*>(playlistExtenstion,newParser));
 }
 
-PlaylistParserContainer& PlaylistParserContainer::getInstance(){
-	static PlaylistParserContainer instance;
+FileParserContainer& FileParserContainer::getInstance(){
+	static FileParserContainer instance;
 	return instance;
 }

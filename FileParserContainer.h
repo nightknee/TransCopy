@@ -1,5 +1,5 @@
-#ifndef PlaylistParserContainer_h
-#define PlaylistParserContainer_h
+#ifndef FileParserContainer_h
+#define FileParserContainer_h
 
 #include <map>
 #include <string>
@@ -10,14 +10,14 @@
 #include "Exceptions/BaseException.h"
 
 typedef std::map<std::string,AbstractFileParse*> playlistMap;
-class PlaylistParserContainer {
+class FileParserContainer {
 
  public:	
-	PlaylistParserContainer();	
+	FileParserContainer();	
 
     AbstractFileParse* findParser(std::string playlistExtension);
 	
-	static PlaylistParserContainer& getInstance();
+	static FileParserContainer& getInstance();
 	
 	void insertParser(std::string playlistExtenstion,AbstractFileParse* newParser);
 

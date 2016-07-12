@@ -9,7 +9,7 @@
 #include <boost/program_options.hpp>
 
 #include "TransCopyConfiguration.h"
-#include "PlaylistParserContainer.h"
+#include "FileParserContainer.h"
 #include "AbstractFileParse.h"
 #include "MainExceptionHandler.h"
 #include "Exceptions/BaseException.h"

@@ -49,3 +49,11 @@ void TransCopyConfiguration::pathValidResult(bool result){
 void TransCopyConfiguration::fileValidResult(bool result){
 	this->fileIsValid;
 }
+
+bool TransCopyConfiguration::fileValidationResult(){
+	return this->fileIsValid;
+}
+	
+bool TransCopyConfiguration::pathValidationResult(){
+	return this->pathIsValid;
+}

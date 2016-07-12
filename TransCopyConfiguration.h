@@ -20,6 +20,10 @@ public:
 	
 	bool isDebug();
 	
+	bool pathValidationResult();
+	
+	bool fileValidationResult();
+	
 	void setConfiguration(Configuration* configuration);
 	
 	void pathValidResult(bool result);

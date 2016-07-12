@@ -4,7 +4,7 @@
 #include <iostream>
 
 FileParserContainer::FileParserContainer(){
-	this->insertParser(".mp3",new PlsParser);
+	this->insertParser(".pls",new PlsParser);
 }
 
 AbstractFileParse* FileParserContainer::findParser(std::string playlistExtension){

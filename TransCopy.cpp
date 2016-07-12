@@ -14,7 +14,8 @@ int TransCopy::run(int argc,char** argv){
 	try{
 		this->setSettingsFromArgs(argc,argv);
 		
-		this->checkExistingPathAndFile();
+		this->checkExistingPathAndFile();		
+		
 	}
 	catch(std::exception& e){
 		MainExceptionHandler::handleException(e);
@@ -121,7 +122,8 @@ void TransCopy::checkExistingPathAndFile(){
 	std::thread checkPath (&TransCopy::checkPath,this);
 	
 	fileToParse.join();
-	checkPath.join();
+	checkPath.join();	
+	
 }
 
 void TransCopy::checkFileToParse(){
@@ -146,22 +148,22 @@ void TransCopy::checkFileToParse(){
 }
 
 void TransCopy::checkPath(){
-		this->checkFilesMutex.lock();	
+	this->checkFilesMutex.lock();	
 		
-		TransCopyConfiguration configurationInstance = TransCopyConfiguration::getConfiguration();
+	TransCopyConfiguration configurationInstance = TransCopyConfiguration::getConfiguration();
 		
-		std::string msg = "Check path";
-		std::cout<<msg<<"..."<<std::flush;	
+	std::string msg = "Check path";
+	std::cout<<msg<<"..."<<std::flush;	
 
-		if(FileManager::isAPath(configurationInstance.getDestinationPath())){
-			configurationInstance.pathValidResult(true);
+	if(FileManager::isAPath(configurationInstance.getDestinationPath())){
+		configurationInstance.pathValidResult(true);
 			
-			std::cout<<"\r"<<msg<<" [OK]"<<std::flush;
-		}else{
-			configurationInstance.pathValidResult(false);
+		std::cout<<"\r"<<msg<<" [OK]"<<std::flush;
+	}else{
+		configurationInstance.pathValidResult(false);
 			
-			std::cout<<"\r"<<msg<<" [Error]"<<std::flush;			
-		}
-		std::cout<<std::endl<<std::flush;
-		this->checkFilesMutex.unlock();
+		std::cout<<"\r"<<msg<<" [Error]"<<std::flush;			
+	}
+	std::cout<<std::endl<<std::flush;
+	this->checkFilesMutex.unlock();
 }

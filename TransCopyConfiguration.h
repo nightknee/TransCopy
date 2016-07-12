@@ -12,7 +12,7 @@ public:
  
 	TransCopyConfiguration();
 
-	std::string getPlaylistPath();
+	std::string getFileToParsePath();
 
 	std::string getDestinationPath();
 
@@ -21,14 +21,20 @@ public:
 	bool isDebug();
 	
 	void setConfiguration(Configuration* configuration);
+	
+	void pathValidResult(bool result);
+	
+	void fileValidResult(bool result);
 
 	static TransCopyConfiguration&  getConfiguration();
 
 private:
-	std::string playlistPath;
+	std::string fileToParsePath;
 	std::string destinationPath;
 	bool gui;
 	bool debug;
+	bool pathIsValid;
+	bool fileIsValid;
 };
 
 #endif // TransCopyConfiguration_h

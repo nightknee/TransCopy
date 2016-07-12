@@ -2,9 +2,9 @@
 #include <iostream>
 
 
-std::string TransCopyConfiguration::getPlaylistPath()
+std::string TransCopyConfiguration::getFileToParsePath()
 {
-	return this->playlistPath;
+	return this->fileToParsePath;
 }
 
 
@@ -31,7 +31,7 @@ TransCopyConfiguration::TransCopyConfiguration(){
 }
 
 void TransCopyConfiguration::setConfiguration(Configuration *configuration){
-	this->playlistPath = configuration->playlistPath;
+	this->fileToParsePath = configuration->fileToParsePath;
 	
 	this->destinationPath = configuration->destinationPath;
 	
@@ -40,4 +40,12 @@ void TransCopyConfiguration::setConfiguration(Configuration *configuration){
 
 bool TransCopyConfiguration::isDebug(){
 	return this->debug;
+}
+
+void TransCopyConfiguration::pathValidResult(bool result){
+	this->pathIsValid;
+}
+
+void TransCopyConfiguration::fileValidResult(bool result){
+	this->fileIsValid;
 }

@@ -63,7 +63,7 @@ Configuration* TransCopy::setConfigurationFromCmd(po::variables_map &vm){
 	Configuration *_tempConfiguration = new Configuration;
 	
 	if(vm.count("file-path")){
-		_tempConfiguration->playlistPath = vm["file-path"].as<std::string>();
+		_tempConfiguration->fileToParsePath = vm["file-path"].as<std::string>();
 	}
 		
 	if(vm.count("destination-path")){
@@ -83,7 +83,7 @@ void TransCopy::showConfiguration(){
 	TransCopyConfiguration configuration = TransCopyConfiguration::getConfiguration();
 	
 	std::cout<<configuration.getDestinationPath()
-			 <<std::endl<<configuration.getPlaylistPath()
+			 <<std::endl<<configuration.getFileToParsePath()
 			 <<std::endl<<configuration.withGui()<<std::endl;
 }
 
@@ -127,12 +127,18 @@ void TransCopy::checkExistingPathAndFile(){
 void TransCopy::checkFileToParse(){
 	TransCopy::checkFilesMutex.lock();	
 	
+	TransCopyConfiguration configurationInstance = TransCopyConfiguration::getConfiguration();
+	
 	std::string msg = "Check file to parse";
 	std::cout<<msg<<"..."<<std::flush;
 	
-	if(FileManager::fileExist(TransCopyConfiguration::getConfiguration().getPlaylistPath())){
+	if(FileManager::fileExist(configurationInstance.getFileToParsePath())){
+		configurationInstance.fileValidResult(true);
+		
 		std::cout<<"\r"<<msg<<" [OK]"<<std::flush;
 	}else{
+		configurationInstance.fileValidResult(false);
+		
 		std::cout<<"\r"<<msg<<" [Error]"<<std::flush;
 	}
 	std::cout<<std::endl<<std::flush;
@@ -140,16 +146,22 @@ void TransCopy::checkFileToParse(){
 }
 
 void TransCopy::checkPath(){
-	this->checkFilesMutex.lock();	
-	
-	std::string msg = "Check path";
-	std::cout<<msg<<"..."<<std::flush;
-	
-	if(FileManager::isAPath(TransCopyConfiguration::getConfiguration().getDestinationPath())){
-		std::cout<<"\r"<<msg<<" [OK]"<<std::flush;
-	}else{
-		std::cout<<"\r"<<msg<<" [Error]"<<std::flush;
-	}
-	std::cout<<std::endl<<std::flush;
-	this->checkFilesMutex.unlock();
+		this->checkFilesMutex.lock();	
+		
+		TransCopyConfiguration configurationInstance = TransCopyConfiguration::getConfiguration();
+		
+		std::string msg = "Check path";
+		std::cout<<msg<<"..."<<std::flush;	
+
+		if(FileManager::isAPath(configurationInstance.getDestinationPath())){
+			configurationInstance.pathValidResult(true);
+			
+			std::cout<<"\r"<<msg<<" [OK]"<<std::flush;
+		}else{
+			configurationInstance.pathValidResult(false);
+			
+			std::cout<<"\r"<<msg<<" [Error]"<<std::flush;			
+		}
+		std::cout<<std::endl<<std::flush;
+		this->checkFilesMutex.unlock();
 }

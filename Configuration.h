@@ -5,7 +5,7 @@
 
 struct Configuration
 {
-	std::string playlistPath;
+	std::string fileToParsePath;
 	std::string destinationPath;
 	bool gui;
 };

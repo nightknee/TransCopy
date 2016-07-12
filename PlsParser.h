@@ -3,10 +3,10 @@
 
 #include <string>
 
-#include "AbstractPlaylistParse.h"
+#include "AbstractFileParse.h"
 
 
-class PlsParser : public AbstractPlaylistParse {
+class PlsParser : public AbstractFileParse {
 	int parse(std::string filePath);
 	Songs& getParsedSongs();
 	std::string getPath(std::string line);

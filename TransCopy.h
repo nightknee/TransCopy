@@ -10,7 +10,7 @@
 
 #include "TransCopyConfiguration.h"
 #include "PlaylistParserContainer.h"
-#include "AbstractPlaylistParse.h"
+#include "AbstractFileParse.h"
 #include "MainExceptionHandler.h"
 #include "Exceptions/BaseException.h"
 #include "FileManager.h"
@@ -53,7 +53,7 @@ private:
 //Private variables	
 private:
 	std::shared_ptr<File> fileToParse;
-	AbstractPlaylistParse *parser;	
+	AbstractFileParse *parser;	
 	static std::mutex  checkFilesMutex;
 };
 

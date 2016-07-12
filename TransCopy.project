@@ -39,7 +39,6 @@
     <File Name="Song.h"/>
     <File Name="Songs.cpp"/>
     <File Name="Songs.h"/>
-    <File Name="AbstractPlaylistParse.h"/>
     <File Name="PlsParser.cpp"/>
     <File Name="PlsParser.h"/>
     <File Name="PlaylistParserContainer.cpp"/>
@@ -53,6 +52,7 @@
     <File Name="FileManager.h"/>
     <File Name="FileManager.cpp"/>
     <File Name="Exceptions/FileNotExistException.h"/>
+    <File Name="AbstractFileParse.h"/>
   </VirtualDirectory>
   <Settings Type="Executable">
     <GlobalSettings>

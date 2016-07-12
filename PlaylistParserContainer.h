@@ -5,21 +5,21 @@
 #include <string>
 #include <memory>
 
-#include "AbstractPlaylistParse.h"
+#include "AbstractFileParse.h"
 #include "PlsParser.h"
 #include "Exceptions/BaseException.h"
 
-typedef std::map<std::string,AbstractPlaylistParse*> playlistMap;
+typedef std::map<std::string,AbstractFileParse*> playlistMap;
 class PlaylistParserContainer {
 
  public:	
 	PlaylistParserContainer();	
 
-    AbstractPlaylistParse* findParser(std::string playlistExtension);
+    AbstractFileParse* findParser(std::string playlistExtension);
 	
 	static PlaylistParserContainer& getInstance();
 	
-	void insertParser(std::string playlistExtenstion,AbstractPlaylistParse* newParser);
+	void insertParser(std::string playlistExtenstion,AbstractFileParse* newParser);
 
  private:
     playlistMap parsers;

@@ -6,7 +6,7 @@
 
 #include "Songs.h"
 
-class AbstractPlaylistParse  {
+class AbstractFileParse  {
 	public:
 		virtual int parse(std::string filePath) = 0;
 		virtual Songs& getParsedSongs() = 0;

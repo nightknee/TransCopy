@@ -13,12 +13,8 @@ bool FileManager::fileExist(std::string filePath){
 	return fs::exists(p) && fs::is_regular_file(p);
 }
 
-File* FileManager::createFile(std::string filePath){
-	if(!FileManager::fileExist(filePath)){
-		/**
-		 * @todo throw if set path is not to file
-		 */
-	}
+File* FileManager::createFileObject(std::string filePath){
+	if(!FileManager::fileExist(filePath)){throw new FileNotExistException;}
 	return new File;
 }
 

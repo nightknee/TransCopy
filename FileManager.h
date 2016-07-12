@@ -5,6 +5,7 @@
 #include <boost/filesystem.hpp>
 
 #include "File.h"
+#include "Exceptions/FileNotExistException.h"
 
 namespace fs = boost::filesystem;
 
@@ -15,7 +16,7 @@ public:
 	~FileManager();
 
 	static bool fileExist(std::string filePath);
-	static File* createFile(std::string filePath);
+	static File* createFileObject(std::string filePath);
 };
 
 #endif // FILEMANAGER_H

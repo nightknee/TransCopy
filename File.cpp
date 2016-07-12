@@ -17,6 +17,11 @@ void File::setPath(std::string path){
 void File::setExntenstion(std::string extension){
 	this->_extension = extension;
 }
+void File::setSize(unsigned int size){
+	this->_size = size;
+}
+
+
 std::string File::getFileName(){
 	return this->_fileName;
 }
@@ -25,4 +30,8 @@ std::string File::getPath(){
 }
 std::string File::getExntenstion(){
 	return this->_extension;
+}
+
+unsigned int File::size(){
+	return this->_size;
 }

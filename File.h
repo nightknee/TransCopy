@@ -12,16 +12,18 @@ public:
 	void setFileName(std::string fileName);
 	void setPath(std::string path);
 	void setExntenstion(std::string extension);
+	void setSize(unsigned int size);
 	
 	std::string getFileName();
 	std::string getPath();
 	std::string getExntenstion();
+	unsigned int size();
 	
 private:
 	std::string _fileName;
 	std::string _path;
 	std::string _extension;
-
+	unsigned int _size;
 
 };
 

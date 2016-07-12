@@ -116,8 +116,6 @@ std::shared_ptr<File> TransCopy::getFileToParse(){
 }
 
 void TransCopy::checkExistingPathAndFile(){
-	std::cout<<"Check existing path and file to parse:"<<std::endl;
-	
 	std::thread fileToParse (&TransCopy::checkFileToParse,this);
 	std::thread checkPath (&TransCopy::checkPath,this);
 	

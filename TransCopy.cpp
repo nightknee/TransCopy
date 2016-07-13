@@ -14,12 +14,14 @@ int TransCopy::run(int argc,char** argv){
 	try{
 		this->setSettingsFromArgs(argc,argv);
 		
-		this->checkExistingPathAndFile();		
+		this->checkExistingPathAndFile();					
 		
+	}
+	catch(BaseException& e){
+		MainExceptionHandler::handleException(e);
 	}
 	catch(std::exception& e){
 		MainExceptionHandler::handleException(e);
-		return 1;
 	}
 	return 0;
 }
@@ -121,6 +123,14 @@ void TransCopy::checkExistingPathAndFile(){
 	
 	fileToParse.join();
 	checkPath.join();	
+	
+	TransCopyConfiguration _conf = TransCopyConfiguration::getConfiguration();
+	if(!_conf.fileValidationResult()){
+		throw new FileToParseNotValidateException;
+	}
+	if(!_conf.pathValidationResult()){
+		throw new PathNotValidateException;
+	}
 	
 }
 

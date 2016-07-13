@@ -13,6 +13,8 @@
 #include "AbstractFileParse.h"
 #include "MainExceptionHandler.h"
 #include "Exceptions/BaseException.h"
+#include "Exceptions/PathNotValidateException.h"
+#include "Exceptions/FileToParseNotValidateException .h"
 #include "FileManager.h"
 
 namespace po = boost::program_options;

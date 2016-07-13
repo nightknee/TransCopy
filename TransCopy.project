@@ -53,6 +53,8 @@
     <File Name="AbstractFileParse.h"/>
     <File Name="FileParserContainer.cpp"/>
     <File Name="FileParserContainer.h"/>
+    <File Name="Exceptions/PathNotValidateException.h"/>
+    <File Name="Exceptions/FileToParseNotValidateException .h"/>
   </VirtualDirectory>
   <Settings Type="Executable">
     <GlobalSettings>

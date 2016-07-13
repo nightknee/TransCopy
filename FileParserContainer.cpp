@@ -9,11 +9,9 @@ FileParserContainer::FileParserContainer(){
 
 AbstractFileParse* FileParserContainer::findParser(std::string playlistExtension){
 	playlistMap::iterator It = this->parsers.find(playlistExtension);
-
 	if(It == this->parsers.end()){
 		throw new NotFoundParserException();		
 	}
-	
 	AbstractFileParse *parser = It->second;
 	return parser;
 }

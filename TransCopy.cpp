@@ -14,7 +14,7 @@ int TransCopy::run(int argc,char** argv){
 	try{
 		this->setSettingsFromArgs(argc,argv);
 		
-		this->checkExistingPathAndFile();					
+		this->createFileToParseObject();
 		
 	}
 	catch(BaseException& e){
@@ -79,7 +79,7 @@ void TransCopy::prepareCmdDescription(po::options_description &desc){
 	desc.add_options()
 		("help,h","help message")
 		("file-path,f","Path to list files")
-		("destination-path,d","Path when copy files");
+		("destination-path,d","Path his->parser = FileParserContainer::getInstance().findParser(TransCopyConfiguration::getConfiguration())when copy files");
 }
 
 void TransCopy::showConfiguration(){
@@ -96,14 +96,13 @@ std::string TransCopy::DevName = "Mateusz Karwan";
 std::string TransCopy::Mail = "nightknee@gmail.com";
 std::string TransCopy::GitHub = "https://github.com/nightknee/TransCopy";
 
-std::mutex TransCopy::checkFilesMutex;
-
 void TransCopy::messageRun(){
     std::cout<<"\t \t \t"<<this->Name<<"\t"<<std::endl<<std::endl
         <<"\t \t \t"<<this->Version<<" \t"<<std::endl<<std::endl
         <<"\t \t \t"<<this->Mail<<std::endl<<std::endl
         <<"\t \t"<< this->GitHub<<std::endl;
-}
+}Program exited with return code: 0
+
 
 void TransCopy::helpMessage(){
 	
@@ -117,61 +116,10 @@ std::shared_ptr<File> TransCopy::getFileToParse(){
 	return this->fileToParse;
 }
 
-void TransCopy::checkExistingPathAndFile(){
-	std::thread fileToParse (&TransCopy::checkFileToParse,this);
-	std::thread checkPath (&TransCopy::checkPath,this);
-	
-	fileToParse.join();
-	checkPath.join();	
-	
-	TransCopyConfiguration _conf = TransCopyConfiguration::getConfiguration();
-	if(!_conf.fileValidationResult()){
-		throw new FileToParseNotValidateException;
-	}
-	if(!_conf.pathValidationResult()){
-		throw new PathNotValidateException;
-	}
+void TransCopy::createFileToParseObject(){
 	
 }
 
-void TransCopy::checkFileToParse(){
-	TransCopy::checkFilesMutex.lock();	
+void TransCopy::setParser(){
 	
-	TransCopyConfiguration configurationInstance = TransCopyConfiguration::getConfiguration();
-	
-	std::string msg = "Check file to parse";
-	std::cout<<msg<<"..."<<std::flush;
-	
-	if(FileManager::fileExist(configurationInstance.getFileToParsePath())){
-		configurationInstance.fileValidResult(true);
-		
-		std::cout<<"\r"<<msg<<" [OK]"<<std::flush;
-	}else{
-		configurationInstance.fileValidResult(false);
-		
-		std::cout<<"\r"<<msg<<" [Error]"<<std::flush;
-	}
-	std::cout<<std::endl<<std::flush;
-	this->checkFilesMutex.unlock();
-}
-
-void TransCopy::checkPath(){
-	this->checkFilesMutex.lock();	
-		
-	TransCopyConfiguration configurationInstance = TransCopyConfiguration::getConfiguration();
-		
-	std::string msg = "Check path";
-	std::cout<<msg<<"..."<<std::flush;	
-
-	if(FileManager::isAPath(configurationInstance.getDestinationPath())){
-		configurationInstance.pathValidResult(true);
-			
-		std::cout<<"\r"<<msg<<" [OK]"<<std::flush;
-	}else{
-		configurationInstance.pathValidResult(false);
-			
-		std::cout<<"\r"<<msg<<" [Error]"<<std::flush;			
-	}
-	std::cout<<std::endl<<std::flush;
-	this->checkFilesMutex.unlock();
 }

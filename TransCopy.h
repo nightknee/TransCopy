@@ -13,8 +13,6 @@
 #include "AbstractFileParse.h"
 #include "MainExceptionHandler.h"
 #include "Exceptions/BaseException.h"
-#include "Exceptions/PathNotValidateException.h"
-#include "Exceptions/FileToParseNotValidateException .h"
 #include "FileManager.h"
 
 namespace po = boost::program_options;
@@ -48,15 +46,13 @@ private:
 	
 	void helpMessage();
 	void showConfiguration();	
-	void checkExistingPathAndFile();
-	void checkFileToParse();
-	void checkPath();
+	void setParser();
+	void createFileToParseObject();
 
 //Private variables	
 private:
 	std::shared_ptr<File> fileToParse;
 	AbstractFileParse *parser;	
-	static std::mutex  checkFilesMutex;
 };
 
 #endif // TRANSCOPY_H

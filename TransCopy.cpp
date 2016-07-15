@@ -78,8 +78,8 @@ Configuration* TransCopy::setConfigurationFromCmd(po::variables_map &vm){
 void TransCopy::prepareCmdDescription(po::options_description &desc){
 	desc.add_options()
 		("help,h","help message")
-		("file-path,f","Path to list files")
-		("destination-path,d","Path his->parser = FileParserContainer::getInstance().findParser(TransCopyConfiguration::getConfiguration())when copy files");
+		("file-path,f",po::value<std::string>()->required(),"Path to list files")
+		("destination-path,d",po::value<std::string>()->required(),"Path when copy files");
 }
 
 void TransCopy::showConfiguration(){
@@ -101,7 +101,7 @@ void TransCopy::messageRun(){
         <<"\t \t \t"<<this->Version<<" \t"<<std::endl<<std::endl
         <<"\t \t \t"<<this->Mail<<std::endl<<std::endl
         <<"\t \t"<< this->GitHub<<std::endl;
-}Program exited with return code: 0
+}
 
 
 void TransCopy::helpMessage(){
@@ -117,7 +117,13 @@ std::shared_ptr<File> TransCopy::getFileToParse(){
 }
 
 void TransCopy::createFileToParseObject(){
-	
+	File* file = FileManager::createFileObject(TransCopyConfiguration::getConfiguration().getFileToParsePath());
+	this->fileToParse = std::make_shared<File>(*file);
+}
+
+void TransCopy::createPathDestinationObject(){
+	fs::path* path = FileManager::createPathObject(TransCopyConfiguration::getConfiguration().getDestinationPath());
+	this->pathDestination = std::make_shared<fs::path>(*path);
 }
 
 void TransCopy::setParser(){

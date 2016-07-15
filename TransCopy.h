@@ -48,11 +48,13 @@ private:
 	void showConfiguration();	
 	void setParser();
 	void createFileToParseObject();
+	void createPathDestinationObject();
 
 //Private variables	
 private:
 	std::shared_ptr<File> fileToParse;
-	AbstractFileParse *parser;	
+	std::shared_ptr<fs::path> pathDestination;
+	AbstractFileParse *parser;		
 };
 
 #endif // TRANSCOPY_H

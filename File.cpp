@@ -4,6 +4,10 @@ File::File()
 {
 }
 
+File::File(std::string path){
+	this->setPath(path);
+}
+
 File::~File()
 {
 }
@@ -34,4 +38,12 @@ std::string File::getExntenstion(){
 
 unsigned int File::size(){
 	return this->_size;
+}
+
+fs::path File::boostPath(){
+	return this->boostPathObject;
+}
+
+void File::setBoostPath(fs::path p){
+	this->boostPathObject = p;
 }

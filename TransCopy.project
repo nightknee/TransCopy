@@ -55,6 +55,7 @@
     <File Name="FileParserContainer.h"/>
     <File Name="Exceptions/PathNotValidateException.h"/>
     <File Name="Exceptions/FileToParseNotValidateException .h"/>
+    <File Name="Exceptions/PathNotExistException.h"/>
   </VirtualDirectory>
   <Settings Type="Executable">
     <GlobalSettings>

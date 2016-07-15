@@ -1,5 +1,5 @@
 #include "FileManager.h"
-
+#include <iostream>
 FileManager::FileManager()
 {
 }
@@ -20,7 +20,22 @@ bool FileManager::isAPath(std::string path){
 
 File* FileManager::createFileObject(std::string filePath){
 	if(!FileManager::fileExist(filePath)){throw new FileNotExistException;}
-	return new File;
+	File *newFile = new File(filePath);
+	return FileManager::setBaseInformationToFileObject(newFile);
 }
 
 
+File* FileManager::setBaseInformationToFileObject(File* file){
+	fs::path p(file->getPath());
+
+	file->setSize(fs::file_size(p));
+	file->setExntenstion(p.extension().string());	
+	file->setFileName(p.stem().string());
+	return file;
+}
+
+fs::path* FileManager::createPathObject(std::string path){
+	if(!FileManager::isAPath(path)){throw new PathNotExistException;}
+	fs::path p(path);
+	return &p;
+}

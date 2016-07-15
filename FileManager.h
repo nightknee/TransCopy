@@ -6,6 +6,7 @@
 
 #include "File.h"
 #include "Exceptions/FileNotExistException.h"
+#include "Exceptions/PathNotExistException.h"
 
 namespace fs = boost::filesystem;
 
@@ -18,6 +19,9 @@ public:
 	static bool fileExist(std::string filePath);
 	static bool isAPath(std::string path);
 	static File* createFileObject(std::string filePath);
+	static fs::path* createPathObject(std::string path);
+private:
+	static File* setBaseInformationToFileObject(File* file);
 };
 
 #endif // FILEMANAGER_H

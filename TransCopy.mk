@@ -13,7 +13,7 @@ CurrentFileName        :=
 CurrentFilePath        :=
 CurrentFileFullPath    :=
 User                   :=karwan
-Date                   :=15/07/16
+Date                   :=19/07/16
 CodeLitePath           :=/home/karwan/.codelite
 LinkerName             :=/usr/bin/g++
 SharedObjectLinkerName :=/usr/bin/g++ -shared -fPIC
@@ -60,8 +60,7 @@ AS       := /usr/bin/as
 ## User defined environment variables
 ##
 CodeLiteDir:=/usr/share/codelite
-Objects0=$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/TransCopy.cpp$(ObjectSuffix) $(IntermediateDirectory)/TransCopyConfiguration.cpp$(ObjectSuffix) $(IntermediateDirectory)/Song.cpp$(ObjectSuffix) $(IntermediateDirectory)/Songs.cpp$(ObjectSuffix) $(IntermediateDirectory)/PlsParser.cpp$(ObjectSuffix) $(IntermediateDirectory)/MainExceptionHandler.cpp$(ObjectSuffix) $(IntermediateDirectory)/File.cpp$(ObjectSuffix) $(IntermediateDirectory)/FileManager.cpp$(ObjectSuffix) $(IntermediateDirectory)/FileParserContainer.cpp$(ObjectSuffix) \
-	
+Objects0=$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/TransCopy.cpp$(ObjectSuffix) $(IntermediateDirectory)/TransCopyConfiguration.cpp$(ObjectSuffix) $(IntermediateDirectory)/PlsParser.cpp$(ObjectSuffix) $(IntermediateDirectory)/MainExceptionHandler.cpp$(ObjectSuffix) $(IntermediateDirectory)/File.cpp$(ObjectSuffix) $(IntermediateDirectory)/FileManager.cpp$(ObjectSuffix) $(IntermediateDirectory)/FileParserContainer.cpp$(ObjectSuffix) 
 
 
 
@@ -115,22 +114,6 @@ $(IntermediateDirectory)/TransCopyConfiguration.cpp$(DependSuffix): TransCopyCon
 
 $(IntermediateDirectory)/TransCopyConfiguration.cpp$(PreprocessSuffix): TransCopyConfiguration.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/TransCopyConfiguration.cpp$(PreprocessSuffix) "TransCopyConfiguration.cpp"
-
-$(IntermediateDirectory)/Song.cpp$(ObjectSuffix): Song.cpp $(IntermediateDirectory)/Song.cpp$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/karwan/C++/TransCopy/TransCopy/Song.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Song.cpp$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/Song.cpp$(DependSuffix): Song.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/Song.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/Song.cpp$(DependSuffix) -MM "Song.cpp"
-
-$(IntermediateDirectory)/Song.cpp$(PreprocessSuffix): Song.cpp
-	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Song.cpp$(PreprocessSuffix) "Song.cpp"
-
-$(IntermediateDirectory)/Songs.cpp$(ObjectSuffix): Songs.cpp $(IntermediateDirectory)/Songs.cpp$(DependSuffix)
-	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/karwan/C++/TransCopy/TransCopy/Songs.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Songs.cpp$(ObjectSuffix) $(IncludePath)
-$(IntermediateDirectory)/Songs.cpp$(DependSuffix): Songs.cpp
-	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/Songs.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/Songs.cpp$(DependSuffix) -MM "Songs.cpp"
-
-$(IntermediateDirectory)/Songs.cpp$(PreprocessSuffix): Songs.cpp
-	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Songs.cpp$(PreprocessSuffix) "Songs.cpp"
 
 $(IntermediateDirectory)/PlsParser.cpp$(ObjectSuffix): PlsParser.cpp $(IntermediateDirectory)/PlsParser.cpp$(DependSuffix)
 	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/karwan/C++/TransCopy/TransCopy/PlsParser.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/PlsParser.cpp$(ObjectSuffix) $(IncludePath)

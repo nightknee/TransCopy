@@ -35,10 +35,6 @@
     <File Name="TransCopyConfiguration.cpp"/>
     <File Name="TransCopyConfiguration.h"/>
     <File Name="Configuration.h"/>
-    <File Name="Song.cpp"/>
-    <File Name="Song.h"/>
-    <File Name="Songs.cpp"/>
-    <File Name="Songs.h"/>
     <File Name="PlsParser.cpp"/>
     <File Name="PlsParser.h"/>
     <File Name="Exceptions/BaseException.h"/>

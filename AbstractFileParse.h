@@ -2,22 +2,22 @@
 #define AbstractPlaylistParse_h
 
 #include <string>
-#include <fstream>
+#include <vector>
+#include <boost/ptr_container/ptr_vector.hpp>
 
-#include "Songs.h"
+#include "File.h"
+
+typedef boost::ptr_vector<File> FileVector;
+
 
 class AbstractFileParse  {
 	public:
-		virtual int parse(std::string filePath) = 0;
-		virtual Songs& getParsedSongs() = 0;
+		virtual bool parse(std::shared_ptr<File> file) = 0;
+		virtual FileVector getParsedSongs() = 0;
 		virtual std::string getPath(std::string line) = 0;
-		virtual std::string getFileName(std::string line) = 0;
-		virtual std::string getExtenstion(std::string fileName) = 0;
-		virtual int getFileLenght() = 0;
 		virtual bool validatePlaylist() = 0 ;
 	protected:
-		Songs parsedSongs;
-		std::fstream playlistHandler;
+		FileVector parsedFiles;
 };
 
 #endif // AbstractPlaylistParse

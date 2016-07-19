@@ -2,22 +2,13 @@
 
 #include <iostream>
 
-int PlsParser::parse(std::string filePath){
+bool PlsParser::parse(std::shared_ptr<File> file){
 
 }
-Songs& PlsParser::getParsedSongs(){
+FileVector PlsParser::getParsedSongs(){
 	
 }
 std::string PlsParser::getPath(std::string line){
-	
-}
-std::string PlsParser::getFileName(std::string line){
-	
-}
-std::string PlsParser::getExtenstion(std::string fileName){
-	
-}
-int PlsParser::getFileLenght(){
 	
 }
 bool PlsParser::validatePlaylist(){

@@ -16,6 +16,8 @@ int TransCopy::run(int argc,char** argv){
 		
 		this->createFileToParseObject();
 		
+		this->parser = FileParserContainer::getInstance().findParser(this->fileToParse->getExntenstion());
+		
 	}
 	catch(BaseException& e){
 		MainExceptionHandler::handleException(e);

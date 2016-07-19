@@ -4,8 +4,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <thread>
-#include <mutex>
 #include <boost/program_options.hpp>
 
 #include "TransCopyConfiguration.h"

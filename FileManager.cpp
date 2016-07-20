@@ -39,3 +39,12 @@ fs::path* FileManager::createPathObject(std::string path){
 	fs::path *p = new fs::path(path);
 	return p;
 }
+
+std::fstream* FileManager::openFile(File &file,std::ios_base::openmode mode){
+	/**
+	* @todo Add exception and check opened file 
+	*/
+	std::fstream *fileStream = new std::fstream;
+	fileStream->open(file.getPath(),mode);
+	return fileStream;
+}

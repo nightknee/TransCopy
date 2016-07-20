@@ -36,6 +36,6 @@ File* FileManager::setBaseInformationToFileObject(File* file){
 
 fs::path* FileManager::createPathObject(std::string path){
 	if(!FileManager::isAPath(path)){throw new PathNotExistException;}
-	fs::path p(path);
-	return &p;
+	fs::path *p = new fs::path(path);
+	return p;
 }

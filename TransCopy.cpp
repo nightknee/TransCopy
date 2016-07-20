@@ -16,7 +16,11 @@ int TransCopy::run(int argc,char** argv){
 		
 		this->createFileToParseObject();
 		
-		this->parser = FileParserContainer::getInstance().findParser(this->fileToParse->getExntenstion());
+		this->createPathDestinationObject();
+		
+		this->setParser();
+
+		this->manageParseFile();
 		
 	}
 	catch(BaseException& e){
@@ -129,5 +133,11 @@ void TransCopy::createPathDestinationObject(){
 }
 
 void TransCopy::setParser(){
-	
+	this->parser = FileParserContainer::getInstance().findParser(this->fileToParse->getExntenstion());
+}
+
+void TransCopy::manageParseFile(){
+	if(this->parser->parse(this->fileToParse)){
+		
+	}
 }

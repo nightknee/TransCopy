@@ -137,12 +137,21 @@ void TransCopy::setParser(){
 }
 
 void TransCopy::manageParseFile(){
+	
+	
+
 	if(this->parser->parse(this->fileToParse)){
 		FileVector *files = this->parser->getParsedSongs();
+
 		for(FileVector::iterator i = files->begin() ; i != files->end() ; ++i){
-			fs::copy_directory(i->getPath(),*(this->pathDestination));
-	fs::copy(*(this->pathDestination),i->getPath());
-//			std::cout<<i->getPath()<<std::endl;
+			std::ifstream source(i->getPath(), std::ios_base::binary | std::ios_base::out);
+			std::ofstream dest(TransCopyConfiguration::getConfiguration().getDestinationPath()+i->getFileName()+i->getExntenstion(), std::ios_base::binary | std::ios_base::in | std::ios_base::trunc);					
+			std::cout<<*(this->pathDestination)<<std::endl;
+			std::cout<<TransCopyConfiguration::getConfiguration().getDestinationPath()+i->getFileName()+i->getExntenstion()<<std::endl;
+			dest << source.rdbuf();
+
+			source.close();
+			dest.close();
 		}
 	}
 }

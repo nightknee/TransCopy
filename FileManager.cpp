@@ -1,5 +1,5 @@
 #include "FileManager.h"
-#include <iostream>
+
 FileManager::FileManager()
 {
 }
@@ -47,4 +47,8 @@ std::fstream* FileManager::openFile(File &file,std::ios_base::openmode mode){
 	std::fstream *fileStream = new std::fstream;
 	fileStream->open(file.getPath(),mode);
 	return fileStream;
+}
+
+bool FileManager::copyFile(File sourceFile,std::string destination){
+	SysFileManager::copy(sourceFile.getPath(),(destination+sourceFile.getFileName()+sourceFile.getExntenstion()));
 }

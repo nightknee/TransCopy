@@ -45,3 +45,11 @@ std::string regexPath(std::string line){
 bool PlsParser::validatePlaylist(){
 	
 }
+
+int PlsParser::getAllFilesSize(){
+	return this->allFileSize;
+}
+
+int PlsParser::appendToFileSize(int value){
+	
+}

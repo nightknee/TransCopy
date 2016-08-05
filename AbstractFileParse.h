@@ -20,8 +20,11 @@ class AbstractFileParse  {
 		virtual FileVector* getParsedSongs() = 0;
 		virtual std::string getPath(std::string line) = 0;
 		virtual bool validatePlaylist() = 0 ;
+		virtual int getAllFilesSize() = 0;		
 	protected:
 		FileVector parsedFiles;
+		int allFileSize;
+		virtual int appendToFileSize(int value) = 0;
 };
 
 #endif // AbstractPlaylistParse

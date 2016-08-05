@@ -60,7 +60,8 @@ AS       := /usr/bin/as
 ## User defined environment variables
 ##
 CodeLiteDir:=/usr/share/codelite
-Objects0=$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/TransCopy.cpp$(ObjectSuffix) $(IntermediateDirectory)/TransCopyConfiguration.cpp$(ObjectSuffix) $(IntermediateDirectory)/PlsParser.cpp$(ObjectSuffix) $(IntermediateDirectory)/MainExceptionHandler.cpp$(ObjectSuffix) $(IntermediateDirectory)/File.cpp$(ObjectSuffix) $(IntermediateDirectory)/FileManager.cpp$(ObjectSuffix) $(IntermediateDirectory)/FileParserContainer.cpp$(ObjectSuffix) 
+Objects0=$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/TransCopy.cpp$(ObjectSuffix) $(IntermediateDirectory)/TransCopyConfiguration.cpp$(ObjectSuffix) $(IntermediateDirectory)/PlsParser.cpp$(ObjectSuffix) $(IntermediateDirectory)/MainExceptionHandler.cpp$(ObjectSuffix) $(IntermediateDirectory)/File.cpp$(ObjectSuffix) $(IntermediateDirectory)/FileManager.cpp$(ObjectSuffix) $(IntermediateDirectory)/FileParserContainer.cpp$(ObjectSuffix) $(IntermediateDirectory)/Exceptions_BaseException.cpp$(ObjectSuffix) $(IntermediateDirectory)/Exceptions_FileNotExistException.cpp$(ObjectSuffix) \
+	$(IntermediateDirectory)/Exceptions_NotFoundParserException.cpp$(ObjectSuffix) $(IntermediateDirectory)/Exceptions_PathNotExistException.cpp$(ObjectSuffix) 
 
 
 
@@ -154,6 +155,38 @@ $(IntermediateDirectory)/FileParserContainer.cpp$(DependSuffix): FileParserConta
 
 $(IntermediateDirectory)/FileParserContainer.cpp$(PreprocessSuffix): FileParserContainer.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/FileParserContainer.cpp$(PreprocessSuffix) "FileParserContainer.cpp"
+
+$(IntermediateDirectory)/Exceptions_BaseException.cpp$(ObjectSuffix): Exceptions/BaseException.cpp $(IntermediateDirectory)/Exceptions_BaseException.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/karwan/C++/TransCopy/TransCopy/Exceptions/BaseException.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Exceptions_BaseException.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/Exceptions_BaseException.cpp$(DependSuffix): Exceptions/BaseException.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/Exceptions_BaseException.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/Exceptions_BaseException.cpp$(DependSuffix) -MM "Exceptions/BaseException.cpp"
+
+$(IntermediateDirectory)/Exceptions_BaseException.cpp$(PreprocessSuffix): Exceptions/BaseException.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Exceptions_BaseException.cpp$(PreprocessSuffix) "Exceptions/BaseException.cpp"
+
+$(IntermediateDirectory)/Exceptions_FileNotExistException.cpp$(ObjectSuffix): Exceptions/FileNotExistException.cpp $(IntermediateDirectory)/Exceptions_FileNotExistException.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/karwan/C++/TransCopy/TransCopy/Exceptions/FileNotExistException.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Exceptions_FileNotExistException.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/Exceptions_FileNotExistException.cpp$(DependSuffix): Exceptions/FileNotExistException.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/Exceptions_FileNotExistException.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/Exceptions_FileNotExistException.cpp$(DependSuffix) -MM "Exceptions/FileNotExistException.cpp"
+
+$(IntermediateDirectory)/Exceptions_FileNotExistException.cpp$(PreprocessSuffix): Exceptions/FileNotExistException.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Exceptions_FileNotExistException.cpp$(PreprocessSuffix) "Exceptions/FileNotExistException.cpp"
+
+$(IntermediateDirectory)/Exceptions_NotFoundParserException.cpp$(ObjectSuffix): Exceptions/NotFoundParserException.cpp $(IntermediateDirectory)/Exceptions_NotFoundParserException.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/karwan/C++/TransCopy/TransCopy/Exceptions/NotFoundParserException.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Exceptions_NotFoundParserException.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/Exceptions_NotFoundParserException.cpp$(DependSuffix): Exceptions/NotFoundParserException.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/Exceptions_NotFoundParserException.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/Exceptions_NotFoundParserException.cpp$(DependSuffix) -MM "Exceptions/NotFoundParserException.cpp"
+
+$(IntermediateDirectory)/Exceptions_NotFoundParserException.cpp$(PreprocessSuffix): Exceptions/NotFoundParserException.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Exceptions_NotFoundParserException.cpp$(PreprocessSuffix) "Exceptions/NotFoundParserException.cpp"
+
+$(IntermediateDirectory)/Exceptions_PathNotExistException.cpp$(ObjectSuffix): Exceptions/PathNotExistException.cpp $(IntermediateDirectory)/Exceptions_PathNotExistException.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/karwan/C++/TransCopy/TransCopy/Exceptions/PathNotExistException.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Exceptions_PathNotExistException.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/Exceptions_PathNotExistException.cpp$(DependSuffix): Exceptions/PathNotExistException.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/Exceptions_PathNotExistException.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/Exceptions_PathNotExistException.cpp$(DependSuffix) -MM "Exceptions/PathNotExistException.cpp"
+
+$(IntermediateDirectory)/Exceptions_PathNotExistException.cpp$(PreprocessSuffix): Exceptions/PathNotExistException.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Exceptions_PathNotExistException.cpp$(PreprocessSuffix) "Exceptions/PathNotExistException.cpp"
 
 
 -include $(IntermediateDirectory)/*$(DependSuffix)

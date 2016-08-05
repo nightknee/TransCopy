@@ -6,10 +6,8 @@
 class FileNotExistException : public BaseException
 {
 public:
-	virtual const char* what() const throw(){
-		return "Set file doesn't exist.";
-	}
-
+	FileNotExistException(std::string msg);
+	FileNotExistException();	
 };
 
 #endif // FILENOTEXISTEXCEPTION_H

@@ -142,16 +142,6 @@ void TransCopy::manageParseFile(){
 		
 		for(FileVector::iterator i = files->begin() ; i != files->end() ; ++i){
 			FileManager::copyFile(*i,TransCopyConfiguration::getConfiguration().getDestinationPath());
-//			std::ifstream source(i->getPath(), std::ios_base::binary | std::ios_base::out);
-//			std::ofstream dest(TransCopyConfiguration::getConfiguration().getDestinationPath()+i->getFileName()+i->getExntenstion(), std::ios_base::binary | std::ios_base::in | std::ios_base::trunc);					
-//			std::cout<<*(this->pathDestination)<<std::endl;
-//			std::cout<<TransCopyConfiguration::getConfiguration().getDestinationPath()+i->getFileName()+i->getExntenstion()<<std::endl;
-//			dest << source.rdbuf();
-//
-//			source.close();
-//			dest.close();
-
-		
 		}
 	}
 }

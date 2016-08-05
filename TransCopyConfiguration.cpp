@@ -1,6 +1,4 @@
 #include "TransCopyConfiguration.h"
-#include <iostream>
-
 
 std::string TransCopyConfiguration::getFileToParsePath()
 {

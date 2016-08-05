@@ -6,10 +6,8 @@
 class NotFoundParserException : public BaseException
 {
 public:
-	virtual const char* what() const throw(){
-		return "Not found parser for this extension file.";
-	}
-
+	NotFoundParserException(std::string msg);
+	NotFoundParserException();
 };
 
 #endif // NOTFOUNDPARSEREXCEPTION_H

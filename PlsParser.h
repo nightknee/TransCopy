@@ -3,9 +3,6 @@
 
 #include "AbstractFileParse.h"
 
-#include <iostream>
-#include <string>
-
 class PlsParser : public AbstractFileParse {
 public:
 	PlsParser();

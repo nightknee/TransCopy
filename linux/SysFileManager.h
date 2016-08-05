@@ -7,7 +7,6 @@
 #include <sys/stat.h>      // fstat
 #include <sys/types.h>
 #include <string>
-#include <iostream>
 class SysFileManager
 {
 public:

@@ -6,10 +6,8 @@
 class PathNotExistException : public BaseException
 {
 public:
-	virtual const char* what() const throw(){
-		return "Path doesn't exist.";
-	}
-
+	PathNotExistException(std::string msg);
+	PathNotExistException();	
 };
 
 #endif // PATHNOTEXISTEXCEPTION_H

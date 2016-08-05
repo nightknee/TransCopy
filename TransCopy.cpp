@@ -23,10 +23,10 @@ int TransCopy::run(int argc,char** argv){
 		this->manageParseFile();
 		
 	}
-	catch(BaseException& e){
+	catch(BaseException *e){
 		MainExceptionHandler::handleException(e);
 	}
-	catch(std::exception& e){
+	catch(std::exception *e){
 		MainExceptionHandler::handleException(e);
 	}
 	return 0;

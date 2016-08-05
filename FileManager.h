@@ -7,7 +7,6 @@
 
 #include <string>
 #include <boost/filesystem.hpp>
-#include <boost/filesystem/fstream.hpp>
 
 #include "File.h"
 #include "Exceptions/FileNotExistException.h"

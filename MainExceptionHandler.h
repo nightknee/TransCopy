@@ -9,8 +9,8 @@ class MainExceptionHandler
 {
 public:
 	MainExceptionHandler();
-	static void handleException(BaseException& e);
-	static void handleException(std::exception& e);
+	static void handleException(BaseException* e);
+	static void handleException(std::exception* e);
 };
 
 #endif // MAINEXCEPTIONHANDLER_H

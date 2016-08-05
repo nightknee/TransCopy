@@ -15,8 +15,8 @@ bool PlsParser::parse(std::shared_ptr<File> file){
 		try{			
 			this->parsedFiles.push_back(FileManager::createFileObject(_path));
 		}
-		catch(std::exception& e){
-			std::cout<<_path<<std::endl;
+		catch(FileNotExistException* e){
+			continue;
 		}
 	}
 	

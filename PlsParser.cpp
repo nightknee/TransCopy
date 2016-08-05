@@ -2,6 +2,7 @@
 
 PlsParser::PlsParser(){
 	this->expresion = "^File[0-9]+=";
+	this->allFileSize = 0;
 }
 
 bool PlsParser::parse(std::shared_ptr<File> file){

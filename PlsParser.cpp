@@ -7,14 +7,19 @@ PlsParser::PlsParser(){
 
 bool PlsParser::parse(std::shared_ptr<File> file){
 	std::fstream *f = FileManager::openFile(*file,std::ios_base::in);
-	std::string line;
+	
 	int i = 0;
+	
+	std::string line;	
 	std::string _path;
+	
 	while(std::getline(*f,line)){
 		if(i <= 1){i++; continue;}
 		_path = this->getPath(line);
-		try{			
-			this->parsedFiles.push_back(FileManager::createFileObject(_path));
+		try{
+			File* file = FileManager::createFileObject(_path);
+			this->appendToFileSize(file->size());
+			this->parsedFiles.push_back(file);
 		}
 		catch(FileNotExistException* e){
 			continue;
@@ -27,30 +32,21 @@ FileVector* PlsParser::getParsedSongs(){
 	return &(this->parsedFiles);
 }
 std::string PlsParser::getPath(std::string line){
-   boost::sregex_token_iterator         // Create an iterator using a
-     p(line.begin(), line.end(), this->expresion,-1);  // sequence and that reg exp
-   boost::sregex_token_iterator end;    // Create an end-of-reg-exp
-                                        // marker
-	int i = 0;
+   boost::sregex_token_iterator p(line.begin(), line.end(), this->expresion,-1);  
+   
+   boost::sregex_token_iterator end;
+   
 	std::string _path;
-   while (p != end){
-      _path+=*p++;   
-   }
+	while (p != end){
+		_path+=*p++;   
+	}
 	return _path;
 }
 
-std::string regexPath(std::string line){
-	
-}
-
-bool PlsParser::validatePlaylist(){
-	
-}
-
-int PlsParser::getAllFilesSize(){
+unsigned int PlsParser::getAllFilesSize(){
 	return this->allFileSize;
 }
 
-int PlsParser::appendToFileSize(int value){
-	
+void PlsParser::appendToFileSize(unsigned int value){
+	this->allFileSize += value;
 }

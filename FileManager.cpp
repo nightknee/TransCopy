@@ -50,5 +50,5 @@ std::fstream* FileManager::openFile(File &file,std::ios_base::openmode mode){
 }
 
 bool FileManager::copyFile(File sourceFile,std::string destination){
-	SysFileManager::copy(sourceFile.getPath(),(destination+sourceFile.getFileName()+sourceFile.getExntenstion()));
+	return SysFileManager::copy(sourceFile.getPath(),(destination+sourceFile.getFileName()+sourceFile.getExntenstion()));
 }

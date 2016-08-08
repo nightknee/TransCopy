@@ -16,20 +16,20 @@ public:
 	void setFileName(std::string fileName);
 	void setPath(std::string path);
 	void setExntenstion(std::string extension);
-	void setSize(unsigned int size);
+	void setSize(boost::uintmax_t size);
 	void setBoostPath(fs::path p);
 	
 	std::string getFileName();
 	std::string getPath();
 	std::string getExntenstion();
-	unsigned int size();
+	boost::uintmax_t size();
 	fs::path boostPath();
 	
 private:
 	std::string _fileName;
 	std::string _path;
 	std::string _extension;
-	unsigned int _size;
+	boost::uintmax_t _size;
 	fs::path boostPathObject;
 
 };

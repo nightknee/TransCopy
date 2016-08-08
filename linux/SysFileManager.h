@@ -13,14 +13,17 @@ public:
 	inline bool static copy(std::string sourceFile,std::string destination){
 		int source = open(sourceFile.c_str(), O_RDONLY, 0);
 		int dest = open(destination.c_str(), O_WRONLY | O_CREAT /*| O_TRUNC/**/, 0644);
-					
-		struct stat stat_source;
-		fstat(source, &stat_source);
+		if(source > -1 && dest > -1){			
+			struct stat stat_source;
+			fstat(source, &stat_source);
 
-		sendfile(dest, source, 0, stat_source.st_size);
+			sendfile(dest, source, 0, stat_source.st_size);
 
-		close(source);
-		close(dest);
+			close(source);
+			close(dest);
+			return true;
+		}
+		return false;
 	}
 };
 

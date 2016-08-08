@@ -47,7 +47,8 @@ private:
 	void setParser();
 	void createFileToParseObject();
 	void createPathDestinationObject();
-	void manageParseFile();
+	bool manageParseFile();
+	void copyParsedFiles();
 
 //Private variables	
 private:

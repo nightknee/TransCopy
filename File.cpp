@@ -21,7 +21,7 @@ void File::setPath(std::string path){
 void File::setExntenstion(std::string extension){
 	this->_extension = extension;
 }
-void File::setSize(unsigned int size){
+void File::setSize(boost::uintmax_t size){
 	this->_size = size;
 }
 
@@ -36,7 +36,7 @@ std::string File::getExntenstion(){
 	return this->_extension;
 }
 
-unsigned int File::size(){
+boost::uintmax_t File::size(){
 	return this->_size;
 }
 

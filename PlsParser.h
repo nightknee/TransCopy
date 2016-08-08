@@ -10,10 +10,10 @@ public:
 	FileVector* getParsedSongs();
 	std::string getPath(std::string line);
 	bool validatePlaylist();
-	int getAllFilesSize();
+	unsigned int getAllFilesSize();
 private:
 	boost::regex expresion;
-	int appendToFileSize(int value);
+	void appendToFileSize(unsigned int value);
 };
 
 #endif // PlsParser_h

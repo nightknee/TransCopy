@@ -20,7 +20,9 @@ int TransCopy::run(int argc,char** argv){
 		
 		this->setParser();
 
-		this->manageParseFile();
+		if(this->manageParseFile()){
+			this->copyParsedFiles();
+		}
 		
 	}
 	catch(BaseException *e){
@@ -136,12 +138,26 @@ void TransCopy::setParser(){
 	this->parser = FileParserContainer::getInstance().findParser(this->fileToParse->getExntenstion());
 }
 
-void TransCopy::manageParseFile(){
-	if(this->parser->parse(this->fileToParse)){
-		FileVector *files = this->parser->getParsedSongs();
-		
-		for(FileVector::iterator i = files->begin() ; i != files->end() ; ++i){
-			FileManager::copyFile(*i,TransCopyConfiguration::getConfiguration().getDestinationPath());
+bool TransCopy::manageParseFile(){
+	return this->parser->parse(this->fileToParse);
+}
+
+void TransCopy::copyParsedFiles(){
+	FileVector *files = this->parser->getParsedSongs();
+	
+	boost::uintmax_t totalFilesSize = this->parser->getAllFilesSize();
+	
+	boost::uintmax_t copiedSize = 0;
+	
+	boost::uintmax_t toCopyFilesSize = totalFilesSize;
+
+	FileVector::size_type numberAllFiles = files->size();
+	
+	FileVector::size_type copiedNumberFiles = 0;
+
+	for(FileVector::iterator i = files->begin() ; i != files->end() ; ++i){			
+		if(FileManager::copyFile(*i,TransCopyConfiguration::getConfiguration().getDestinationPath())){
+			++copiedNumberFiles; copiedSize += i->size(); toCopyFilesSize -= i->size();
 		}
 	}
 }

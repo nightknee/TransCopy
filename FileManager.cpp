@@ -27,6 +27,10 @@ File* FileManager::createFileObject(std::string filePath){
 
 File* FileManager::setBaseInformationToFileObject(File* file){
 	fs::path p(file->getPath());
+	
+	std::string _tempPath = file->getPath();
+
+	SysFileManager::preparePath(_tempPath);
 
 	file->setSize(fs::file_size(p));
 	file->setExntenstion(p.extension().string());	

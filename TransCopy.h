@@ -1,6 +1,8 @@
 #ifndef TRANSCOPY_H
 #define TRANSCOPY_H
 
+#define BOOST_WINDOWS_PATH
+
 #include <iostream>
 #include <string>
 #include <vector>

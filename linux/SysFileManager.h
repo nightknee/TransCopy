@@ -25,6 +25,7 @@ public:
 		}
 		return false;
 	}
+	inline void static preparePath(std::string& path) {}
 };
 
 #endif // SYSFILEMANAGER_H

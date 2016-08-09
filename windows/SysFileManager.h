@@ -1,18 +1,23 @@
 #ifndef SYSFILEMANAGER_H
 #define SYSFILEMANAGER_H
 
-#include <windows.h>
+#include <fstream>
 #include <string>
+#include <iostream>
+#include <windows.h>
+#include <boost/algorithm/string/replace.hpp>
+
 class SysFileManager
 {
 public:
 	inline bool static copy(std::string sourceFile,std::string destination){
-		wchar_t* wSource = new wchar_t[sourceFile.size()];
-		wchar_t* wDest = new wchar_t[destination.size()];
+		//CopyFile(L"E:\\MUZYKA\\muzyka\\muzyczka\\Acid Drinkers\\2000 - Broken Head\\Acid Drinkers - There's so much hatred in the air.mp3",L"E:\\trs_test\\Acid Drinkers - There's so much hatred in the air.mp3",1 );
+		return true;
+	}
 
-		MultiByteToWideChar(CP_ACP, 0, sourceFile.c_str(), -1, wSource, sourceFile.size());
-		MultiByteToWideChar(CP_ACP, 0, destination.c_str(), -1, wSource, destination.size());
-		return CopyFile(wSource, wDest,0);
+	inline void static preparePath(std::string& path) {
+		boost::algorithm::replace_all(path, "\\", "\\\\");
+		std::cout << path << std::endl;
 	}
 };
 

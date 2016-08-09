@@ -3,6 +3,8 @@
 
 #ifdef __linux__
 #include "linux/SysFileManager.h"
+#elif _WIN32
+#include "windows/SysFileManager.h"
 #endif
 
 #include <string>

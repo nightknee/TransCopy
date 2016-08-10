@@ -11,7 +11,9 @@ class SysFileManager
 {
 public:
 	inline bool static copy(std::string sourceFile,std::string destination){
-		//CopyFile(L"E:\\MUZYKA\\muzyka\\muzyczka\\Acid Drinkers\\2000 - Broken Head\\Acid Drinkers - There's so much hatred in the air.mp3",L"E:\\trs_test\\Acid Drinkers - There's so much hatred in the air.mp3",1 );
+		std::wstring  wSourceFile = std::wstring(sourceFile.begin(), sourceFile.end());
+		std::wstring  wDestination = std::wstring(destination.begin(), destination.end());
+		CopyFile(wSourceFile.c_str(),wDestination.c_str(),1 );
 		return true;
 	}
 

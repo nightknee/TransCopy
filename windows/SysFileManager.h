@@ -17,7 +17,6 @@ public:
 
 	inline void static preparePath(std::string& path) {
 		boost::algorithm::replace_all(path, "\\", "\\\\");
-		std::cout << path << std::endl;
 	}
 };
 

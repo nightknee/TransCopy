@@ -7,10 +7,10 @@ FileParserContainer::FileParserContainer(){
 	this->insertParser(".pls",new PlsParser);
 }
 
-AbstractFileParse* FileParserContainer::findParser(std::string playlistExtension){
-	playlistMap::iterator It = this->parsers.find(playlistExtension);
+AbstractFileParse* FileParserContainer::findParser(std::string fileExtension){
+	playlistMap::iterator It = this->parsers.find(fileExtension);
 	if(It == this->parsers.end()){
-		throw new NotFoundParserException("Not found parser for "+playlistExtension+" extension");		
+		throw new NotFoundParserException("Not found parser for "+fileExtension+" extension");		
 	}
 	AbstractFileParse *parser = It->second;
 	return parser;

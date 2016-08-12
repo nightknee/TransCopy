@@ -15,7 +15,7 @@ class FileParserContainer {
  public:	
 	FileParserContainer();	
 
-    AbstractFileParse* findParser(std::string playlistExtension);
+    AbstractFileParse* findParser(std::string fileExtension);
 	
 	static FileParserContainer& getInstance();
 	

@@ -50,6 +50,8 @@ std::fstream* FileManager::openFile(File &file,std::ios_base::openmode mode){
 	* @todo Add exception and check opened file 
 	*/
 	std::fstream *fileStream = new std::fstream;
+	if(!fileStream->good()){throw new OpenFileException("Fail open "+file.getPath()+" file.");}
+	
 	fileStream->open(file.getPath(),mode);
 	return fileStream;
 }

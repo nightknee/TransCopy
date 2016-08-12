@@ -13,6 +13,7 @@
 #include "File.h"
 #include "Exceptions/FileNotExistException.h"
 #include "Exceptions/PathNotExistException.h"
+#include "Exceptions/OpenFileException.h"
 
 namespace fs = boost::filesystem;
 

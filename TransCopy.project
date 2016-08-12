@@ -56,6 +56,8 @@
     <File Name="Exceptions/NotFoundParserException.cpp"/>
     <File Name="Exceptions/PathNotExistException.cpp"/>
     <File Name="windows/SysFileManager.h"/>
+    <File Name="Exceptions/OpenFileException.h"/>
+    <File Name="Exceptions/OpenFileException.cpp"/>
   </VirtualDirectory>
   <Settings Type="Executable">
     <GlobalSettings>

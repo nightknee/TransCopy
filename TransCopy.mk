@@ -61,7 +61,7 @@ AS       := /usr/bin/as
 ##
 CodeLiteDir:=/usr/share/codelite
 Objects0=$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/TransCopy.cpp$(ObjectSuffix) $(IntermediateDirectory)/TransCopyConfiguration.cpp$(ObjectSuffix) $(IntermediateDirectory)/PlsParser.cpp$(ObjectSuffix) $(IntermediateDirectory)/MainExceptionHandler.cpp$(ObjectSuffix) $(IntermediateDirectory)/File.cpp$(ObjectSuffix) $(IntermediateDirectory)/FileManager.cpp$(ObjectSuffix) $(IntermediateDirectory)/FileParserContainer.cpp$(ObjectSuffix) $(IntermediateDirectory)/Exceptions_BaseException.cpp$(ObjectSuffix) $(IntermediateDirectory)/Exceptions_FileNotExistException.cpp$(ObjectSuffix) \
-	$(IntermediateDirectory)/Exceptions_NotFoundParserException.cpp$(ObjectSuffix) $(IntermediateDirectory)/Exceptions_PathNotExistException.cpp$(ObjectSuffix) 
+	$(IntermediateDirectory)/Exceptions_NotFoundParserException.cpp$(ObjectSuffix) $(IntermediateDirectory)/Exceptions_PathNotExistException.cpp$(ObjectSuffix) $(IntermediateDirectory)/Exceptions_OpenFileException.cpp$(ObjectSuffix) 
 
 
 
@@ -187,6 +187,14 @@ $(IntermediateDirectory)/Exceptions_PathNotExistException.cpp$(DependSuffix): Ex
 
 $(IntermediateDirectory)/Exceptions_PathNotExistException.cpp$(PreprocessSuffix): Exceptions/PathNotExistException.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Exceptions_PathNotExistException.cpp$(PreprocessSuffix) "Exceptions/PathNotExistException.cpp"
+
+$(IntermediateDirectory)/Exceptions_OpenFileException.cpp$(ObjectSuffix): Exceptions/OpenFileException.cpp $(IntermediateDirectory)/Exceptions_OpenFileException.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/karwan/C++/TransCopy/TransCopy/Exceptions/OpenFileException.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/Exceptions_OpenFileException.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/Exceptions_OpenFileException.cpp$(DependSuffix): Exceptions/OpenFileException.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/Exceptions_OpenFileException.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/Exceptions_OpenFileException.cpp$(DependSuffix) -MM "Exceptions/OpenFileException.cpp"
+
+$(IntermediateDirectory)/Exceptions_OpenFileException.cpp$(PreprocessSuffix): Exceptions/OpenFileException.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Exceptions_OpenFileException.cpp$(PreprocessSuffix) "Exceptions/OpenFileException.cpp"
 
 
 -include $(IntermediateDirectory)/*$(DependSuffix)

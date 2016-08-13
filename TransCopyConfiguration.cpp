@@ -2,19 +2,19 @@
 
 std::string TransCopyConfiguration::getFileToParsePath()
 {
-	return this->fileToParsePath;
+	return this->_fileToParsePath;
 }
 
 
 std::string TransCopyConfiguration::getDestinationPath()
 {
-	return this->destinationPath;
+	return this->_destinationPath;
 }
 
 
 bool TransCopyConfiguration::withGui()
 {
-    return this->gui;
+    return this->_gui;
 }
 
 
@@ -24,34 +24,34 @@ TransCopyConfiguration& TransCopyConfiguration::getConfiguration(){
 }
 
 TransCopyConfiguration::TransCopyConfiguration(){
-	this->gui = false;
-	this->debug = true;
+	this->_gui = false;
+	this->_debug = true;
 }
 
 void TransCopyConfiguration::setConfiguration(Configuration *configuration){
-	this->fileToParsePath = configuration->fileToParsePath;
+	this->_fileToParsePath = configuration->fileToParsePath;
 	
-	this->destinationPath = configuration->destinationPath;
+	this->_destinationPath = configuration->destinationPath;
 	
-	this->gui = configuration->gui;
+	this->_gui = configuration->gui;
 }
 
 bool TransCopyConfiguration::isDebug(){
-	return this->debug;
+	return this->_debug;
 }
 
 void TransCopyConfiguration::pathValidResult(bool result){
-	this->pathIsValid;
+	this->_pathIsValid;
 }
 
 void TransCopyConfiguration::fileValidResult(bool result){
-	this->fileIsValid;
+	this->_fileIsValid;
 }
 
 bool TransCopyConfiguration::fileValidationResult(){
-	return this->fileIsValid;
+	return this->_fileIsValid;
 }
 	
 bool TransCopyConfiguration::pathValidationResult(){
-	return this->pathIsValid;
+	return this->_pathIsValid;
 }

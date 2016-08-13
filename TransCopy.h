@@ -38,25 +38,25 @@ public:
 //Private functions:
 private:
 	/**cmd options:*/
-	void setSettingsFromArgs(int argc,char** argv);
-	Configuration* parseCmdArgs(int argc,char** argv);
-	void prepareCmdDescription(po::options_description &desc);
-	Configuration *setConfigurationFromCmd(po::variables_map &vm);
+	void _setSettingsFromArgs(int argc,char** argv);
+	Configuration* _parseCmdArgs(int argc,char** argv);
+	void _prepareCmdDescription(po::options_description &desc);
+	Configuration* _setConfigurationFromCmd(po::variables_map &vm);
 	/** end cmd options*/
 	
-	void helpMessage();
-	void showConfiguration();	
-	void setParser();
-	void createFileToParseObject();
-	void createPathDestinationObject();
-	bool manageParseFile();
-	void copyParsedFiles();
+	void _helpMessage();
+	void _showConfiguration();	
+	void _setParser();
+	void _createFileToParseObject();
+	void _createPathDestinationObject();
+	bool _manageParseFile();
+	void _copyParsedFiles();
 
 //Private variables	
 private:
-	std::shared_ptr<File> fileToParse;
-	std::shared_ptr<fs::path> pathDestination;
-	AbstractFileParse *parser;		
+	std::shared_ptr<File> _fileToParse;
+	std::shared_ptr<fs::path> _pathDestination;
+	AbstractFileParse* _parser;		
 };
 
 #endif // TRANSCOPY_H

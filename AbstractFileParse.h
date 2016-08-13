@@ -21,9 +21,9 @@ class AbstractFileParse  {
 		virtual std::string getPath(std::string line) = 0;
 		virtual unsigned int getAllFilesSize() = 0;		
 	protected:
-		FileVector parsedFiles;
-		unsigned int allFileSize;
-		virtual void appendToFileSize(unsigned int value) = 0;
+		FileVector _parsedFiles;
+		unsigned int _allFileSize;
+		virtual void _appendToFileSize(unsigned int value) = 0;
 };
 
 #endif // AbstractPlaylistParse

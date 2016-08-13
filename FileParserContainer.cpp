@@ -8,8 +8,8 @@ FileParserContainer::FileParserContainer(){
 }
 
 AbstractFileParse* FileParserContainer::findParser(std::string fileExtension){
-	playlistMap::iterator It = this->parsers.find(fileExtension);
-	if(It == this->parsers.end()){
+	playlistMap::iterator It = this->_parsers.find(fileExtension);
+	if(It == this->_parsers.end()){
 		throw new NotFoundParserException("Not found parser for "+fileExtension+" extension");		
 	}
 	AbstractFileParse *parser = It->second;
@@ -17,7 +17,7 @@ AbstractFileParse* FileParserContainer::findParser(std::string fileExtension){
 }
 
 void FileParserContainer::insertParser(std::string playlistExtenstion,AbstractFileParse* newParser){
-	this->parsers.insert(std::pair<std::string,AbstractFileParse*>(playlistExtenstion,newParser));
+	this->_parsers.insert(std::pair<std::string,AbstractFileParse*>(playlistExtenstion,newParser));
 }
 
 FileParserContainer& FileParserContainer::getInstance(){

@@ -9,7 +9,7 @@ public:
 	BaseException();
 	virtual const char* what() const throw();
 protected:
-	std::string msg;		
+	std::string _msg;		
 };
 
 #endif // BASEEXCEPTION_H

@@ -30,7 +30,7 @@ public:
 	static std::fstream* openFile(File &file,std::ios_base::openmode mode = std::ios_base::in | std::ios_base::out);
 	static bool copyFile(File sourceFile,std::string destination);
 private:
-	static File* setBaseInformationToFileObject(File* file);
+	static File* _setBaseInformationToFileObject(File* file);
 };
 
 #endif // FILEMANAGER_H

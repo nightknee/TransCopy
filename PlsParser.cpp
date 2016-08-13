@@ -1,8 +1,8 @@
 #include "PlsParser.h"
 
 PlsParser::PlsParser(){
-	this->expresion = "^File[0-9]+=";
-	this->allFileSize = 0;
+	this->_expresion = "^File[0-9]+=";
+	this->_allFileSize = 0;
 }
 
 bool PlsParser::parse(std::shared_ptr<File> file){
@@ -18,8 +18,8 @@ bool PlsParser::parse(std::shared_ptr<File> file){
 		_path = this->getPath(line);
 		try{
 			File* file = FileManager::createFileObject(_path);
-			this->appendToFileSize(file->size());
-			this->parsedFiles.push_back(file);
+			this->_appendToFileSize(file->size());
+			this->_parsedFiles.push_back(file);
 		}
 		catch(FileNotExistException* e){
 			continue;
@@ -29,10 +29,10 @@ bool PlsParser::parse(std::shared_ptr<File> file){
 	return true;
 }
 FileVector* PlsParser::getParsedSongs(){
-	return &(this->parsedFiles);
+	return &(this->_parsedFiles);
 }
 std::string PlsParser::getPath(std::string line){
-   boost::sregex_token_iterator p(line.begin(), line.end(), this->expresion,-1);  
+   boost::sregex_token_iterator p(line.begin(), line.end(), this->_expresion,-1);  
    
    boost::sregex_token_iterator end;
    
@@ -44,9 +44,9 @@ std::string PlsParser::getPath(std::string line){
 }
 
 unsigned int PlsParser::getAllFilesSize(){
-	return this->allFileSize;
+	return this->_allFileSize;
 }
 
-void PlsParser::appendToFileSize(unsigned int value){
-	this->allFileSize += value;
+void PlsParser::_appendToFileSize(unsigned int value){
+	this->_allFileSize += value;
 }

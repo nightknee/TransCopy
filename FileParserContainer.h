@@ -22,7 +22,7 @@ class FileParserContainer {
 	void insertParser(std::string playlistExtenstion,AbstractFileParse* newParser);
 
  private:
-    playlistMap parsers;
+    playlistMap _parsers;
 };
 
 #endif // PlaylistParserContainer_h

@@ -41,9 +41,9 @@ boost::uintmax_t File::size(){
 }
 
 fs::path File::boostPath(){
-	return this->boostPathObject;
+	return this->_boostPathObject;
 }
 
 void File::setBoostPath(fs::path p){
-	this->boostPathObject = p;
+	this->_boostPathObject = p;
 }

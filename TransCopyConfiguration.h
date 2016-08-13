@@ -33,12 +33,12 @@ public:
 	static TransCopyConfiguration&  getConfiguration();
 
 private:
-	std::string fileToParsePath;
-	std::string destinationPath;
-	bool gui;
-	bool debug;
-	bool pathIsValid;
-	bool fileIsValid;
+	std::string _fileToParsePath;
+	std::string _destinationPath;
+	bool _gui;
+	bool _debug;
+	bool _pathIsValid;
+	bool _fileIsValid;
 };
 
 #endif // TransCopyConfiguration_h

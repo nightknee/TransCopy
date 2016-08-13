@@ -21,11 +21,11 @@ bool FileManager::isAPath(std::string path){
 File* FileManager::createFileObject(std::string filePath){
 	if(!FileManager::fileExist(filePath)){throw new FileNotExistException(filePath+" file doesn't exist");}
 	File *newFile = new File(filePath);
-	return FileManager::setBaseInformationToFileObject(newFile);
+	return FileManager::_setBaseInformationToFileObject(newFile);
 }
 
 
-File* FileManager::setBaseInformationToFileObject(File* file){
+File* FileManager::_setBaseInformationToFileObject(File* file){
 	fs::path p(file->getPath());
 	
 	std::string _tempPath = file->getPath();

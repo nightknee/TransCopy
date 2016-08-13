@@ -12,16 +12,16 @@ TransCopy::~TransCopy()
 
 int TransCopy::run(int argc,char** argv){	
 	try{
-		this->setSettingsFromArgs(argc,argv);
+		this->_setSettingsFromArgs(argc,argv);
 		
-		this->createFileToParseObject();
+		this->_createFileToParseObject();
 		
-		this->createPathDestinationObject();
+		this->_createPathDestinationObject();
 		
-		this->setParser();
+		this->_setParser();
 
-		if(this->manageParseFile()){
-			this->copyParsedFiles();
+		if(this->_manageParseFile()){
+			this->_copyParsedFiles();
 		}
 		
 	}
@@ -34,8 +34,8 @@ int TransCopy::run(int argc,char** argv){
 	return 0;
 }
 
-void TransCopy::setSettingsFromArgs(int argc,char** argv){
-	Configuration *defaultConfiguration = this->parseCmdArgs(argc,argv);	
+void TransCopy::_setSettingsFromArgs(int argc,char** argv){
+	Configuration *defaultConfiguration = this->_parseCmdArgs(argc,argv);	
 	
 	defaultConfiguration->gui = false;
 	
@@ -44,10 +44,10 @@ void TransCopy::setSettingsFromArgs(int argc,char** argv){
 	delete defaultConfiguration;
 }
 
-Configuration* TransCopy::parseCmdArgs(int argc,char** argv){		
+Configuration* TransCopy::_parseCmdArgs(int argc,char** argv){		
 	po::options_description desc("Options");
 	
-	this->prepareCmdDescription(desc);	
+	this->_prepareCmdDescription(desc);	
 		
 	po::variables_map vm;
 	
@@ -55,7 +55,7 @@ Configuration* TransCopy::parseCmdArgs(int argc,char** argv){
 		po::store(po::parse_command_line(argc,argv,desc),vm);
 		po::notify(vm);			
 		
-		Configuration *tempConfiguration = this->setConfigurationFromCmd(vm);
+		Configuration *tempConfiguration = this->_setConfigurationFromCmd(vm);
 		
 		return tempConfiguration;
 	
@@ -65,12 +65,12 @@ Configuration* TransCopy::parseCmdArgs(int argc,char** argv){
 		}else{
 			std::cout<<e.what()<<std::endl;
 		}
-		return this->setConfigurationFromCmd(vm);
+		return this->_setConfigurationFromCmd(vm);
 	}
 	
 }
 
-Configuration* TransCopy::setConfigurationFromCmd(po::variables_map &vm){
+Configuration* TransCopy::_setConfigurationFromCmd(po::variables_map &vm){
 	Configuration *_tempConfiguration = new Configuration;
 	
 	if(vm.count("file-path")){
@@ -83,14 +83,14 @@ Configuration* TransCopy::setConfigurationFromCmd(po::variables_map &vm){
 	return _tempConfiguration;
 }
 
-void TransCopy::prepareCmdDescription(po::options_description &desc){
+void TransCopy::_prepareCmdDescription(po::options_description &desc){
 	desc.add_options()
 		("help,h","help message")
 		("file-path,f",po::value<std::string>()->required(),"Path to list files")
 		("destination-path,d",po::value<std::string>()->required(),"Path when copy files");
 }
 
-void TransCopy::showConfiguration(){
+void TransCopy::_showConfiguration(){
 	TransCopyConfiguration configuration = TransCopyConfiguration::getConfiguration();
 	
 	std::cout<<configuration.getDestinationPath()
@@ -112,40 +112,40 @@ void TransCopy::messageRun(){
 }
 
 
-void TransCopy::helpMessage(){
+void TransCopy::_helpMessage(){
 	
 }
 
 void TransCopy::setFileToParse(std::shared_ptr<File> f){
-	this->fileToParse = f;
+	this->_fileToParse = f;
 }
 
 std::shared_ptr<File> TransCopy::getFileToParse(){
-	return this->fileToParse;
+	return this->_fileToParse;
 }
 
-void TransCopy::createFileToParseObject(){
+void TransCopy::_createFileToParseObject(){
 	File* file = FileManager::createFileObject(TransCopyConfiguration::getConfiguration().getFileToParsePath());
-	this->fileToParse = std::make_shared<File>(*file);
+	this->_fileToParse = std::make_shared<File>(*file);
 }
 
-void TransCopy::createPathDestinationObject(){
+void TransCopy::_createPathDestinationObject(){
 	fs::path* path = FileManager::createPathObject(TransCopyConfiguration::getConfiguration().getDestinationPath());
-	this->pathDestination = std::make_shared<fs::path>(*path);
+	this->_pathDestination = std::make_shared<fs::path>(*path);
 }
 
-void TransCopy::setParser(){
-	this->parser = FileParserContainer::getInstance().findParser(this->fileToParse->getExntenstion());
+void TransCopy::_setParser(){
+	this->_parser = FileParserContainer::getInstance().findParser(this->_fileToParse->getExntenstion());
 }
 
-bool TransCopy::manageParseFile(){
-	return this->parser->parse(this->fileToParse);
+bool TransCopy::_manageParseFile(){
+	return this->_parser->parse(this->_fileToParse);
 }
 
-void TransCopy::copyParsedFiles(){
-	FileVector *files = this->parser->getParsedSongs();
+void TransCopy::_copyParsedFiles(){
+	FileVector *files = this->_parser->getParsedSongs();
 	
-	boost::uintmax_t totalFilesSize = this->parser->getAllFilesSize();
+	boost::uintmax_t totalFilesSize = this->_parser->getAllFilesSize();
 	
 	boost::uintmax_t copiedSize = 0;
 	

@@ -30,7 +30,7 @@ private:
 	std::string _path;
 	std::string _extension;
 	boost::uintmax_t _size;
-	fs::path boostPathObject;
+	fs::path _boostPathObject;
 
 };
 

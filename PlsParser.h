@@ -12,8 +12,8 @@ public:
 	bool validatePlaylist();
 	unsigned int getAllFilesSize();
 private:
-	boost::regex expresion;
-	void appendToFileSize(unsigned int value);
+	boost::regex _expresion;
+	void _appendToFileSize(unsigned int value);
 };
 
 #endif // PlsParser_h

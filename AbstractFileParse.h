@@ -9,6 +9,7 @@
 
 #include "File.h"
 #include "FileManager.h"
+#include "CopyStatus.h"
 
 typedef boost::ptr_vector<File> FileVector;
 
@@ -22,7 +23,7 @@ class AbstractFileParse  {
 		virtual boost::uintmax_t getAllFilesSize() = 0;		
 	protected:
 		FileVector _parsedFiles;
-		boost::uintmax_t _allFileSize;
+		boost::uintmax_t _allFilesSize;
 		virtual void _appendToFileSize(boost::uintmax_t value) = 0;
 };
 

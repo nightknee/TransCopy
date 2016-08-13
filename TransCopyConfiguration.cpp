@@ -41,11 +41,11 @@ bool TransCopyConfiguration::isDebug(){
 }
 
 void TransCopyConfiguration::pathValidResult(bool result){
-	this->_pathIsValid;
+	this->_pathIsValid = result;
 }
 
 void TransCopyConfiguration::fileValidResult(bool result){
-	this->_fileIsValid;
+	this->_fileIsValid= result;
 }
 
 bool TransCopyConfiguration::fileValidationResult(){

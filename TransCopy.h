@@ -14,6 +14,7 @@
 #include "MainExceptionHandler.h"
 #include "Exceptions/BaseException.h"
 #include "FileManager.h"
+#include "CopyStatus.h"
 
 namespace po = boost::program_options;
 

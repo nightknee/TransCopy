@@ -2,7 +2,7 @@
 
 PlsParser::PlsParser(){
 	this->_expresion = "^File[0-9]+=";
-	this->_allFileSize = 0;
+	this->_allFilesSize = 0;
 }
 
 bool PlsParser::parse(std::shared_ptr<File> file){
@@ -44,9 +44,9 @@ std::string PlsParser::getPath(std::string line){
 }
 
 boost::uintmax_t PlsParser::getAllFilesSize(){
-	return this->_allFileSize;
+	return this->_allFilesSize;
 }
 
 void PlsParser::_appendToFileSize(boost::uintmax_t value){
-	this->_allFileSize += value;
+	this->_allFilesSize += value;
 }

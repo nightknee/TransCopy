@@ -19,11 +19,11 @@ class AbstractFileParse  {
 		virtual bool parse(std::shared_ptr<File> file) = 0;
 		virtual FileVector* getParsedSongs() = 0;
 		virtual std::string getPath(std::string line) = 0;
-		virtual unsigned int getAllFilesSize() = 0;		
+		virtual boost::uintmax_t getAllFilesSize() = 0;		
 	protected:
 		FileVector _parsedFiles;
-		unsigned int _allFileSize;
-		virtual void _appendToFileSize(unsigned int value) = 0;
+		boost::uintmax_t _allFileSize;
+		virtual void _appendToFileSize(boost::uintmax_t value) = 0;
 };
 
 #endif // AbstractPlaylistParse

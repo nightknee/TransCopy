@@ -1,5 +1,4 @@
 #include "TransCopy.h"
-#include "TransCopyConfiguration.h"
 
 TransCopy::TransCopy()
 {	

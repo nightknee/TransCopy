@@ -61,7 +61,7 @@ AS       := /usr/bin/as
 ##
 CodeLiteDir:=/usr/share/codelite
 Objects0=$(IntermediateDirectory)/main.cpp$(ObjectSuffix) $(IntermediateDirectory)/TransCopy.cpp$(ObjectSuffix) $(IntermediateDirectory)/TransCopyConfiguration.cpp$(ObjectSuffix) $(IntermediateDirectory)/PlsParser.cpp$(ObjectSuffix) $(IntermediateDirectory)/MainExceptionHandler.cpp$(ObjectSuffix) $(IntermediateDirectory)/File.cpp$(ObjectSuffix) $(IntermediateDirectory)/FileManager.cpp$(ObjectSuffix) $(IntermediateDirectory)/FileParserContainer.cpp$(ObjectSuffix) $(IntermediateDirectory)/Exceptions_BaseException.cpp$(ObjectSuffix) $(IntermediateDirectory)/Exceptions_FileNotExistException.cpp$(ObjectSuffix) \
-	$(IntermediateDirectory)/Exceptions_NotFoundParserException.cpp$(ObjectSuffix) $(IntermediateDirectory)/Exceptions_PathNotExistException.cpp$(ObjectSuffix) $(IntermediateDirectory)/Exceptions_OpenFileException.cpp$(ObjectSuffix) 
+	$(IntermediateDirectory)/Exceptions_NotFoundParserException.cpp$(ObjectSuffix) $(IntermediateDirectory)/Exceptions_PathNotExistException.cpp$(ObjectSuffix) $(IntermediateDirectory)/Exceptions_OpenFileException.cpp$(ObjectSuffix) $(IntermediateDirectory)/CopyStatus.cpp$(ObjectSuffix) 
 
 
 
@@ -195,6 +195,14 @@ $(IntermediateDirectory)/Exceptions_OpenFileException.cpp$(DependSuffix): Except
 
 $(IntermediateDirectory)/Exceptions_OpenFileException.cpp$(PreprocessSuffix): Exceptions/OpenFileException.cpp
 	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/Exceptions_OpenFileException.cpp$(PreprocessSuffix) "Exceptions/OpenFileException.cpp"
+
+$(IntermediateDirectory)/CopyStatus.cpp$(ObjectSuffix): CopyStatus.cpp $(IntermediateDirectory)/CopyStatus.cpp$(DependSuffix)
+	$(CXX) $(IncludePCH) $(SourceSwitch) "/home/karwan/C++/TransCopy/TransCopy/CopyStatus.cpp" $(CXXFLAGS) $(ObjectSwitch)$(IntermediateDirectory)/CopyStatus.cpp$(ObjectSuffix) $(IncludePath)
+$(IntermediateDirectory)/CopyStatus.cpp$(DependSuffix): CopyStatus.cpp
+	@$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) -MG -MP -MT$(IntermediateDirectory)/CopyStatus.cpp$(ObjectSuffix) -MF$(IntermediateDirectory)/CopyStatus.cpp$(DependSuffix) -MM "CopyStatus.cpp"
+
+$(IntermediateDirectory)/CopyStatus.cpp$(PreprocessSuffix): CopyStatus.cpp
+	$(CXX) $(CXXFLAGS) $(IncludePCH) $(IncludePath) $(PreprocessOnlySwitch) $(OutputSwitch) $(IntermediateDirectory)/CopyStatus.cpp$(PreprocessSuffix) "CopyStatus.cpp"
 
 
 -include $(IntermediateDirectory)/*$(DependSuffix)

@@ -43,10 +43,10 @@ std::string PlsParser::getPath(std::string line){
 	return _path;
 }
 
-unsigned int PlsParser::getAllFilesSize(){
+boost::uintmax_t PlsParser::getAllFilesSize(){
 	return this->_allFileSize;
 }
 
-void PlsParser::_appendToFileSize(unsigned int value){
+void PlsParser::_appendToFileSize(boost::uintmax_t value){
 	this->_allFileSize += value;
 }

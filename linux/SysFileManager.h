@@ -12,7 +12,7 @@ class SysFileManager
 public:
 	inline bool static copy(std::string sourceFile,std::string destination){
 		int source = open(sourceFile.c_str(), O_RDONLY, 0);
-		int dest = open(destination.c_str(), O_WRONLY | O_CREAT /*| O_TRUNC/**/, 0644);
+		int dest = open(destination.c_str(), O_WRONLY | O_CREAT , 0644);
 		if(source > -1 && dest > -1){			
 			struct stat stat_source;
 			fstat(source, &stat_source);

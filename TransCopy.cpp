@@ -79,6 +79,9 @@ Configuration* TransCopy::_setConfigurationFromCmd(po::variables_map &vm){
 	if(vm.count("destination-path")){
 		_tempConfiguration->destinationPath = vm["destination-path"].as<std::string>();
 	}
+	if(vm.count("notyficate")){
+		_tempConfiguration->notyficate = true;
+	}
 	return _tempConfiguration;
 }
 
@@ -86,7 +89,8 @@ void TransCopy::_prepareCmdDescription(po::options_description &desc){
 	desc.add_options()
 		("help,h","help message")
 		("file-path,f",po::value<std::string>()->required(),"Path to list files")
-		("destination-path,d",po::value<std::string>()->required(),"Path when copy files");
+		("destination-path,d",po::value<std::string>()->required(),"Path when copy files")
+		("notyficate","Show informations about progress copy");
 }
 
 void TransCopy::_showConfiguration(){
@@ -144,19 +148,30 @@ bool TransCopy::_manageParseFile(){
 void TransCopy::_copyParsedFiles(){
 	FileVector *files = this->_parser->getParsedSongs();
 	
-	boost::uintmax_t totalFilesSize = this->_parser->getAllFilesSize();
+	this->_setCopyStatusValues(files);
 	
-	boost::uintmax_t copiedSize = 0;
-	
-	boost::uintmax_t toCopyFilesSize = totalFilesSize;
-
-	FileVector::size_type numberAllFiles = files->size();
-	
-	FileVector::size_type copiedNumberFiles = 0;
-
 	for(FileVector::iterator i = files->begin() ; i != files->end() ; ++i){			
 		if(FileManager::copyFile(*i,TransCopyConfiguration::getConfiguration().getDestinationPath())){
-			++copiedNumberFiles; copiedSize += i->size(); toCopyFilesSize -= i->size();
+			CopyStatus::getCopyStatus().increaseCopiedNumberFiles();
+			CopyStatus::getCopyStatus().addCopiedFileSize( i->size());
+			
+			if(TransCopyConfiguration::getConfiguration().notyficate()){
+				this->_showCopyStats();
+			}
 		}
 	}
+	std::cout<<std::endl;
+}
+
+void TransCopy::_setCopyStatusValues(FileVector *files){
+	CopyStatus::getCopyStatus().setAllFilesSize( this->_parser->getAllFilesSize());
+	CopyStatus::getCopyStatus().setNumberOfAllFiles(files->size());
+}
+
+void TransCopy::_showCopyStats(){
+	std::cout<<"\r";
+	std::cout<<"Copied: "<<CopyStatus::getCopyStatus().getCopiedNumberFiles()<<" of  "<<CopyStatus::getCopyStatus().getNumberOfAllFiles()<<" files ";
+	std::cout<<" Copied: "<<CopyStatus::getCopyStatus().getCopiedFilesSize()<<" of  "<<CopyStatus::getCopyStatus().getAllFilesSize()<<" bytes ";
+	std::cout<<"\r";
+	
 }

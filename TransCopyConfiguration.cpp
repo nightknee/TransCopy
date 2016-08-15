@@ -26,6 +26,7 @@ TransCopyConfiguration& TransCopyConfiguration::getConfiguration(){
 TransCopyConfiguration::TransCopyConfiguration(){
 	this->_gui = false;
 	this->_debug = true;
+	this->_notyficate = false;
 }
 
 void TransCopyConfiguration::setConfiguration(Configuration *configuration){
@@ -34,6 +35,8 @@ void TransCopyConfiguration::setConfiguration(Configuration *configuration){
 	this->_destinationPath = configuration->destinationPath;
 	
 	this->_gui = configuration->gui;
+	
+	this->_notyficate = configuration->notyficate;
 }
 
 bool TransCopyConfiguration::isDebug(){
@@ -54,4 +57,12 @@ bool TransCopyConfiguration::fileValidationResult(){
 	
 bool TransCopyConfiguration::pathValidationResult(){
 	return this->_pathIsValid;
+}
+
+bool TransCopyConfiguration::notyficate(){
+	return this->_notyficate;
+}
+
+void TransCopyConfiguration::setNotyficate(bool result){
+	this->_notyficate = result;
 }

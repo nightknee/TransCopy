@@ -52,6 +52,8 @@ private:
 	void _createPathDestinationObject();
 	bool _manageParseFile();
 	void _copyParsedFiles();
+	void _setCopyStatusValues(FileVector *files);
+	void _showCopyStats();
 
 //Private variables	
 private:

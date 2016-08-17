@@ -7,6 +7,11 @@
 #include <windows.h>
 #include <boost/algorithm/string/replace.hpp>
 
+/**
+ * @class SysFileManager
+ * @file SysFileManager.h
+ * @brief  Class copy files use native Windows functions
+ */
 class SysFileManager
 {
 public:
@@ -16,7 +21,10 @@ public:
 		CopyFile(wSourceFile.c_str(),wDestination.c_str(),1 );
 		return true;
 	}
-
+	/**
+	 * @brief Change all one backslach to double to correct use in CopyFile() function
+	 * @param path
+	 */
 	inline void static preparePath(std::string& path) {
 		boost::algorithm::replace_all(path, "\\", "\\\\");
 	}

@@ -14,7 +14,11 @@
 typedef boost::ptr_vector<File> FileVector;
 
 namespace fs = boost::filesystem;
-
+/**
+ * @class AbstractFileParse
+ * @file AbstractFileParse.h
+ * @brief  Abtract class extend with all parsers
+ */
 class AbstractFileParse  {
 	public:
 		virtual bool parse(std::shared_ptr<File> file) = 0;

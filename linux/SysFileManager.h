@@ -7,6 +7,12 @@
 #include <sys/stat.h>      // fstat
 #include <sys/types.h>
 #include <string>
+
+/**
+ * @class SysFileManager
+ * @file SysFileManager.h
+ * @brief  Class copy files use native GNU\Linux functions
+ */
 class SysFileManager
 {
 public:
@@ -25,6 +31,11 @@ public:
 		}
 		return false;
 	}
+	
+	/**
+	 * @brief Is empty beacuse in GNU\Linux is not nessesary to manipulate path
+	 * @param path
+	 */
 	inline void static preparePath(std::string& path) {}
 };
 

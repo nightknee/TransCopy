@@ -47,9 +47,10 @@ fs::path* FileManager::createPathObject(std::string path){
 
 std::fstream* FileManager::openFile(File &file,std::ios_base::openmode mode){
 	std::fstream *fileStream = new std::fstream;
+	fileStream->open(file.getPath(),mode);
+	
 	if(!fileStream->good()){throw new OpenFileException("Fail open "+file.getPath()+" file.");}
 	
-	fileStream->open(file.getPath(),mode);
 	return fileStream;
 }
 

@@ -115,6 +115,10 @@ private:
 	 * @brief Show copy progress up to date if TransCopyConfiguration::notyficate = true
 	 */
 	void _showCopyStats();
+	/**
+	 * @brief  Run copy funciotns and display information in command line
+	 */
+	void _cmdCopy();
 
 //Private variables	
 private:

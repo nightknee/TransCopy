@@ -13,16 +13,11 @@ int TransCopy::run(int argc,char** argv){
 	try{
 		this->_setSettingsFromArgs(argc,argv);
 		
-		this->_createFileToParseObject();
-		
-		this->_createPathDestinationObject();
-		
-		this->_setParser();
-
-		if(this->_manageParseFile()){
-			this->_copyParsedFiles();
+		if(TransCopyConfiguration::getConfiguration().withGui()){
+			
+		}else{
+			this->_cmdCopy();
 		}
-		
 	}
 	catch(BaseException *e){
 		MainExceptionHandler::handleException(e);
@@ -31,6 +26,18 @@ int TransCopy::run(int argc,char** argv){
 		MainExceptionHandler::handleException(e);
 	}
 	return 0;
+}
+
+void TransCopy::_cmdCopy(){
+	this->_createFileToParseObject();
+		
+		this->_createPathDestinationObject();
+		
+		this->_setParser();
+
+		if(this->_manageParseFile()){
+			this->_copyParsedFiles();
+		}
 }
 
 void TransCopy::_setSettingsFromArgs(int argc,char** argv){
@@ -54,13 +61,11 @@ Configuration* TransCopy::_parseCmdArgs(int argc,char** argv){
 		po::store(po::parse_command_line(argc,argv,desc),vm);
 		po::notify(vm);			
 		
-		Configuration *tempConfiguration = this->_setConfigurationFromCmd(vm);
-		
-		return tempConfiguration;
-	
+		return  this->_setConfigurationFromCmd(vm);	
 	}catch(const po::error &e){
 		if(vm.count("help")){
-			std::cout<<desc<<std::endl;			
+			std::cout<<desc<<std::endl;	
+			throw new BaseException;
 		}else{
 			std::cout<<e.what()<<std::endl;
 		}
@@ -82,15 +87,19 @@ Configuration* TransCopy::_setConfigurationFromCmd(po::variables_map &vm){
 	if(vm.count("notyficate")){
 		_tempConfiguration->notyficate = true;
 	}
+	if(vm.count("terminal")){
+		_tempConfiguration->gui = false;
+	}
 	return _tempConfiguration;
 }
 
 void TransCopy::_prepareCmdDescription(po::options_description &desc){
 	desc.add_options()
-		("help,h","help message")
+		("help,h","Help message")
 		("file-path,f",po::value<std::string>()->required(),"Path to list files")
 		("destination-path,d",po::value<std::string>()->required(),"Path when copy files")
-		("notyficate","Show informations about progress copy");
+		("notyficate,n","Show informations about progress copy")
+		("terminal,t","Not running with GUI");
 }
 
 void TransCopy::_showConfiguration(){

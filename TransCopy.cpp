@@ -31,13 +31,13 @@ int TransCopy::run(int argc,char** argv){
 void TransCopy::_cmdCopy(){
 	this->_createFileToParseObject();
 		
-		this->_createPathDestinationObject();
+	this->_createPathDestinationObject();
 		
-		this->_setParser();
+	this->_setParser();
 
-		if(this->_manageParseFile()){
-			this->_copyParsedFiles();
-		}
+	if(this->_manageParseFile()){
+		this->_copyParsedFiles();
+	}
 }
 
 void TransCopy::_setSettingsFromArgs(int argc,char** argv){

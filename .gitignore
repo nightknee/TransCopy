@@ -1,0 +1,7 @@
+TransCopy.txt
+TransCopy.project
+TransCopy.mk
+/Debug/*
+/Release/*
+CMakeLists.txt
+TransCopy.mk

@@ -87,6 +87,10 @@
     <File Name="Exceptions/OpenFileException.cpp"/>
     <File Name="CopyStatus.h"/>
     <File Name="CopyStatus.cpp"/>
+    <File Name="CmdCopy.h"/>
+    <File Name="CmdCopy.cpp"/>
+    <File Name="CmdOptions.h"/>
+    <File Name="CmdOptions.cpp"/>
   </VirtualDirectory>
   <Settings Type="Executable">
     <GlobalSettings>

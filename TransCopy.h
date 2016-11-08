@@ -6,7 +6,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <boost/program_options.hpp>
 
 #include "TransCopyConfiguration.h"
 #include "FileParserContainer.h"
@@ -16,7 +15,6 @@
 #include "FileManager.h"
 #include "CopyStatus.h"
 
-namespace po = boost::program_options;
 /**
  * @class TransCopy
  * @file TransCopy.h

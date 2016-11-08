@@ -5,9 +5,7 @@ TransCopy::TransCopy()
 	this->messageRun();
 }
 
-TransCopy::~TransCopy()
-{
-}
+TransCopy::~TransCopy(){}
 
 int TransCopy::run(int argc,char** argv){	
 	try{

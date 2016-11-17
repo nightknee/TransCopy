@@ -14,6 +14,9 @@
 #include "Exceptions/BaseException.h"
 #include "FileManager.h"
 #include "CopyStatus.h"
+#include "CmdOptionsParser.h"
+#include "CmdOptionsDescription.h"
+#include "CmdOptionsParsed.h"
 
 /**
  * @class TransCopy
@@ -131,7 +134,11 @@ private:
 	/** 
 	 * @brief Pointer to parser avaible to _fileToParse
 	 */
-	AbstractFileParse* _parser;		
+	AbstractFileParse* _parser;
+	
+	std::shared_ptr<CmdOptionsDescription> cmdDesc;
+	
+	std::shared_ptr<CmdOptionsParsed> cmdOptionsParsed;
 };
 
 #endif // TRANSCOPY_H

@@ -1,8 +1,12 @@
 #include "TransCopy.h"
 
 TransCopy::TransCopy()
-{	
+{
+	this->cmdDesc = std::make_shared<CmdOptionsDescription>("Options");
+	this->cmdOptionsParsed = std::make_shared<CmdOptionsParsed>();
+	
 	this->messageRun();
+
 }
 
 TransCopy::~TransCopy(){}
@@ -49,15 +53,8 @@ void TransCopy::_setSettingsFromArgs(int argc,char** argv){
 }
 
 Configuration* TransCopy::_parseCmdArgs(int argc,char** argv){		
-	po::options_description desc("Options");
-	
-	this->_prepareCmdDescription(desc);	
-		
-	po::variables_map vm;
-	
 	try{
-		po::store(po::parse_command_line(argc,argv,desc),vm);
-		po::notify(vm);			
+		CmdOptionsParser::parseAndStoreCmdOptions(argc,argv,this->cmdDesc,this->cmdOptionsParsed);		
 		
 		return  this->_setConfigurationFromCmd(vm);	
 	}catch(const po::error &e){

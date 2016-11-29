@@ -69,7 +69,7 @@ private:
 	 * @param argv From int main
 	 * @return  Configuration object
 	 */
-	Configuration* _parseCmdArgs(int argc,char** argv);
+	CmdOptionsParsed* _parseCmdArgs(int argc,char** argv);
 	/**
 	 * @brief Set configuration struct with match options 
 	 * @param vm Map of seted options from cmd

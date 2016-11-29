@@ -42,20 +42,16 @@ void TransCopy::_cmdCopy(){
 }
 
 void TransCopy::_setSettingsFromArgs(int argc,char** argv){
-	Configuration *defaultConfiguration = this->_parseCmdArgs(argc,argv);	
-	
-	defaultConfiguration->gui = false;
-	
-	TransCopyConfiguration::getConfiguration().setConfiguration(defaultConfiguration);
-	
-	delete defaultConfiguration;
-}
-
-Configuration* TransCopy::_parseCmdArgs(int argc,char** argv){		
 	try{
-		CmdOptionsParsed* parsedOptions =  CmdOptionsParser::parseAndGetCmdOptionsValue(argc,argv,this->cmdDesc);		
+		CmdOptionsParsed* parsedOptions = this->_parseCmdArgs(argc,argv);	
 		
-		return  this->_setConfigurationFromCmd(vm);	
+		this->_setConfigurationFromCmd(parsedOptions);
+		
+		defaultConfiguration->gui = false;
+		
+		TransCopyConfiguration::getConfiguration().setConfiguration(defaultConfiguration);
+		
+		delete defaultConfiguration;
 	}catch(const po::error &e){
 		if(vm.count("help")){
 			std::cout<<desc<<std::endl;	
@@ -65,7 +61,10 @@ Configuration* TransCopy::_parseCmdArgs(int argc,char** argv){
 		}
 		return this->_setConfigurationFromCmd(vm);
 	}
-	
+}
+
+CmdOptionsParsed* TransCopy::_parseCmdArgs(int argc,char** argv){		
+		return CmdOptionsParser::parseAndGetCmdOptionsValue(argc,argv,this->cmdDesc);		
 }
 
 Configuration* TransCopy::_setConfigurationFromCmd(po::variables_map &vm){

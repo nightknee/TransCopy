@@ -2,6 +2,7 @@
 #define CMDOPTIONSPARSED_H
 
 #include <boost/program_options.hpp>
+#include <string>
 
 namespace po = boost::program_options;
 
@@ -16,6 +17,8 @@ friend class CmdOptionsParser;
 public:
 	CmdOptionsParsed();
 	bool optionExist(const std::string& opt);
+	std::string optionStringValue(const std::string opt);
+	int optionIntValue(const std::string opt);	
 	~CmdOptionsParsed();
 private: 	
 	optionsStoreTypePtr vm;

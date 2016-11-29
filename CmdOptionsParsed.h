@@ -21,7 +21,7 @@ public:
 	int optionIntValue(const std::string opt);	
 	~CmdOptionsParsed();
 private: 	
-	optionsStoreTypePtr vm;
+	optionsStoreType vm;
 
 };
 

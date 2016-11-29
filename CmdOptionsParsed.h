@@ -1,20 +1,24 @@
-#ifndef CMDOPTIONSPARSED_H
+#ifndef  CMDOPTIONSPARSED_H
 #define CMDOPTIONSPARSED_H
-
-#include "CmdOptionsParsedAbstract.h"
 
 #include <boost/program_options.hpp>
 
 namespace po = boost::program_options;
 
-class CmdOptionsParsed : public CmdOptionsParsedAbstract
+typedef std::shared_ptr<po::variables_map> optionsStoreTypePtr;
+typedef po::variables_map optionsStoreType;
+
+class CmdOptionsParser;
+
+class CmdOptionsParsed 
 {
+friend class CmdOptionsParser;
 public:
 	CmdOptionsParsed();
 	bool optionExist(const std::string& opt);
 	~CmdOptionsParsed();
 private: 	
-	std::shared_ptr<po::variables_map> vm;
+	optionsStoreTypePtr vm;
 
 };
 

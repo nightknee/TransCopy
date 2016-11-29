@@ -4,11 +4,15 @@ CmdOptionsParser::CmdOptionsParser()
 {
 }
 
-void CmdOptionsParser::parseAndStoreCmdOptions(int argc,char** argv,
-													CmdOptionsDescriptionAbstract*  desc,
-													CmdOptionsParsedAbstract* vm)
+CmdOptionsParsed* parseAndGetCmdOptionsValue(int argc,char** argv,std::shared_ptr<CmdOptionsDescription>  optionsDesc)
  {
-		po::store(po::parse_command_line(argc,argv,desc),vm);
-		po::notify(vm);	
+		po::variables_map cmdOptions;
+		
+		po::store(po::parse_command_line(argc,argv,optionsDesc->desc),cmdOptions);
+		po::notify(cmdOptions);
+	
+		CmdOptionsParsed* optionsVM = new CmdOptionsParsed;
+		optionsVM->vm = cmdOptions;
+		return optionsVM;
 }
 

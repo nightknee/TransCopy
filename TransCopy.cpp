@@ -2,8 +2,7 @@
 
 TransCopy::TransCopy()
 {
-	this->cmdDesc = std::make_shared<CmdOptionsDescription>("Options");
-	this->cmdOptionsParsed = std::make_shared<CmdOptionsParsed>();
+	this->cmdDesc = std::make_shared<CmdOptionsDescription>("Options");	
 	
 	this->messageRun();
 
@@ -54,7 +53,7 @@ void TransCopy::_setSettingsFromArgs(int argc,char** argv){
 
 Configuration* TransCopy::_parseCmdArgs(int argc,char** argv){		
 	try{
-		CmdOptionsParser::parseAndStoreCmdOptions(argc,argv,this->cmdDesc,this->cmdOptionsParsed);		
+		CmdOptionsParsed* parsedOptions =  CmdOptionsParser::parseAndGetCmdOptionsValue(argc,argv,this->cmdDesc);		
 		
 		return  this->_setConfigurationFromCmd(vm);	
 	}catch(const po::error &e){
@@ -86,15 +85,6 @@ Configuration* TransCopy::_setConfigurationFromCmd(po::variables_map &vm){
 		_tempConfiguration->gui = false;
 	}
 	return _tempConfiguration;
-}
-
-void TransCopy::_prepareCmdDescription(po::options_description &desc){
-	desc.add_options()
-		("help,h","Help message")
-		("file-path,f",po::value<std::string>()->required(),"Path to list files")
-		("destination-path,d",po::value<std::string>()->required(),"Path when copy files")
-		("notyficate,n","Show informations about progress copy")
-		("terminal,t","Not running with GUI");
 }
 
 void TransCopy::_showConfiguration(){

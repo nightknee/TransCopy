@@ -1,18 +1,18 @@
-#ifndef CMDOPTIONSPARSER_H
+#ifndef  CMDOPTIONSPARSER_H
 #define CMDOPTIONSPARSER_H
 
 #include <boost/program_options.hpp>
 
-#include "CmdOptionsParserAbstract.h"
-
+#include "CmdOptionsParsed.h"
+#include "CmdOptionsDescription.h"
 
 namespace po = boost::program_options;
 
-class CmdOptionsParser : public CmdOptionsParserAbstract
+class CmdOptionsParser 
 {
 public:
 	CmdOptionsParser();
-	void parseAndStoreCmdOptions(int argc,char** argv,CmdOptionsDescriptionAbstract*  desc,CmdOptionsParsedAbstract* vm) ;
+	static CmdOptionsParsed* parseAndGetCmdOptionsValue(int argc,char** argv,std::shared_ptr<CmdOptionsDescription>  optionsDesc) ;
 };
 
 #endif // CMDOPTIONSPARSER_H

@@ -3,10 +3,10 @@
 CmdOptionsDescription::CmdOptionsDescription(std::string caption) 
 {
 		this->desc = std::make_shared<po::options_description>(caption);
-		this->loadOptions();
+		this->setDefaultOptions();
 }
 
-void CmdOptionsDescription::loadOptions(){
+void CmdOptionsDescription::setDefaultOptions(){
 	this->desc->add_options()
 		("help,h","Help message")
 		("file-path,f",po::value<std::string>()->required(),"Path to list files")

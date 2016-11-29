@@ -89,13 +89,10 @@
     <File Name="CopyStatus.cpp"/>
     <File Name="CmdCopy.h"/>
     <File Name="CmdCopy.cpp"/>
-    <File Name="CmdOptionsDescriptionAbstract.h"/>
     <File Name="CmdOptionsDescription.h"/>
     <File Name="CmdOptionsDescription.cpp"/>
-    <File Name="CmdOptionsParsedAbstract.h"/>
     <File Name="CmdOptionsParsed.h"/>
     <File Name="CmdOptionsParsed.cpp"/>
-    <File Name="CmdOptionsParserAbstract.h"/>
     <File Name="CmdOptionsParser.h"/>
     <File Name="CmdOptionsParser.cpp"/>
   </VirtualDirectory>

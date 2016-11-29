@@ -71,11 +71,6 @@ private:
 	 */
 	Configuration* _parseCmdArgs(int argc,char** argv);
 	/**
-	 * @brief Set discription from cmd options
-	 * @param desc Object to set description from cmd options
-	 */
-	void _prepareCmdDescription(po::options_description &desc);
-	/**
 	 * @brief Set configuration struct with match options 
 	 * @param vm Map of seted options from cmd
 	 * @return Object of Configuration structure
@@ -137,8 +132,6 @@ private:
 	AbstractFileParse* _parser;
 	
 	std::shared_ptr<CmdOptionsDescription> cmdDesc;
-	
-	std::shared_ptr<CmdOptionsParsed> cmdOptionsParsed;
 };
 
 #endif // TRANSCOPY_H

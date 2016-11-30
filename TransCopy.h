@@ -75,7 +75,7 @@ private:
 	 * @param vm Map of seted options from cmd
 	 * @return Object of Configuration structure
 	 */
-	Configuration* _setConfigurationFromCmd(po::variables_map &vm);
+	Configuration* _setConfigurationFromCmd(CmdOptionsParsed* vm);
 	/** end cmd options*/
 	
 	void _helpMessage();

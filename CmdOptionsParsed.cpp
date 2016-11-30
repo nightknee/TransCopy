@@ -20,3 +20,7 @@ std::string CmdOptionsParsed::optionStringValue(const std::string opt){
 int CmdOptionsParsed::optionIntValue(const std::string opt){
 	return this->vm[opt].as<int>();
 }
+
+void CmdOptionsParsed::setSourceParsedOptions(optionsStoreType parsedOptions){
+	this->vm = parsedOptions;
+}

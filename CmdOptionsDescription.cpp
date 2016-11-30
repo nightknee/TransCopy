@@ -14,3 +14,12 @@ void CmdOptionsDescription::setDefaultOptions(){
 		("notyficate,n","Show informations about progress copy")
 		("terminal,t","Not running with GUI");
 }
+
+optionsDescriptionType CmdOptionsDescription::sourceCmdDescription(){
+	optionsDescriptionType tempCmdOptions = *this->desc;
+	return tempCmdOptions;
+}
+
+void CmdOptionsDescription::setOptionToDisplay(std::string option){
+	this->optionToDisplayAllOptions = option;
+}

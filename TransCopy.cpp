@@ -3,6 +3,7 @@
 TransCopy::TransCopy()
 {
 	this->cmdDesc = std::make_shared<CmdOptionsDescription>("Options");	
+	this->cmdDesc->setOptionToDisplay("help");
 	
 	this->messageRun();
 
@@ -45,7 +46,7 @@ void TransCopy::_setSettingsFromArgs(int argc,char** argv){
 	try{
 		CmdOptionsParsed* parsedOptions = this->_parseCmdArgs(argc,argv);	
 		
-		this->_setConfigurationFromCmd(parsedOptions);
+		Configuration* defaultConfiguration = this->_setConfigurationFromCmd(parsedOptions);
 		
 		defaultConfiguration->gui = false;
 		

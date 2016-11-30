@@ -18,9 +18,12 @@ class CmdOptionsDescription
 	
 public:
 	CmdOptionsDescription(std::string caption);	
+	optionsDescriptionType sourceCmdDescription();
+	void setOptionToDisplay(std::string option);
 private: 
 	void setDefaultOptions();
-	optionsDescriptionTypePtr desc;
+	optionsDescriptionTypePtr desc;	
+	std::string optionToDisplayAllOptions;
 };
 
 #endif // CMDOPTIONS_H

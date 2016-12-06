@@ -12,7 +12,7 @@ class CmdOptionsParser
 {
 public:
 	CmdOptionsParser();
-	static CmdOptionsParsed* parseAndGetCmdOptionsValue(int argc,char** argv,std::shared_ptr<CmdOptionsDescription>  optionsDesc) ;
+	static CmdOptionsParsed* parseAndGetCmdOptionsValue(int argc,char** argv,std::shared_ptr<CmdOptionsDescription>  optionsDesc) ;	
 };
 
 #endif // CMDOPTIONSPARSER_H

@@ -24,3 +24,10 @@ int CmdOptionsParsed::optionIntValue(const std::string opt){
 void CmdOptionsParsed::setSourceParsedOptions(optionsStoreType parsedOptions){
 	this->vm = parsedOptions;
 }
+
+bool CmdOptionsParsed::optionToDisplayDescriptionExist(std::shared_ptr<CmdOptionsDescription> desc){
+	if(this->optionExist(desc->getOptionToDisplay())){
+		return true;
+	}
+	return false;
+}

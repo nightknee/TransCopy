@@ -4,6 +4,8 @@
 #include <boost/program_options.hpp>
 #include <string>
 
+#include "CmdOptionsDescription.h"
+
 namespace po = boost::program_options;
 
 typedef std::shared_ptr<po::variables_map> optionsStoreTypePtr;
@@ -20,6 +22,7 @@ public:
 	std::string optionStringValue(const std::string opt);
 	int optionIntValue(const std::string opt);
 	void setSourceParsedOptions(optionsStoreType parsedOptions);
+	bool optionToDisplayDescriptionExist(std::shared_ptr<CmdOptionsDescription> desc);
 	~CmdOptionsParsed();
 private: 	
 	optionsStoreType vm;

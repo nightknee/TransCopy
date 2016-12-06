@@ -2,7 +2,12 @@
 
 CmdOptionsDescription::CmdOptionsDescription(std::string caption) 
 {
+		this->availableToDisplay = false;
+		
+		this->optionToDisplayAllOptions = "";
+		
 		this->desc = std::make_shared<po::options_description>(caption);
+		
 		this->setDefaultOptions();
 }
 
@@ -22,4 +27,16 @@ optionsDescriptionType CmdOptionsDescription::sourceCmdDescription(){
 
 void CmdOptionsDescription::setOptionToDisplay(std::string option){
 	this->optionToDisplayAllOptions = option;
+}
+
+std::string CmdOptionsDescription::getOptionToDisplay(){
+	return this->optionToDisplayAllOptions;
+}
+
+bool CmdOptionsDescription::displayDiscription(){
+	return this->availableToDisplay;
+}
+
+void CmdOptionsDescription::makeAvaibleToDisplay(){
+	this->availableToDisplay = true;
 }

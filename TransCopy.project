@@ -95,6 +95,8 @@
     <File Name="CmdOptionsParsed.cpp"/>
     <File Name="CmdOptionsParser.h"/>
     <File Name="CmdOptionsParser.cpp"/>
+    <File Name="Exceptions/CmdOptionsParserException.cpp"/>
+    <File Name="Exceptions/CmdOptionsParserException.h"/>
   </VirtualDirectory>
   <Settings Type="Executable">
     <GlobalSettings>

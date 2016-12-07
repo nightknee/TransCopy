@@ -5,6 +5,7 @@
 
 #include "CmdOptionsParsed.h"
 #include "CmdOptionsDescription.h"
+#include "Exceptions/CmdOptionsParserException.h"
 
 namespace po = boost::program_options;
 

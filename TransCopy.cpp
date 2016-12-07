@@ -53,7 +53,7 @@ void TransCopy::_setSettingsFromArgs(int argc,char** argv){
 		TransCopyConfiguration::getConfiguration().setConfiguration(defaultConfiguration);
 		
 		delete defaultConfiguration;
-	}catch(const po::error &e){
+	}catch(const  &e){
 		if(vm.count("help")){
 			std::cout<<desc<<std::endl;	
 			throw new BaseException;

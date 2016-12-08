@@ -22,8 +22,6 @@ CmdOptionsParsed* parseAndGetCmdOptionsValue(int argc,char** argv,std::shared_pt
 			optionsDesc->makeAvaibleToDisplay();
 		}
 		
-		optionsVM->setSourceParsedOptions(cmdOptions);
-		
-		return  optionsVM;
+		throw new CmdOptionsParserException(e.what());
 	}
 }

@@ -43,24 +43,16 @@ void TransCopy::_cmdCopy(){
 }
 
 void TransCopy::_setSettingsFromArgs(int argc,char** argv){
-	try{
-		CmdOptionsParsed* parsedOptions = this->_parseCmdArgs(argc,argv);	
+	try{	
+		CmdOptionsParsed* parsedOptions = this->_parseCmdArgs(argc,argv);
 		
-		Configuration* defaultConfiguration = this->_setConfigurationFromCmd(parsedOptions);
-		
-		defaultConfiguration->gui = false;
-		
-		TransCopyConfiguration::getConfiguration().setConfiguration(defaultConfiguration);
-		
-		delete defaultConfiguration;
-	}catch(const  &e){
-		if(vm.count("help")){
-			std::cout<<desc<<std::endl;	
+	}	
+	catch (const CmdOptionsParserException *e){	
+		if (this->cmdDesc->displayDiscription()){
+			std::cout<<"gege"<<std::endl;
 			throw new BaseException;
-		}else{
-			std::cout<<e.what()<<std::endl;
 		}
-		return this->_setConfigurationFromCmd(vm);
+		std::cout<<e->what()<<std::endl;
 	}
 }
 

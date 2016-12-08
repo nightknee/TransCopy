@@ -12,10 +12,7 @@ typedef po::options_description optionsDescriptionType;
 class CmdOptionsParser;
 
 class CmdOptionsDescription
-{
-	
-	friend class CmdOptionsParser;
-	
+{	
 public:
 	CmdOptionsDescription(std::string caption);	
 	optionsDescriptionType sourceCmdDescription();
@@ -29,5 +26,4 @@ private:
 	std::string optionToDisplayAllOptions;
 	bool availableToDisplay;
 };
-
 #endif // CMDOPTIONS_H

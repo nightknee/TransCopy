@@ -49,7 +49,7 @@ void TransCopy::_setSettingsFromArgs(int argc,char** argv){
 	}	
 	catch (const CmdOptionsParserException *e){	
 		if (this->cmdDesc->displayDiscription()){
-			std::cout<<"gege"<<std::endl;
+			std::cout<<this->cmdDesc<<std::endl;
 			throw new BaseException;
 		}
 		std::cout<<e->what()<<std::endl;
@@ -60,20 +60,20 @@ CmdOptionsParsed* TransCopy::_parseCmdArgs(int argc,char** argv){
 		return CmdOptionsParser::parseAndGetCmdOptionsValue(argc,argv,this->cmdDesc);		
 }
 
-Configuration* TransCopy::_setConfigurationFromCmd(po::variables_map &vm){
+Configuration* TransCopy::_setConfigurationFromCmd(CmdOptionsParsed* parsedOptions){
 	Configuration *_tempConfiguration = new Configuration;
 	
-	if(vm.count("file-path")){
-		_tempConfiguration->fileToParsePath = vm["file-path"].as<std::string>();
+	if(parsedOptions->optionExist("file-path")){
+		_tempConfiguration->fileToParsePath = parsedOptions->optionStringValue("file-path");
 	}
 		
-	if(vm.count("destination-path")){
-		_tempConfiguration->destinationPath = vm["destination-path"].as<std::string>();
+	if(parsedOptions->optionExist("destination-path")){
+		_tempConfiguration->destinationPath = parsedOptions->optionStringValue("destination-path");
 	}
-	if(vm.count("notyficate")){
+	if(parsedOptions->optionExist("notyficate")){
 		_tempConfiguration->notyficate = true;
 	}
-	if(vm.count("terminal")){
+	if(parsedOptions->optionExist("terminal")){
 		_tempConfiguration->gui = false;
 	}
 	return _tempConfiguration;

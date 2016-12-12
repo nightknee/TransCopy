@@ -21,7 +21,7 @@ int TransCopy::run(int argc,char** argv){
 			this->_cmdCopy();
 		}
 	}
-	catch(BaseException *e){
+	catch(const BaseException *e){
 		MainExceptionHandler::handleException(e);
 	}
 	catch(std::exception *e){
@@ -52,7 +52,7 @@ void TransCopy::_setSettingsFromArgs(int argc,char** argv){
 			std::cout<<this->cmdDesc<<std::endl;
 			throw new BaseException;
 		}
-		std::cout<<e->what()<<std::endl;
+		throw e;
 	}
 }
 

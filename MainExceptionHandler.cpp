@@ -1,10 +1,10 @@
 #include "MainExceptionHandler.h"
 
 
-void MainExceptionHandler::handleException(BaseException* e){
+void MainExceptionHandler::handleException(const BaseException* e){
 	std::cout<<e->what()<<std::endl;
 }
 
-void MainExceptionHandler::handleException(std::exception* e){
+void MainExceptionHandler::handleException(const std::exception* e){
 	std::cout<<e->what()<<std::endl;
 }

@@ -11,8 +11,7 @@ namespace po = boost::program_options;
 
 class CmdOptionsParser 
 {
-public:
-	CmdOptionsParser();
+public:	
 	static CmdOptionsParsed* parseAndGetCmdOptionsValue(int argc,char** argv,std::shared_ptr<CmdOptionsDescription>  optionsDesc) ;	
 };
 

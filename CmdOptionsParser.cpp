@@ -1,10 +1,6 @@
 #include "CmdOptionsParser.h"
 
-CmdOptionsParser::CmdOptionsParser()
-{
-}
-
-CmdOptionsParsed* parseAndGetCmdOptionsValue(int argc,char** argv,std::shared_ptr<CmdOptionsDescription>  optionsDesc)
+CmdOptionsParsed* CmdOptionsParser::parseAndGetCmdOptionsValue(int argc,char** argv,std::shared_ptr<CmdOptionsDescription>  optionsDesc)
  {
 	po::variables_map cmdOptions;
 	

@@ -56,8 +56,8 @@ void TransCopy::_setSettingsFromArgs(int argc,char** argv){
 	}
 }
 
-CmdOptionsParsed* TransCopy::_parseCmdArgs(int argc,char** argv){		
-		return CmdOptionsParser::parseAndGetCmdOptionsValue(argc,argv,this->cmdDesc);		
+CmdOptionsParsed* TransCopy::_parseCmdArgs(int argc,char** argv){			
+		return CmdOptionsParser::parseAndGetCmdOptionsValue(argc,argv,this->cmdDesc);
 }
 
 Configuration* TransCopy::_setConfigurationFromCmd(CmdOptionsParsed* parsedOptions){

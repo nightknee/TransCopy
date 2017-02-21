@@ -1,5 +1,6 @@
 *.txt
 *.mk
+*.o
 TransCopy.project
 /Debug/*
 /Release/*

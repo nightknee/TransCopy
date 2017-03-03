@@ -14,9 +14,7 @@ CmdOptionsParsed* CmdOptionsParser::parseAndGetCmdOptionsValue(int argc,char** a
 		return optionsVM;
 	}
 	catch(const po::error &e){
-		if (optionsVM->optionToDisplayDescriptionExist(optionsDesc)){
 			optionsDesc->makeAvaibleToDisplay();
-		}
 		
 		throw new CmdOptionsParserException(e.what());
 	}

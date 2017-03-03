@@ -22,7 +22,6 @@ public:
 	std::string optionStringValue(const std::string opt);
 	int optionIntValue(const std::string opt);
 	void setSourceParsedOptions(optionsStoreType parsedOptions);
-	bool optionToDisplayDescriptionExist(std::shared_ptr<CmdOptionsDescription> desc);
 	~CmdOptionsParsed();
 private: 	
 	optionsStoreType vm;

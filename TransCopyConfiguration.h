@@ -5,45 +5,43 @@
 
 #include "Configuration.h"
 
-
 class TransCopyConfiguration {
-
 public:
- 
-	TransCopyConfiguration();
 
-	std::string getFileToParsePath();
+    TransCopyConfiguration();
 
-	std::string getDestinationPath();
+    std::string getFileToParsePath();
 
-    bool withGui();	
-	
-	bool isDebug();
-	
-	bool pathValidationResult();
-	
-	bool fileValidationResult();
-	
-	void setConfiguration(Configuration* configuration);
-	
-	void pathValidResult(bool result);
-	
-	void fileValidResult(bool result);
-	
-	bool notyficate();
-	
-	void setNotyficate(bool result);
+    std::string getDestinationPath();
 
-	static TransCopyConfiguration&  getConfiguration();
+    bool withGui();
+
+    bool isDebug();
+
+    bool pathValidationResult();
+
+    bool fileValidationResult();
+
+    void setConfiguration(Configuration* configuration);
+
+    void pathValidResult(bool result);
+
+    void fileValidResult(bool result);
+
+    bool notyficate();
+
+    void setNotyficate(bool result);
+
+    static TransCopyConfiguration& getConfiguration();
 
 private:
-	std::string _fileToParsePath;
-	std::string _destinationPath;
-	bool _notyficate;
-	bool _gui;
-	bool _debug;
-	bool _pathIsValid;
-	bool _fileIsValid;
+    std::string _fileToParsePath;
+    std::string _destinationPath;
+    bool _notyficate;
+    bool _gui;
+    bool _debug;
+    bool _pathIsValid;
+    bool _fileIsValid;
 };
 
 #endif // TransCopyConfiguration_h

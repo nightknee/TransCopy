@@ -1,14 +1,12 @@
 #ifndef CMDCOPY_H
 #define CMDCOPY_H
 
-class CmdCopy
-{
+class CmdCopy {
 public:
 
 private:
-	CmdCopy();
-	~CmdCopy();
-
+    CmdCopy();
+    ~CmdCopy();
 };
 
 #endif // CMDCOPY_H

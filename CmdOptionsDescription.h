@@ -11,19 +11,18 @@ typedef po::options_description optionsDescriptionType;
 
 class CmdOptionsParser;
 
-class CmdOptionsDescription
-{	
+class CmdOptionsDescription {
 public:
-	CmdOptionsDescription(std::string caption);	
-	optionsDescriptionType sourceCmdDescription();
-	void setOptionToDisplay(std::string option);
-	std::string getOptionToDisplay();
-	bool displayDiscription();
-	void makeAvaibleToDisplay();
-private: 
-	void setDefaultOptions();
-	optionsDescriptionTypePtr desc;	
-	std::string optionToDisplayAllOptions;
-	bool availableToDisplay;
+    CmdOptionsDescription(std::string caption);
+    optionsDescriptionType sourceCmdDescription();
+    void setOptionToDisplay(std::string option);
+    std::string getOptionToDisplay();
+    bool displayDiscription();
+    void makeAvaibleToDisplay();
+private:
+    void setDefaultOptions();
+    optionsDescriptionTypePtr desc;
+    std::string optionToDisplayAllOptions;
+    bool availableToDisplay;
 };
 #endif // CMDOPTIONS_H

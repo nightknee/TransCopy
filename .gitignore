@@ -4,5 +4,8 @@
 /Debug/*
 /Release/*
 /Build/*
+/nbproject/*
 TransCopy.project
 TransCopy*
+*.pls
+

@@ -41,7 +41,7 @@ void TransCopy::setSettingsFromArgs(int argc,char** argv){
 	catch (const CmdOptionsParserException *e){	
 		if (this->cmdDesc->displayDiscription()){
 			
-			std::cout<<this->cmdDesc<<std::endl;
+			std::cout<<this->cmdDesc->sourceCmdDescription()<<std::endl;
 			
 			throw new BaseException;			
 		}

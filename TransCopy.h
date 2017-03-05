@@ -25,6 +25,12 @@
  */
 class TransCopy {
 public:
+    
+    const std::string OPTION_FILE_PATH = "file-path";
+    const std::string OPTION_DESTINATION_PATH = "file-path";
+    const std::string OPTION_NOTYFICATE = "file-path";
+    const std::string OPTION_TERMINAL = "file-path";
+    
     //Public functions
     TransCopy();
     ~TransCopy();

@@ -65,17 +65,17 @@ CmdOptionsParsed* TransCopy::parseCmdArgs(int argc, char** argv) {
 Configuration* TransCopy::setConfigurationFromCmd(CmdOptionsParsed* parsedOptions) {
     Configuration* tempConfiguration = new Configuration;
 
-    if (parsedOptions->optionExist("file-path")) {
-        tempConfiguration->fileToParsePath = parsedOptions->optionStringValue("file-path");
+    if (parsedOptions->optionExist(TransCopy::OPTION_FILE_PATH)) {
+        tempConfiguration->fileToParsePath = parsedOptions->optionStringValue(TransCopy::OPTION_FILE_PATH);
     }
 
-    if (parsedOptions->optionExist("destination-path")) {
-        tempConfiguration->destinationPath = parsedOptions->optionStringValue("destination-path");
+    if (parsedOptions->optionExist(TransCopy::OPTION_DESTINATION_PATH)) {
+        tempConfiguration->destinationPath = parsedOptions->optionStringValue(TransCopy::OPTION_DESTINATION_PATH);
     }
-    if (parsedOptions->optionExist("notyficate")) {
+    if (parsedOptions->optionExist(TransCopy::OPTION_NOTYFICATE)) {
         tempConfiguration->notyficate = true;
     }
-    if (parsedOptions->optionExist("terminal")) {
+    if (parsedOptions->optionExist(TransCopy::OPTION_TERMINAL)) {
         tempConfiguration->gui = false;
     }
     return tempConfiguration;

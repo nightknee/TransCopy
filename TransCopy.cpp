@@ -1,47 +1,53 @@
 #include "TransCopy.h"
 
 TransCopy::TransCopy() {
-    this->cmdDesc = std::make_shared<CmdOptionsDescription>("Options");
-    this->cmdDesc->setOptionToDisplay("help");
-
     this->messageRun();
-
+ 
+    CmdOptionsDescription optionsDescription("Options");
+    this->cmdDesc = this->setBaseCmdOptionsDescription(optionsDescription);   
 }
 
-TransCopy::~TransCopy() {
+std::shared_ptr<CmdOptionsDescription> TransCopy::setBaseCmdOptionsDescription(CmdOptionsDescription& description)
+{    
+    description.add_options()
+            ("help,h", "Help message")
+            ("file-path,f", po::value<std::string>()->required(), "Path to list files")
+            ("destination-path,d", po::value<std::string>()->required(), "Path when copy files")
+            ("notificate,n", "Show informations about progress copy")
+            ("terminal,t", "Not running with GUI");
+    
+    return std::make_shared<CmdOptionsDescription>(description);
 }
 
 int TransCopy::run(int argc, char** argv) {
     try {
         this->setSettingsFromArgs(argc, argv);
 
-        if (TransCopyConfiguration::getConfiguration().withGui()) {
-
+        if (TransCopyConfiguration::getInstance()->optionExist("gui")) {
+            
         } else {
             this->cmdCopy();
         }
     } catch (const BaseException *e) {
-        MainExceptionHandler::handleException(e);
+        std::cout<<*this->cmdDesc<<std::endl;
+        
+        if (!TransCopyConfiguration::getInstance()->optionExist(TransCopy::OPTION_HELP)) {
+            MainExceptionHandler::handleException(e);
+        }       
     } catch (std::exception *e) {
-        MainExceptionHandler::handleException(e);
+        std::cout<<*this->cmdDesc<<std::endl;
+        
+        if (!TransCopyConfiguration::getInstance()->optionExist(TransCopy::OPTION_HELP)) {
+            MainExceptionHandler::handleException(e);
+        }
     }
     return 0;
 }
 
 void TransCopy::setSettingsFromArgs(int argc, char** argv) {
     try {
-        CmdOptionsParsed* parsedOptions = this->parseCmdArgs(argc, argv);
-
-        Configuration* tempConfiguration = this->setConfigurationFromCmd(parsedOptions);
-
-        TransCopyConfiguration::getConfiguration().setConfiguration(tempConfiguration);
-    } catch (const CmdOptionsParserException *e) {
-        if (this->cmdDesc->displayDiscription()) {
-
-            std::cout << this->cmdDesc->sourceCmdDescription() << std::endl;
-
-            throw new BaseException;
-        }
+           CmdOptionsParser::parseCmdOptionsToConfiguration(argc, argv, this->cmdDesc);
+    } catch (const CmdOptionsParserException *e) {       
         throw e;
     }
 }
@@ -56,37 +62,6 @@ void TransCopy::cmdCopy() {
     if (this->manageParseFile()) {
         this->copyParsedFiles();
     }
-}
-
-CmdOptionsParsed* TransCopy::parseCmdArgs(int argc, char** argv) {
-    return CmdOptionsParser::parseAndGetCmdOptionsValue(argc, argv, this->cmdDesc);
-}
-
-Configuration* TransCopy::setConfigurationFromCmd(CmdOptionsParsed* parsedOptions) {
-    Configuration* tempConfiguration = new Configuration;
-
-    if (parsedOptions->optionExist(TransCopy::OPTION_FILE_PATH)) {
-        tempConfiguration->fileToParsePath = parsedOptions->optionStringValue(TransCopy::OPTION_FILE_PATH);
-    }
-
-    if (parsedOptions->optionExist(TransCopy::OPTION_DESTINATION_PATH)) {
-        tempConfiguration->destinationPath = parsedOptions->optionStringValue(TransCopy::OPTION_DESTINATION_PATH);
-    }
-    if (parsedOptions->optionExist(TransCopy::OPTION_NOTYFICATE)) {
-        tempConfiguration->notyficate = true;
-    }
-    if (parsedOptions->optionExist(TransCopy::OPTION_TERMINAL)) {
-        tempConfiguration->gui = false;
-    }
-    return tempConfiguration;
-}
-
-void TransCopy::showConfiguration() {
-    TransCopyConfiguration configuration = TransCopyConfiguration::getConfiguration();
-
-    std::cout << configuration.getDestinationPath()
-            << std::endl << configuration.getFileToParsePath()
-            << std::endl << configuration.withGui() << std::endl;
 }
 
 std::string TransCopy::Name = "TransCopy";
@@ -115,12 +90,12 @@ std::shared_ptr<File> TransCopy::getFileToParse() {
 }
 
 void TransCopy::createFileToParseObject() {
-    File* file = FileManager::createFileObject(TransCopyConfiguration::getConfiguration().getFileToParsePath());
+    File* file = FileManager::createFileObject(TransCopyConfiguration::getInstance()->getStringOptionValue(TransCopy::OPTION_FILE_PATH));
     this->fileToParse = std::make_shared<File>(*file);
 }
 
 void TransCopy::createPathDestinationObject() {
-    fs::path* path = FileManager::createPathObject(TransCopyConfiguration::getConfiguration().getDestinationPath());
+    fs::path* path = FileManager::createPathObject(TransCopyConfiguration::getInstance()->getStringOptionValue(TransCopy::OPTION_DESTINATION_PATH));
     this->pathDestination = std::make_shared<fs::path>(*path);
 }
 
@@ -138,11 +113,11 @@ void TransCopy::copyParsedFiles() {
     this->setCopyStatusValues(files);
 
     for (FileVector::iterator i = files->begin(); i != files->end(); ++i) {
-        if (FileManager::copyFile(*i, TransCopyConfiguration::getConfiguration().getDestinationPath())) {
+        if (FileManager::copyFile(*i, TransCopyConfiguration::getInstance()->getStringOptionValue(TransCopy::OPTION_DESTINATION_PATH))) {
             CopyStatus::getCopyStatus().increaseCopiedNumberFiles();
             CopyStatus::getCopyStatus().addCopiedFileSize(i->size());
 
-            if (TransCopyConfiguration::getConfiguration().notyficate()) {
+            if (TransCopyConfiguration::getInstance()->optionExist(TransCopy::OPTION_NOTIFICATE)) {
                 this->showCopyStats();
             }
         }

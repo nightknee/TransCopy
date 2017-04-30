@@ -27,13 +27,13 @@ class TransCopy {
 public:
     
     const std::string OPTION_FILE_PATH = "file-path";
-    const std::string OPTION_DESTINATION_PATH = "file-path";
-    const std::string OPTION_NOTYFICATE = "file-path";
-    const std::string OPTION_TERMINAL = "file-path";
+    const std::string OPTION_DESTINATION_PATH = "destination-path";
+    const std::string OPTION_NOTIFICATE = "notificate";
+    const std::string OPTION_TERMINAL = "terminal";
+    const std::string OPTION_HELP = "help";
     
     //Public functions
-    TransCopy();
-    ~TransCopy();
+    TransCopy();    
     /**
      * @brief  Main program function called all function seted variables
      * @param argc From int main()
@@ -69,22 +69,12 @@ private:
      */
     void setSettingsFromArgs(int argc, char** argv);
     /**
-     * @brief  Parsing arguments from cmd and return configuration object to set
-     * @param argc From int main
-     * @param argv From int main
-     * @return  Configuration object
-     */
-    CmdOptionsParsed* parseCmdArgs(int argc, char** argv);
-    /**
      * @brief Set configuration struct with match options 
      * @param vm Map of seted options from cmd
      * @return Object of Configuration structure
      */
-    Configuration* setConfigurationFromCmd(CmdOptionsParsed* parsedOptions);
-    /** end cmd options*/
 
     void helpMessage();
-    void showConfiguration();
     /**
      * @brief Set finded parser object after validate _fileToParse
      */
@@ -121,6 +111,8 @@ private:
      */
     void cmdCopy();
 
+    std::shared_ptr<CmdOptionsDescription> setBaseCmdOptionsDescription(CmdOptionsDescription& description);
+    
     //Private variables	
 private:
     /**

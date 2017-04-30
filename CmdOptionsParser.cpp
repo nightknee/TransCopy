@@ -1,19 +1,15 @@
 #include "CmdOptionsParser.h"
 
-CmdOptionsParsed* CmdOptionsParser::parseAndGetCmdOptionsValue(int argc, char** argv, std::shared_ptr<CmdOptionsDescription> optionsDesc) {
-    po::variables_map cmdOptions;
+void CmdOptionsParser::parseCmdOptionsToConfiguration(int argc, char** argv, std::shared_ptr<CmdOptionsDescription> optionsDesc) {
+    try {               
+        
+        boost::program_options::variables_map*  map =  TransCopyConfiguration::getBoostInstance();
+        
+        po::store(po::parse_command_line(argc, argv, *optionsDesc), *map);
 
-    CmdOptionsParsed* optionsVM = new CmdOptionsParsed;
-    try {
-        po::store(po::parse_command_line(argc, argv, optionsDesc->sourceCmdDescription()), cmdOptions);
-        po::notify(cmdOptions);
-
-        optionsVM->setSourceParsedOptions(cmdOptions);
-
-        return optionsVM;
+        po::notify(*map);
+        
     } catch (const po::error &e) {
-        optionsDesc->makeAvaibleToDisplay();
-
         throw new CmdOptionsParserException(e.what());
     }
 }

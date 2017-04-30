@@ -19,7 +19,7 @@ all: bulidDirName TransCopy.o TransCopyConfiguration.o PlsParser.o PathNotExistE
 TransCopy.o:  TransCopy.cpp TransCopy.h TransCopyConfiguration.h FileParserContainer.h AbstractFileParse.h MainExceptionHandler.h Exceptions/BaseException.h FileManager.h CopyStatus.h CmdOptionsParser.h CmdOptionsDescription.h CmdOptionsParsed.h
 	$(CC) -c TransCopy.cpp -o $(BUILDDIR)TransCopy.o $(CCFLAGS)
 
-TransCopyConfiguration.o:  TransCopyConfiguration.cpp TransCopyConfiguration.h Configuration.h
+TransCopyConfiguration.o:  TransCopyConfiguration.cpp TransCopyConfiguration.h
 	$(CC) -c TransCopyConfiguration.cpp -o $(BUILDDIR)TransCopyConfiguration.o $(CCFLAGS)
 	
 PlsParser.o: PlsParser.cpp PlsParser.h AbstractFileParse.h

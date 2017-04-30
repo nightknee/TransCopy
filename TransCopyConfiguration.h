@@ -1,47 +1,30 @@
 #ifndef TransCopyConfiguration_h
 #define TransCopyConfiguration_h
 
-#include "TransCopyConfiguration.h"
+#include <boost/program_options.hpp>
 
-#include "Configuration.h"
+#include "CmdOptionsParser.h"
 
-class TransCopyConfiguration {
+class TransCopyConfiguration : public boost::program_options::variables_map {
+    friend class CmdOptionsParser;
 public:
-
-    TransCopyConfiguration();
-
-    std::string getFileToParsePath();
-
-    std::string getDestinationPath();
-
-    bool withGui();
-
-    bool isDebug();
-
-    bool pathValidationResult();
-
-    bool fileValidationResult();
-
-    void setConfiguration(Configuration* configuration);
-
-    void pathValidResult(bool result);
-
-    void fileValidResult(bool result);
-
-    bool notyficate();
-
-    void setNotyficate(bool result);
-
-    static TransCopyConfiguration& getConfiguration();
-
-private:
-    std::string _fileToParsePath;
-    std::string _destinationPath;
-    bool _notyficate;
-    bool _gui;
-    bool _debug;
-    bool _pathIsValid;
-    bool _fileIsValid;
+    virtual bool optionExist(std::string optionName);  
+    
+    virtual const std::string getStringOptionValue(std::string optionName);   
+    
+    virtual const int getIntOptionValue(std::string optionName);        
+    
+    static TransCopyConfiguration* getInstance() {
+        static TransCopyConfiguration instance;
+        
+        return &instance;
+    };  
+    
+private:    
+    static boost::program_options::variables_map* getBoostInstance()
+    {                
+        return TransCopyConfiguration::getInstance();
+    }
 };
 
 #endif // TransCopyConfiguration_h

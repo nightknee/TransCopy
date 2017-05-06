@@ -1,26 +1,23 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/* 
- * File:   DiskObject.h
- * Author: karwan
- *
- * Created on 1 maja 2017, 22:59
- */
-
 #ifndef DISKOBJECT_H
 #define DISKOBJECT_H
 
-#include <boost/filesystem.hpp>
+#ifdef __linux__
+#include "linux/SysFileManager.h"
+#elif _WIN32
+#include "windows/SysFileManager.h"
+#endif
 
-class DiskObject : public boost::filesystem::path {
+#include <boost/filesystem.hpp>
+#include <string>
+
+namespace fs = boost::filesystem;
+
+class DiskObject : public fs::path, protected SysFileManager {
 public:
-    DiskObject();
-    DiskObject(const DiskObject& orig);
-    virtual ~DiskObject();
+    static bool isExist(std::string objectName);
+    DiskObject(std::string path): fs::path(path){} 
+    virtual ~DiskObject() {}
+
 private:
 
 };

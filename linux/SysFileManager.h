@@ -16,7 +16,7 @@
 class SysFileManager {
 public:
 
-    inline bool static copy(std::string sourceFile, std::string destination) {
+    bool copy(std::string sourceFile, std::string destination) {
         int source = open(sourceFile.c_str(), O_RDONLY, 0);
         int dest = open(destination.c_str(), O_WRONLY | O_CREAT, 0644);
         if (source > -1 && dest > -1) {
@@ -36,7 +36,7 @@ public:
      * @brief Is empty beacuse in GNU\Linux is not nessesary to manipulate path
      * @param path
      */
-    inline void static preparePath(std::string& path) {
+    void preparePath(const std::string path) {
     }
 };
 

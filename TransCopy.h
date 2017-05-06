@@ -17,6 +17,8 @@
 #include "CmdOptionsParser.h"
 #include "CmdOptionsDescription.h"
 #include "CmdOptionsParsed.h"
+#include "File.h"
+#include "Directory.h"
 
 /**
  * @class TransCopy

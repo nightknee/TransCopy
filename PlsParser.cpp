@@ -20,10 +20,10 @@ bool PlsParser::parse(std::shared_ptr<File> file) {
         }
         _path = this->getPath(line);
         try {
-            File* file = FileManager::createFileObject(_path);
+            File* file = new File(_path);
             this->_appendToFileSize(file->size());
             this->_parsedFiles.push_back(file);
-        } catch (FileNotExistException* e) {
+        } catch (FileException* e) {
             continue;
         }
     }

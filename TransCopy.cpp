@@ -90,13 +90,13 @@ std::shared_ptr<File> TransCopy::getFileToParse() {
 }
 
 void TransCopy::createFileToParseObject() {
-    File* file = FileManager::createFileObject(TransCopyConfiguration::getInstance()->getStringOptionValue(TransCopy::OPTION_FILE_PATH));
+    File* file = new File(TransCopyConfiguration::getInstance()->getStringOptionValue(TransCopy::OPTION_FILE_PATH));
     this->fileToParse = std::make_shared<File>(*file);
 }
 
 void TransCopy::createPathDestinationObject() {
-    fs::path* path = FileManager::createPathObject(TransCopyConfiguration::getInstance()->getStringOptionValue(TransCopy::OPTION_DESTINATION_PATH));
-    this->pathDestination = std::make_shared<fs::path>(*path);
+    Directory* path = new Directory(TransCopyConfiguration::getInstance()->getStringOptionValue(TransCopy::OPTION_DESTINATION_PATH));
+    this->pathDestination = std::make_shared<Directory>(*path);
 }
 
 void TransCopy::setParser() {

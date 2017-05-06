@@ -11,9 +11,7 @@
 #include <boost/filesystem.hpp>
 
 #include "File.h"
-#include "Exceptions/FileNotExistException.h"
-#include "Exceptions/PathNotExistException.h"
-#include "Exceptions/OpenFileException.h"
+#include "Exceptions/FileException.h"
 
 namespace fs = boost::filesystem;
 
@@ -33,7 +31,7 @@ public:
      * \ home\foo\bar.txt - GNU\Linux
      * @return  If file exist return true
      */
-    static bool fileExist(std::string filePath);
+//    static bool fileExist(std::string filePath);
     /**
      * @brief  Check exist path in file system
      * @param path Example:
@@ -52,7 +50,7 @@ public:
      * @return  pointer to new File class object.  If file doesn't exist throw FileNotExistException
      * @throw  FileNotExistException
      */
-    static File* createFileObject(std::string filePath);
+//    static File* createFileObject(std::string filePath);
     /**
      * @brief Create boost::filesystem class object represent path
      * @param path  like in isAPath function
@@ -89,7 +87,7 @@ private:
      * @param file
      * @return pointer to File object
      */
-    static File* _setBaseInformationToFileObject(File* file);
+//    static File* _setBaseInformationToFileObject(File* file);
 };
 
 #endif // FILEMANAGER_H

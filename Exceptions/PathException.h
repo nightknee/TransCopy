@@ -3,11 +3,11 @@
 
 #include "BaseException.h" 
 
-class PathNotExistException : public BaseException
+class PathException : public BaseException
 {
 public:
-	PathNotExistException(std::string msg);
-	PathNotExistException();	
+	PathException(std::string msg);
+	PathException();	
 };
 
 #endif // PATHNOTEXISTEXCEPTION_H

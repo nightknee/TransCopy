@@ -37,6 +37,14 @@ public:
     std::string getFileName();
     std::string getExntenstion();
     uintmax_t size();    
+    
+    /**
+     * @brief  Open file and return fstream handler to file
+     * @param fileOobject of File class
+     * @param mode std open file modes
+     * @return Pointer to fstream object. If fstream::good() return false then is throwing OpenFileException
+     * @throw FileException
+     */
     std::fstream* open(std::ios_base::openmode mode = std::ios_base::in | std::ios_base::out);            
 
 private:

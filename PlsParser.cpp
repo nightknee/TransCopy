@@ -6,7 +6,7 @@ PlsParser::PlsParser() {
 }
 
 bool PlsParser::parse(std::shared_ptr<File> file) {
-    std::fstream *f = FileManager::openFile(*file, std::ios_base::in);
+    std::fstream *f = file->open(std::ios_base::in);
 
     int i = 0;
 

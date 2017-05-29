@@ -112,8 +112,8 @@ void TransCopy::copyParsedFiles() {
 
     this->setCopyStatusValues(files);
 
-    for (FileVector::iterator i = files->begin(); i != files->end(); ++i) {
-        if (FileManager::copyFile(*i, TransCopyConfiguration::getInstance()->getStringOptionValue(TransCopy::OPTION_DESTINATION_PATH))) {
+    for (FileVector::iterator i = files->begin(); i != files->end(); ++i) {  
+        if (this->pathDestination->copyFile(*i)) {
             CopyStatus::getCopyStatus().increaseCopiedNumberFiles();
             CopyStatus::getCopyStatus().addCopiedFileSize(i->size());
 

@@ -124,7 +124,7 @@ private:
     /**
      * @brief Object of boost::filesystem class to destination path
      */
-    std::shared_ptr<fs::path> pathDestination;
+    std::shared_ptr<Directory> pathDestination;
     /** 
      * @brief Pointer to parser avaible to _fileToParse
      */

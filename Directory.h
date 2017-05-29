@@ -15,9 +15,9 @@ public:
     Directory(std::string dirPath);          
     virtual ~Directory();
     static bool isExist(std::string dirPath);
-    bool copyFile(std::shared_ptr<File> file);
+    bool copyFile(File &file);
 private:
-
+    std::string prepareNewFilePath(File &file);
 };
 
 #endif /* DIRECTORY_H */

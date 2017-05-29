@@ -16,7 +16,11 @@ bool Directory::isExist(std::string dirPath) {
     return DiskObject::isExist(dirPath) && fs::is_directory(p);
 }       
 
-bool Directory::copyFile(std::shared_ptr<File> file)
-{
-    return SysFileManager::copy(file->string(), this->string());
+bool Directory::copyFile(File &file)
+{    
+    return SysFileManager::copy(file.string(), this->prepareNewFilePath(file));
+}
+
+std::string Directory::prepareNewFilePath(File &file) {
+    return (this->string() + file.filename().string());
 }

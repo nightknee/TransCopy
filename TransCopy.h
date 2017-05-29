@@ -12,7 +12,6 @@
 #include "AbstractFileParse.h"
 #include "MainExceptionHandler.h"
 #include "Exceptions/BaseException.h"
-#include "FileManager.h"
 #include "CopyStatus.h"
 #include "CmdOptionsParser.h"
 #include "CmdOptionsDescription.h"

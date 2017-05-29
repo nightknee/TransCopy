@@ -12,11 +12,12 @@
 #include "AbstractFileParse.h"
 #include "MainExceptionHandler.h"
 #include "Exceptions/BaseException.h"
-#include "FileManager.h"
 #include "CopyStatus.h"
 #include "CmdOptionsParser.h"
 #include "CmdOptionsDescription.h"
 #include "CmdOptionsParsed.h"
+#include "File.h"
+#include "Directory.h"
 
 /**
  * @class TransCopy
@@ -122,7 +123,7 @@ private:
     /**
      * @brief Object of boost::filesystem class to destination path
      */
-    std::shared_ptr<fs::path> pathDestination;
+    std::shared_ptr<Directory> pathDestination;
     /** 
      * @brief Pointer to parser avaible to _fileToParse
      */

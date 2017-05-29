@@ -8,7 +8,6 @@
 #include <boost/regex.hpp>
 
 #include "File.h"
-#include "FileManager.h"
 #include "CopyStatus.h"
 
 typedef boost::ptr_vector<File> FileVector;

@@ -1,51 +1,50 @@
 #include "File.h"
+#include <iostream>
 
-File::File() {
+File::File(std::string filePath): DiskObject(filePath){    
+    if (!File::isExist(filePath)) {
+        throw new FileException(filePath + " file doesn't exist");
+    }
+    
+    this->setBaseInformationsAboutFile();
 }
 
-File::File(std::string path) {
-    this->setPath(path);
-}
-
-File::~File() {
-}
-
-void File::setFileName(std::string fileName) {
-    this->_fileName = fileName;
-}
-
-void File::setPath(std::string path) {
-    this->_path = path;
-}
-
-void File::setExntenstion(std::string extension) {
-    this->_extension = extension;
-}
-
-void File::setSize(boost::uintmax_t size) {
-    this->_size = size;
-}
+File::~File() {}
 
 std::string File::getFileName() {
-    return this->_fileName;
-}
-
-std::string File::getPath() {
-    return this->_path;
+    return this->fileName;
 }
 
 std::string File::getExntenstion() {
-    return this->_extension;
+    return this->fileExtension;
 }
 
-boost::uintmax_t File::size() {
-    return this->_size;
+uintmax_t File::size() {
+    return this->fileSize;
 }
 
-fs::path File::boostPath() {
-    return this->_boostPathObject;
+bool File::isExist(std::string fileName) {        
+    fs::path p(fileName);
+    
+    return DiskObject::isExist(fileName) && fs::is_regular_file(p);
 }
 
-void File::setBoostPath(fs::path p) {
-    this->_boostPathObject = p;
+void File::setBaseInformationsAboutFile() {    
+    this->preparePath(this->string());   
+              
+    this->fileSize = fs::file_size(*this);        
+    this->fileExtension = this->extension().string();    
+    this->fileName = this->stem().string();
+}
+
+std::fstream* File::open(std::ios_base::openmode mode) {
+    std::fstream *fileStream = new std::fstream;
+    
+    fileStream->open(this->string(), mode);
+    
+    if (!fileStream->good()) {
+        throw new FileException("Fail open " + this->getFileName() + " file.");
+    }
+    
+    return fileStream;
 }

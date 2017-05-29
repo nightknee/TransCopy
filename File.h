@@ -1,8 +1,8 @@
 #ifndef FILE_H
 #define FILE_H
 
-#include <string>
-#include <boost/filesystem.hpp>
+#include "DiskObject.h"
+#include "Exceptions/FileException.h"
 
 namespace fs = boost::filesystem;
 
@@ -11,48 +11,56 @@ namespace fs = boost::filesystem;
  * @file File.h
  * @brief  Class represent file in file system
  */
-class File {
-public:
-    File();
+class File : public DiskObject {
+public:    
+     /**
+     * @brief  Check exist file from filePath param
+     * @param filePath Full path to file. Example:
+     * E:\Foo\bar.txt -Windows
+     * \ home\foo\bar.txt - GNU\Linux
+     *
+     * @return  If file exist return true
+     */
+    static bool isExist(std::string fileName);
     /**
             @brief  Constructor seted _path value
      */
-    File(std::string path);
-    ~File();
-
-    void setFileName(std::string fileName);
-    void setPath(std::string path);
-    void setExntenstion(std::string extension);
-    void setSize(boost::uintmax_t size);
-    void setBoostPath(fs::path p);
-
+    /**
+     * @brief Create File class object and fill all information about it 
+     * @param filePath file path like in FileExist function
+     * 
+     * @throw  FileException
+     */
+    File(std::string filePath);
+    virtual ~File();               
+    
     std::string getFileName();
-    std::string getPath();
     std::string getExntenstion();
-    boost::uintmax_t size();
-    fs::path boostPath();
+    uintmax_t size();    
+    
+    /**
+     * @brief  Open file and return fstream handler to file
+     * @param fileOobject of File class
+     * @param mode std open file modes
+     * @return Pointer to fstream object. If fstream::good() return false then is throwing OpenFileException
+     * @throw FileException
+     */
+    std::fstream* open(std::ios_base::openmode mode = std::ios_base::in | std::ios_base::out);            
 
 private:
+    void setBaseInformationsAboutFile();
     /**
             @brief File name without path and extension
      */
-    std::string _fileName;
-    /**
-            @brief File path with path and extension
-     */
-    std::string _path;
+    std::string fileName;
     /**
             @brief File extension
      */
-    std::string _extension;
+    std::string fileExtension;
     /**
             @brief File size in bytes
      */
-    boost::uintmax_t _size;
-    /**
-            @brief boost::filesystem object
-     */
-    fs::path _boostPathObject;
+    uintmax_t fileSize;
 
 };
 

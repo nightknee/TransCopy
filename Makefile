@@ -13,10 +13,10 @@ BUILDDIR = $(BUILDDIRNAME)/
 
 APPNAME = TransCopy
 
-all: bulidDirName TransCopy.o TransCopyConfiguration.o PlsParser.o PathNotExistException.o OpenFileException.o NotFoundParserException.o MainExceptionHandler.o main.o FileParserContainer.o FileNotExistException.o FileManager.o File.o CopyStatus.o CmdOptionsParserException.o CmdOptionsParsed.o CmdOptionsParser.o BaseException.o CmdOptionsDescription.o
-	$(CC) $(CCFLAGS) $(BUILDDIR)TransCopy.o $(BUILDDIR)TransCopyConfiguration.o $(BUILDDIR)PlsParser.o $(BUILDDIR)PathNotExistException.o $(BUILDDIR)OpenFileException.o $(BUILDDIR)NotFoundParserException.o $(BUILDDIR)MainExceptionHandler.o $(BUILDDIR)main.o $(BUILDDIR)FileParserContainer.o $(BUILDDIR)FileNotExistException.o $(BUILDDIR)FileManager.o $(BUILDDIR)File.o $(BUILDDIR)CopyStatus.o $(BUILDDIR)CmdOptionsParserException.o $(BUILDDIR)CmdOptionsParsed.o $(BUILDDIR)CmdOptionsParser.o $(BUILDDIR)BaseException.o $(BUILDDIR)CmdOptionsDescription.o $(LDLIBS) -o $(APPNAME)
+all: bulidDirName TransCopy.o TransCopyConfiguration.o PlsParser.o PathNotExistException.o NotFoundParserException.o MainExceptionHandler.o main.o FileParserContainer.o FileException.o File.o CopyStatus.o CmdOptionsParserException.o CmdOptionsParsed.o CmdOptionsParser.o BaseException.o CmdOptionsDescription.o Directory.o
+	$(CC) $(CCFLAGS) $(BUILDDIR)TransCopy.o $(BUILDDIR)TransCopyConfiguration.o $(BUILDDIR)PlsParser.o $(BUILDDIR)PathNotExistException.o $(BUILDDIR)NotFoundParserException.o $(BUILDDIR)MainExceptionHandler.o $(BUILDDIR)main.o $(BUILDDIR)FileParserContainer.o $(BUILDDIR)File.o $(BUILDDIR)CopyStatus.o $(BUILDDIR)CmdOptionsParserException.o $(BUILDDIR)CmdOptionsParsed.o $(BUILDDIR)CmdOptionsParser.o $(BUILDDIR)BaseException.o $(BUILDDIR)CmdOptionsDescription.o $(BUILDDIR)DiskObject.o $(BUILDDIR)Directory.o $(BUILDDIR)FileException.o $(LDLIBS) -o $(APPNAME)
 
-TransCopy.o:  TransCopy.cpp TransCopy.h TransCopyConfiguration.h FileParserContainer.h AbstractFileParse.h MainExceptionHandler.h Exceptions/BaseException.h FileManager.h CopyStatus.h CmdOptionsParser.h CmdOptionsDescription.h CmdOptionsParsed.h
+TransCopy.o:  TransCopy.cpp TransCopy.h TransCopyConfiguration.h FileParserContainer.h AbstractFileParse.h MainExceptionHandler.h Exceptions/BaseException.h CopyStatus.h CmdOptionsParser.h CmdOptionsDescription.h CmdOptionsParsed.h
 	$(CC) -c TransCopy.cpp -o $(BUILDDIR)TransCopy.o $(CCFLAGS)
 
 TransCopyConfiguration.o:  TransCopyConfiguration.cpp TransCopyConfiguration.h
@@ -28,14 +28,11 @@ PlsParser.o: PlsParser.cpp PlsParser.h AbstractFileParse.h
 PathNotExistException.o: Exceptions/PathNotExistException.cpp Exceptions/PathNotExistException.h Exceptions/BaseException.h
 	$(CC) -c Exceptions/PathNotExistException.cpp -o $(BUILDDIR)PathNotExistException.o $(CCFLAGS)
 
-OpenFileException.o: Exceptions/OpenFileException.cpp Exceptions/OpenFileException.h Exceptions/BaseException.h
-	$(CC) -c Exceptions/OpenFileException.cpp -o $(BUILDDIR)OpenFileException.o $(CCFLAGS)
-
 NotFoundParserException.o: Exceptions/NotFoundParserException.cpp Exceptions/NotFoundParserException.h Exceptions/BaseException.h
 	$(CC) -c Exceptions/NotFoundParserException.cpp -o $(BUILDDIR)NotFoundParserException.o $(CCFLAGS)
 
-FileNotExistException.o: Exceptions/FileNotExistException.cpp Exceptions/FileNotExistException.h Exceptions/BaseException.h
-	$(CC) -c Exceptions/FileNotExistException.cpp -o $(BUILDDIR)FileNotExistException.o $(CCFLAGS)
+FileException.o: Exceptions/FileException.cpp Exceptions/FileException.h Exceptions/BaseException.h
+	$(CC) -c Exceptions/FileException.cpp -o $(BUILDDIR)FileException.o $(CCFLAGS)
 
 CmdOptionsParserException.o: Exceptions/CmdOptionsParserException.cpp Exceptions/CmdOptionsParserException.h Exceptions/BaseException.h
 	$(CC) -c Exceptions/CmdOptionsParserException.cpp -o $(BUILDDIR)CmdOptionsParserException.o $(CCFLAGS)
@@ -52,10 +49,7 @@ main.o:  main.cpp TransCopy.h
 FileParserContainer.o:  FileParserContainer.cpp FileParserContainer.h AbstractFileParse.h PlsParser.h Exceptions/BaseException.h
 	$(CC) -c FileParserContainer.cpp -o $(BUILDDIR)FileParserContainer.o $(CCFLAGS)
 
-FileManager.o:  FileManager.cpp FileManager.h File.h Exceptions/FileNotExistException.h Exceptions/PathNotExistException.h Exceptions/OpenFileException.h linux/SysFileManager.h
-	$(CC) -c FileManager.cpp -o $(BUILDDIR)FileManager.o $(CCFLAGS)
-
-File.o: File.cpp File.h
+File.o: File.cpp File.h DiskObject.o
 	$(CC) -c File.cpp -o $(BUILDDIR)File.o $(CCFLAGS)
 
 CopyStatus.o: CopyStatus.cpp CopyStatus.h AbstractFileParse.h
@@ -70,6 +64,12 @@ CmdOptionsParser.o: CmdOptionsParser.cpp CmdOptionsParser.h Exceptions/CmdOption
 CmdOptionsDescription.o: CmdOptionsDescription.cpp CmdOptionsDescription.h
 	$(CC) -c CmdOptionsDescription.cpp -o $(BUILDDIR)CmdOptionsDescription.o $(CCFLAGS)
 
+DiskObject.o: DiskObject.h linux/SysFileManager.h windows/SysFileManager.h
+	$(CC) -c DiskObject.cpp -o $(BUILDDIR)DiskObject.o $(CCFLAGS)
+
+Directory.o : Directory.h Directory.cpp DiskObject.o
+	$(CC) -c Directory.cpp -o $(BUILDDIR)Directory.o $(CCFLAGS)
+	
 bulidDirName:
 	@mkdir -p $(BUILDDIRNAME)
 

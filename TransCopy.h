@@ -18,6 +18,7 @@
 #include "CmdOptionsParsed.h"
 #include "File.h"
 #include "Directory.h"
+#include "Cmd.h"
 
 /**
  * @class TransCopy
@@ -53,6 +54,8 @@ public:
     std::shared_ptr<File> getFileToParse();
     void setFileToParse(std::shared_ptr<File> f);
 
+    const std::shared_ptr<CmdOptionsDescription> getMainDescription();
+    
     //Public variables: 
     static std::string Name;
     static std::string Version;

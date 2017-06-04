@@ -11,9 +11,6 @@ std::shared_ptr<CmdOptionsDescription> TransCopy::setBaseCmdOptionsDescription(C
 {    
     description.add_options()
             ("help,h", "Help message")
-            ("file-path,f", po::value<std::string>()->required(), "Path to list files")
-            ("destination-path,d", po::value<std::string>()->required(), "Path when copy files")
-            ("notificate,n", "Show informations about progress copy")
             ("terminal,t", "Not running with GUI");
     
     return std::make_shared<CmdOptionsDescription>(description);
@@ -23,10 +20,14 @@ int TransCopy::run(int argc, char** argv) {
     try {
         this->setSettingsFromArgs(argc, argv);
 
-        if (TransCopyConfiguration::getInstance()->optionExist("gui")) {
+        if (TransCopyConfiguration::getInstance()->optionExist(TransCopy::OPTION_TERMINAL)) {
+            Cmd cmdInstance;
             
+            return cmdInstance.run(argc, argv, this);
         } else {
-            this->cmdCopy();
+            Cmd cmdInstance;
+            
+            return cmdInstance.run(argc, argv, this);
         }
     } catch (const BaseException *e) {
         std::cout<<*this->cmdDesc<<std::endl;
@@ -105,6 +106,10 @@ void TransCopy::setParser() {
 
 bool TransCopy::manageParseFile() {
     return this->parser->parse(this->fileToParse);
+}
+
+const std::shared_ptr<CmdOptionsDescription> TransCopy::getMainDescription() {
+    return this->cmdDesc;
 }
 
 void TransCopy::copyParsedFiles() {

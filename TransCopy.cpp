@@ -48,8 +48,8 @@ int TransCopy::run(int argc, char** argv) {
 void TransCopy::setSettingsFromArgs(int argc, char** argv) {
     try {
            CmdOptionsParser::parseCmdOptionsToConfiguration(argc, argv, this->cmdDesc);
-    } catch (const CmdOptionsParserException *e) {       
-        throw e;
+    } catch (const CmdOptionsParserException *e) {
+    
     }
 }
 

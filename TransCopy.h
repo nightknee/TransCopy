@@ -26,11 +26,7 @@
  * @brief Main program class
  */
 class TransCopy {
-public:
-    
-    const std::string OPTION_FILE_PATH = "file-path";
-    const std::string OPTION_DESTINATION_PATH = "destination-path";
-    const std::string OPTION_NOTIFICATE = "notificate";
+public:     
     const std::string OPTION_TERMINAL = "terminal";
     const std::string OPTION_HELP = "help";
     

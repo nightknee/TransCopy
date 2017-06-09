@@ -73,61 +73,10 @@ private:
      * @param vm Map of seted options from cmd
      * @return Object of Configuration structure
      */
-
-    void helpMessage();
-    /**
-     * @brief Set finded parser object after validate _fileToParse
-     */
-    void setParser();
-    /**
-     * @brief Create File object in FileManager and set pointer to _fileToParse
-     */
-    void createFileToParseObject();
-    /**
-     * @brief Create boost::filesystem object in FileManager and set pointer to _pathDestination
-     */
-    void createPathDestinationObject();
-    /**
-     * @brief Begin parsing file
-     * @return true if parsing end succesful or false
-     */
-    bool manageParseFile();
-    /**
-     * @brief Copied all files to destination path using FileManager function.
-     *			 	Set variables for CopyStatus class
-     */
-    void copyParsedFiles();
-    /**
-     * @brief Set initial values to CopyStatus class to track copy progress
-     * @param files Vector of all parsed files
-     */
-    void setCopyStatusValues(FileVector *files);
-    /**
-     * @brief Show copy progress up to date if TransCopyConfiguration::notyficate = true
-     */
-    void showCopyStats();
-    /**
-     * @brief  Run copy funciotns and display information in command line
-     */
-    void cmdCopy();
-
     std::shared_ptr<CmdOptionsDescription> setBaseCmdOptionsDescription(CmdOptionsDescription& description);
     
     //Private variables	
 private:
-    /**
-     * @brief Object of File class to parse
-     */
-    std::shared_ptr<File> fileToParse;
-    /**
-     * @brief Object of boost::filesystem class to destination path
-     */
-    std::shared_ptr<Directory> pathDestination;
-    /** 
-     * @brief Pointer to parser avaible to _fileToParse
-     */
-    AbstractFileParse* parser;
-
     std::shared_ptr<CmdOptionsDescription> cmdDesc;
 };
 

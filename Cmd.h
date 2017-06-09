@@ -8,6 +8,7 @@
 #include "File.h"
 #include "FileParserContainer.h"
 #include "CopyStatus.h"
+#include "TransCopy.h"
 
 class Cmd : public Ui{
 public:
@@ -25,7 +26,8 @@ private:
     AbstractFileParse* getParser(std::shared_ptr<File> fileToParse);
     bool startParse(AbstractFileParse* parser, std::shared_ptr<File>);
     void copyParsedFiles(AbstractFileParse* parser, std::shared_ptr<Directory> destination);
-    void CopyParsedFilesWithoutNotificate(AbstractFileParse* parser);
+    void copyWithNotificate(AbstractFileParse* parser, std::shared_ptr<Directory> destination);
+    void copyWithoutNotificate(AbstractFileParse* parser, std::shared_ptr<Directory> destination);
     void setCopyStatusValues(AbstractFileParse* parser, FileVector *files);
     void showCopyStats();
 };

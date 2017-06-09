@@ -53,20 +53,35 @@ bool Cmd::startParse(AbstractFileParse* parser, std::shared_ptr<File> fileToPars
 }
 
 void Cmd::copyParsedFiles(AbstractFileParse* parser, std::shared_ptr<Directory> destination) {
+    if (TransCopyConfiguration::getInstance()->optionExist(Cmd::OPTION_NOTIFICATE)) {
+        this->copyWithNotificate(parser, destination);
+    } else {
+        this->copyWithoutNotificate(parser, destination);
+    }    
+}
+
+void Cmd::copyWithNotificate(AbstractFileParse* parser, std::shared_ptr<Directory> destination) {
     FileVector *files = parser->getParsedSongs();
 
-    if (TransCopyConfiguration::getInstance()->optionExist(Cmd::OPTION_NOTIFICATE)) {
-        this->setCopyStatusValues(files);
-    }    
+    this->setCopyStatusValues(parser, files); 
 
     for (FileVector::iterator i = files->begin(); i != files->end(); ++i) {  
         if (destination->copyFile(*i)) {            
-            if (TransCopyConfiguration::getInstance()->optionExist(Cmd::OPTION_NOTIFICATE)) {
-                CopyStatus::getCopyStatus().increaseCopiedNumberFiles();
-                CopyStatus::getCopyStatus().addCopiedFileSize(i->size());
+            CopyStatus::getCopyStatus().increaseCopiedNumberFiles();
+            CopyStatus::getCopyStatus().addCopiedFileSize(i->size());
                 
-                this->showCopyStats();
-            }
+            this->showCopyStats();
+        }
+    }
+    std::cout << std::endl;
+}
+
+void Cmd::copyWithoutNotificate(AbstractFileParse* parser, std::shared_ptr<Directory> destination) {
+    FileVector *files = parser->getParsedSongs();
+
+    for (FileVector::iterator i = files->begin(); i != files->end(); ++i) {  
+        if (destination->copyFile(*i)) {            
+
         }
     }
     std::cout << std::endl;

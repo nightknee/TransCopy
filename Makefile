@@ -70,8 +70,8 @@ DiskObject.o: DiskObject.h linux/SysFileManager.h windows/SysFileManager.h
 Directory.o : Directory.h Directory.cpp DiskObject.o
 	$(CC) -c Directory.cpp -o $(BUILDDIR)Directory.o $(CCFLAGS)
 
-Cmd.o : Cmd.h Cmd.cpp Ui.h CmdOptionsParser.h CmdOptionsDescription.h
-	$(CC) -c Cmd.cpp -o $(BUILDDIR)Cmd.o $(CCFLAGS)	
+Cmd.o : Cmd.h Cmd.cpp Ui.h CmdOptionsParser.h CmdOptionsDescription.h TransCopy.o
+	$(CC) -c Cmd.cpp -o $(BUILDDIR)Cmd.o $(BUILDDIR)TransCopy.o $(CCFLAGS)	
 	
 bulidDirName:
 	@mkdir -p $(BUILDDIRNAME)

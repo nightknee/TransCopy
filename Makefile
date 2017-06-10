@@ -2,7 +2,7 @@ CC = g++
 
 CCDEPLOYFLAGS = -O3 -O2 -std=c++14
 CCDEBUGFLAGS = -g -O0 -Wall -std=c++14
-CCFLAGS = $(CCDEBUGFLAGS)
+CCFLAGS = $(CCDEPLOYFLAGS)
 
 LDSTATICLIBS = /usr/lib/libboost_program_options.a /usr/lib/libboost_system.a /usr/lib/libboost_filesystem.a /usr/lib/libboost_regex.a
 LDDYNAMICLIBS = -lboost_program_options -lboost_system -lboost_filesystem -lboost_regex
@@ -71,7 +71,7 @@ Directory.o : Directory.h Directory.cpp DiskObject.o
 	$(CC) -c Directory.cpp -o $(BUILDDIR)Directory.o $(CCFLAGS)
 
 Cmd.o : Cmd.h Cmd.cpp Ui.h CmdOptionsParser.h CmdOptionsDescription.h TransCopy.o
-	$(CC) -c Cmd.cpp -o $(BUILDDIR)Cmd.o $(BUILDDIR)TransCopy.o $(CCFLAGS)	
+	$(CC) -c Cmd.cpp -o $(BUILDDIR)Cmd.o $(CCFLAGS)	
 	
 bulidDirName:
 	@mkdir -p $(BUILDDIRNAME)

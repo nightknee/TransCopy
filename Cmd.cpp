@@ -1,15 +1,15 @@
 #include "Cmd.h"
 
-int Cmd::run(int argc, char** argv, TransCopy *tr) {
-    this->setConfigurationFromCmd(argc, argv, tr);
+int Cmd::run(int argc, char** argv, std::shared_ptr<CmdOptionsDescription> desc) {
+    this->setConfigurationFromCmd(argc, argv, desc);
     
     this->startCopy();
     
     return 0;
 }
 
-void Cmd::setConfigurationFromCmd(int argc, char** argv, TransCopy *tr) {
-    CmdOptionsParser::parseCmdOptionsToConfiguration(argc, argv, this->getOptionsDescription(tr->getMainDescription()));
+void Cmd::setConfigurationFromCmd(int argc, char** argv, std::shared_ptr<CmdOptionsDescription> desc) {
+    CmdOptionsParser::parseCmdOptionsToConfiguration(argc, argv, this->getOptionsDescription(desc));
 }
 
 std::shared_ptr<CmdOptionsDescription> Cmd::getOptionsDescription(std::shared_ptr<CmdOptionsDescription>  desc) {    
@@ -80,9 +80,7 @@ void Cmd::copyWithoutNotificate(AbstractFileParse* parser, std::shared_ptr<Direc
     FileVector *files = parser->getParsedSongs();
 
     for (FileVector::iterator i = files->begin(); i != files->end(); ++i) {  
-        if (destination->copyFile(*i)) {            
-
-        }
+        destination->copyFile(*i);            
     }
     std::cout << std::endl;
 }

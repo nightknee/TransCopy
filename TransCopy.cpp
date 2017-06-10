@@ -23,11 +23,11 @@ int TransCopy::run(int argc, char** argv) {
         if (TransCopyConfiguration::getInstance()->optionExist(TransCopy::OPTION_TERMINAL)) {
             Cmd cmdInstance;
             
-            return cmdInstance.run(argc, argv, this);
+            return cmdInstance.run(argc, argv, this->getMainDescription());
         } else {
             Cmd cmdInstance;
             
-            return cmdInstance.run(argc, argv, this);
+            return cmdInstance.run(argc, argv, this->getMainDescription());
         }
     } catch (const BaseException *e) {
         std::cout<<*this->cmdDesc<<std::endl;

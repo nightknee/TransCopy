@@ -11,9 +11,6 @@ std::shared_ptr<CmdOptionsDescription> TransCopy::setBaseCmdOptionsDescription(C
 {    
     description.add_options()
             ("help,h", "Help message")
-            ("file-path,f", po::value<std::string>()->required(), "Path to list files")
-            ("destination-path,d", po::value<std::string>()->required(), "Path when copy files")
-            ("notificate,n", "Show informations about progress copy")
             ("terminal,t", "Not running with GUI");
     
     return std::make_shared<CmdOptionsDescription>(description);
@@ -23,10 +20,14 @@ int TransCopy::run(int argc, char** argv) {
     try {
         this->setSettingsFromArgs(argc, argv);
 
-        if (TransCopyConfiguration::getInstance()->optionExist("gui")) {
+        if (TransCopyConfiguration::getInstance()->optionExist(TransCopy::OPTION_TERMINAL)) {
+            Cmd cmdInstance;
             
+            return cmdInstance.run(argc, argv, this->getMainDescription());
         } else {
-            this->cmdCopy();
+            Cmd cmdInstance;
+            
+            return cmdInstance.run(argc, argv, this->getMainDescription());
         }
     } catch (const BaseException *e) {
         std::cout<<*this->cmdDesc<<std::endl;
@@ -47,20 +48,8 @@ int TransCopy::run(int argc, char** argv) {
 void TransCopy::setSettingsFromArgs(int argc, char** argv) {
     try {
            CmdOptionsParser::parseCmdOptionsToConfiguration(argc, argv, this->cmdDesc);
-    } catch (const CmdOptionsParserException *e) {       
-        throw e;
-    }
-}
-
-void TransCopy::cmdCopy() {
-    this->createFileToParseObject();
-
-    this->createPathDestinationObject();
-
-    this->setParser();
-
-    if (this->manageParseFile()) {
-        this->copyParsedFiles();
+    } catch (const CmdOptionsParserException *e) {
+    
     }
 }
 
@@ -77,63 +66,6 @@ void TransCopy::messageRun() {
             << "\t \t" << this->GitHub << std::endl;
 }
 
-void TransCopy::helpMessage() {
-
-}
-
-void TransCopy::setFileToParse(std::shared_ptr<File> f) {
-    this->fileToParse = f;
-}
-
-std::shared_ptr<File> TransCopy::getFileToParse() {
-    return this->fileToParse;
-}
-
-void TransCopy::createFileToParseObject() {
-    File* file = new File(TransCopyConfiguration::getInstance()->getStringOptionValue(TransCopy::OPTION_FILE_PATH));
-    this->fileToParse = std::make_shared<File>(*file);
-}
-
-void TransCopy::createPathDestinationObject() {
-    Directory* path = new Directory(TransCopyConfiguration::getInstance()->getStringOptionValue(TransCopy::OPTION_DESTINATION_PATH));
-    this->pathDestination = std::make_shared<Directory>(*path);
-}
-
-void TransCopy::setParser() {
-    this->parser = FileParserContainer::getInstance().findParser(this->fileToParse->getExntenstion());
-}
-
-bool TransCopy::manageParseFile() {
-    return this->parser->parse(this->fileToParse);
-}
-
-void TransCopy::copyParsedFiles() {
-    FileVector *files = this->parser->getParsedSongs();
-
-    this->setCopyStatusValues(files);
-
-    for (FileVector::iterator i = files->begin(); i != files->end(); ++i) {  
-        if (this->pathDestination->copyFile(*i)) {
-            CopyStatus::getCopyStatus().increaseCopiedNumberFiles();
-            CopyStatus::getCopyStatus().addCopiedFileSize(i->size());
-
-            if (TransCopyConfiguration::getInstance()->optionExist(TransCopy::OPTION_NOTIFICATE)) {
-                this->showCopyStats();
-            }
-        }
-    }
-    std::cout << std::endl;
-}
-
-void TransCopy::setCopyStatusValues(FileVector *files) {
-    CopyStatus::getCopyStatus().setAllFilesSize(this->parser->getAllFilesSize());
-    CopyStatus::getCopyStatus().setNumberOfAllFiles(files->size());
-}
-
-void TransCopy::showCopyStats() {
-    std::cout << "\r";
-    std::cout << "Copied: " << CopyStatus::getCopyStatus().getCopiedNumberFiles() << " of  " << CopyStatus::getCopyStatus().getNumberOfAllFiles() << " files ";
-    std::cout << " Copied: " << CopyStatus::getCopyStatus().getCopiedFilesSize() << " of  " << CopyStatus::getCopyStatus().getAllFilesSize() << " bytes ";
-    std::cout << "\r";
-
+const std::shared_ptr<CmdOptionsDescription> TransCopy::getMainDescription() {
+    return this->cmdDesc;
 }

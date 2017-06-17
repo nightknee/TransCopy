@@ -5,8 +5,6 @@
 
 #include "AbstractFileParse.h"
 
-typedef boost::ptr_vector<File> FileVector;
-
 /**
  * @class CopyStatus
  * @file CopyStatus.h
@@ -23,7 +21,7 @@ public:
      * @brief  Get variable _allFilesSize
      * @return  Copy of _allFilesSize
      */
-    boost::uintmax_t getAllFilesSize();
+    uintmax_t getAllFilesSize();
     /**
      * @brief Set _allFilesSize
      * @param size New _allFilesSize value
@@ -33,7 +31,7 @@ public:
      * @brief Get variable _copiedFilesSize
      * @return Copy of _copiedFilesSize
      */
-    boost::uintmax_t getCopiedFilesSize();
+    uintmax_t getCopiedFilesSize();
     /**
      * @brief Increase  _copiedFilesSize of value in param
      * @param size
@@ -48,16 +46,16 @@ public:
      * @brief  Get variable _numberOfAllFiles
      * @return Copy of _numberOfAllFiles
      */
-    FileVector::size_type getNumberOfAllFiles();
+    size_t getNumberOfAllFiles();
     /**
      * @brief  Set _numberOfAllFiles value
      */
-    void setNumberOfAllFiles(FileVector::size_type);
+    void setNumberOfAllFiles(size_t);
     /**
      * @brief Get variable _copiedNumberFiles
      * @return Copy of _copiedNumberFiles
      */
-    FileVector::size_type getCopiedNumberFiles();
+    size_t getCopiedNumberFiles();
 
     void increaseCopiedNumberFiles();
 
@@ -65,30 +63,30 @@ public:
 private:
     CopyStatus();
     ~CopyStatus();
-    void _setToCopyFileSize(boost::uintmax_t size);
-    void _decreaseToCopyFileSize(boost::uintmax_t size);
+    void setToCopyFileSize(uintmax_t size);
+    void decreaseToCopyFileSize(uintmax_t size);
     //Private variables
 private:
     /**
             @biref Size of all files to copy
      */
-    boost::uintmax_t _allFilesSize;
+    uintmax_t allFilesSize;
     /**
             @biref Size of file still wait to copy
      */
-    boost::uintmax_t _toCopyFileSize;
+    uintmax_t toCopyFileSize;
     /**
             @biref Size of files was copied
      */
-    boost::uintmax_t _copiedFilesSize;
+    uintmax_t copiedFilesSize;
     /**
             @biref All files to copy
      */
-    FileVector::size_type _numberOfAllFiles;
+    size_t numberOfAllFiles;
     /**
             @biref Number of files was copied
      */
-    FileVector::size_type _copiedNumberFiles;
+    size_t copiedNumberFiles;
 };
 
 #endif // COPYSTATUS_H

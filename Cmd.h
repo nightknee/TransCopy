@@ -6,6 +6,7 @@
 #include "CmdOptionsParser.h"
 #include "Directory.h"
 #include "File.h"
+#include "ParsedFiles.h"
 #include "FileParserContainer.h"
 #include "CopyStatus.h"
 #include "TransCopy.h"
@@ -24,11 +25,11 @@ private:
     std::shared_ptr<Directory> getDestination();
     std::shared_ptr<File> getFileToParse();
     AbstractFileParse* getParser(std::shared_ptr<File> fileToParse);
-    bool startParse(AbstractFileParse* parser, std::shared_ptr<File>);
-    void copyParsedFiles(AbstractFileParse* parser, std::shared_ptr<Directory> destination);
-    void copyWithNotificate(AbstractFileParse* parser, std::shared_ptr<Directory> destination);
-    void copyWithoutNotificate(AbstractFileParse* parser, std::shared_ptr<Directory> destination);
-    void setCopyStatusValues(AbstractFileParse* parser, FileVector *files);
+    ParsedFiles* startParse(AbstractFileParse* parser, std::shared_ptr<File>);
+    void copyParsedFiles(ParsedFiles* files, std::shared_ptr<Directory> destination);
+    void copyWithNotificate(ParsedFiles* files, std::shared_ptr<Directory> destination);
+    void copyWithoutNotificate(ParsedFiles* files, std::shared_ptr<Directory> destination);
+    void setCopyStatusValues(ParsedFiles* parFiles, ParsedFilesStorage *files);
     void showCopyStats();
 };
 

@@ -27,8 +27,10 @@ void Cmd::startCopy() {
     std::shared_ptr<Directory> destination = this->getDestination();
     AbstractFileParse* parser = this->getParser(fileToParse);
     
-    if (this->startParse(parser, fileToParse)) {
-        this->copyParsedFiles(parser, destination);
+    ParsedFiles *files = this->startParse(parser, fileToParse);
+    
+    if (!files->isEmpty()) {
+        this->copyParsedFiles(files, destination);
     }
 }
 
@@ -48,24 +50,24 @@ AbstractFileParse* Cmd::getParser(std::shared_ptr<File> fileToParse) {
     return FileParserContainer::getInstance().findParser(fileToParse->getExntenstion());
 }
 
-bool Cmd::startParse(AbstractFileParse* parser, std::shared_ptr<File> fileToParse) {
+ParsedFiles* Cmd::startParse(AbstractFileParse* parser, std::shared_ptr<File> fileToParse) {
     return parser->parse(fileToParse);
 }
 
-void Cmd::copyParsedFiles(AbstractFileParse* parser, std::shared_ptr<Directory> destination) {
+void Cmd::copyParsedFiles(ParsedFiles* files, std::shared_ptr<Directory> destination) {
     if (TransCopyConfiguration::getInstance()->optionExist(Cmd::OPTION_NOTIFICATE)) {
-        this->copyWithNotificate(parser, destination);
+        this->copyWithNotificate(files, destination);
     } else {
-        this->copyWithoutNotificate(parser, destination);
+        this->copyWithoutNotificate(files, destination);
     }    
 }
 
-void Cmd::copyWithNotificate(AbstractFileParse* parser, std::shared_ptr<Directory> destination) {
-    FileVector *files = parser->getParsedSongs();
+void Cmd::copyWithNotificate(ParsedFiles* parFiles, std::shared_ptr<Directory> destination) {
+    ParsedFilesStorage *files = parFiles->getParsedFilesStorage();
 
-    this->setCopyStatusValues(parser, files); 
+    this->setCopyStatusValues(parFiles, files); 
 
-    for (FileVector::iterator i = files->begin(); i != files->end(); ++i) {  
+    for (ParsedFilesStorage::iterator i = files->begin(); i != files->end(); ++i) {  
         if (destination->copyFile(*i)) {            
             CopyStatus::getCopyStatus().increaseCopiedNumberFiles();
             CopyStatus::getCopyStatus().addCopiedFileSize(i->size());
@@ -76,17 +78,17 @@ void Cmd::copyWithNotificate(AbstractFileParse* parser, std::shared_ptr<Director
     std::cout << std::endl;
 }
 
-void Cmd::copyWithoutNotificate(AbstractFileParse* parser, std::shared_ptr<Directory> destination) {
-    FileVector *files = parser->getParsedSongs();
+void Cmd::copyWithoutNotificate(ParsedFiles* parsedFiles, std::shared_ptr<Directory> destination) {
+    ParsedFilesStorage *files = parsedFiles->getParsedFilesStorage();
 
-    for (FileVector::iterator i = files->begin(); i != files->end(); ++i) {  
+    for (ParsedFilesStorage::iterator i = files->begin(); i != files->end(); ++i) {  
         destination->copyFile(*i);            
     }
     std::cout << std::endl;
 }
 
-void Cmd::setCopyStatusValues(AbstractFileParse* parser, FileVector *files) {
-    CopyStatus::getCopyStatus().setAllFilesSize(parser->getAllFilesSize());
+void Cmd::setCopyStatusValues(ParsedFiles* parFiles, ParsedFilesStorage *files) {
+    CopyStatus::getCopyStatus().setAllFilesSize(parFiles->size());
     CopyStatus::getCopyStatus().setNumberOfAllFiles(files->size());
 }
 

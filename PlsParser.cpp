@@ -1,42 +1,44 @@
 #include "PlsParser.h"
 
 PlsParser::PlsParser() {
-    this->_expresion = "^File[0-9]+=";
-    this->_allFilesSize = 0;
+    this->expresion = "^File[0-9]+=";
+    this->extension = "pls";
 }
 
-bool PlsParser::parse(std::shared_ptr<File> file) {
+ParsedFiles* PlsParser::parse(std::shared_ptr<File> file) {
     std::fstream *f = file->open(std::ios_base::in);
 
     int i = 0;
 
     std::string line;
-    std::string _path;
+    std::string path;
 
+    ParsedFiles *resultParsingFiles = new ParsedFiles;
+    
     while (std::getline(*f, line)) {
         if (i <= 1) {
             i++;
             continue;
         }
-        _path = this->getPath(line);
+        path = this->getPath(line);
         try {
-            File* file = new File(_path);
-            this->_appendToFileSize(file->size());
-            this->_parsedFiles.push_back(file);
+            File* file = new File(path);
+            
+            resultParsingFiles->addFile(file);            
         } catch (FileException* e) {
             continue;
         }
     }
 
-    return true;
-}
-
-FileVector* PlsParser::getParsedSongs() {
-    return &(this->_parsedFiles);
+    f->close();
+    
+    delete f;
+    
+    return resultParsingFiles;
 }
 
 std::string PlsParser::getPath(std::string line) {
-    boost::sregex_token_iterator p(line.begin(), line.end(), this->_expresion, -1);
+    boost::sregex_token_iterator p(line.begin(), line.end(), this->expresion, -1);
 
     boost::sregex_token_iterator end;
 
@@ -47,10 +49,6 @@ std::string PlsParser::getPath(std::string line) {
     return _path;
 }
 
-boost::uintmax_t PlsParser::getAllFilesSize() {
-    return this->_allFilesSize;
-}
-
-void PlsParser::_appendToFileSize(boost::uintmax_t value) {
-    this->_allFilesSize += value;
+std::string PlsParser::parsingFileExtension() {
+    return this->extension;
 }

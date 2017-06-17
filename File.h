@@ -34,9 +34,9 @@ public:
     File(std::string filePath);
     virtual ~File();               
     
-    std::string getFileName();
-    std::string getExntenstion();
-    uintmax_t size();    
+    std::string getFileName() const;
+    std::string getExntenstion() const;
+    uintmax_t size() const;    
     
     /**
      * @brief  Open file and return fstream handler to file

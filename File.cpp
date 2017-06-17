@@ -1,5 +1,4 @@
 #include "File.h"
-#include <iostream>
 
 File::File(std::string filePath): DiskObject(filePath){    
     if (!File::isExist(filePath)) {
@@ -11,19 +10,19 @@ File::File(std::string filePath): DiskObject(filePath){
 
 File::~File() {}
 
-std::string File::getFileName() {
+std::string File::getFileName() const {
     return this->fileName;
 }
 
-std::string File::getExntenstion() {
+std::string File::getExntenstion() const {
     return this->fileExtension;
 }
 
-uintmax_t File::size() {
+uintmax_t File::size() const {
     return this->fileSize;
 }
 
-bool File::isExist(std::string fileName) {        
+bool File::isExist(std::string fileName){        
     fs::path p(fileName);
     
     return DiskObject::isExist(fileName) && fs::is_regular_file(p);

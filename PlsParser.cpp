@@ -5,7 +5,7 @@ PlsParser::PlsParser() {
     this->extension = "pls";
 }
 
-ParsedFiles* PlsParser::parse(std::shared_ptr<File> file) {
+const ParsedFiles* PlsParser::parse(const FilePtr &file) const{
     std::fstream *f = file->open(std::ios_base::in);
 
     int i = 0;
@@ -37,18 +37,19 @@ ParsedFiles* PlsParser::parse(std::shared_ptr<File> file) {
     return resultParsingFiles;
 }
 
-std::string PlsParser::getPath(std::string line) {
+std::string PlsParser::getPath(const std::string &line) const{
     boost::sregex_token_iterator p(line.begin(), line.end(), this->expresion, -1);
 
     boost::sregex_token_iterator end;
 
-    std::string _path;
+    std::string path;
     while (p != end) {
-        _path += *p++;
+        path += *p++;
     }
-    return _path;
+    
+    return path;
 }
 
-std::string PlsParser::parsingFileExtension() {
-    return this->extension;
+const std::string& PlsParser::parsingFileExtension() const{
+    return "."+this->extension;
 }

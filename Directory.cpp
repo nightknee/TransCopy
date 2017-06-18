@@ -1,7 +1,7 @@
 #include "Directory.h"
 #include "DiskObject.h"
 
-Directory::Directory(std::string dirPath) : DiskObject(dirPath) {
+Directory::Directory(const std::string &dirPath) : DiskObject(dirPath) {
     if (!Directory::isExist(dirPath)) {
        throw new PathException(this->string() + " path doesn't exist"); 
     }
@@ -10,7 +10,7 @@ Directory::Directory(std::string dirPath) : DiskObject(dirPath) {
 Directory::~Directory() {}
 
 
-bool Directory::isExist(std::string dirPath) {
+bool Directory::isExist(const std::string &dirPath) {
     fs::path p(dirPath);
     
     return DiskObject::isExist(dirPath) && fs::is_directory(p);

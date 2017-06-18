@@ -12,8 +12,8 @@
  */
 class AbstractFileParse {
 public:
-    virtual ParsedFiles* parse(std::shared_ptr<File> file) = 0;
-    virtual std::string parsingFileExtension() = 0;
+    virtual const ParsedFiles* parse(const FilePtr &file) const = 0;
+    virtual const std::string& parsingFileExtension() const = 0;
 protected:
     std::string extension;
 };

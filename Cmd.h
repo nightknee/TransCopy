@@ -17,20 +17,20 @@ public:
     const std::string OPTION_DESTINATION_PATH = "destination-path";
     const std::string OPTION_NOTIFICATE = "notificate";
     
-    virtual int run(int argc, char** argv, std::shared_ptr<CmdOptionsDescription> desc);
+    virtual int run(int argc, char** argv, const CmdOptionsDescriptionPtr &desc);
 private:
-    virtual void setConfigurationFromCmd(int argc, char** argv, std::shared_ptr<CmdOptionsDescription> desc);
-    std::shared_ptr<CmdOptionsDescription> getOptionsDescription(std::shared_ptr<CmdOptionsDescription>  desc);
+    virtual void setConfigurationFromCmd(int argc, char** argv, const CmdOptionsDescriptionPtr &desc);
+    const CmdOptionsDescriptionPtr& getOptionsDescription(const CmdOptionsDescriptionPtr &desc);
     void startCopy();
-    std::shared_ptr<Directory> getDestination();
-    std::shared_ptr<File> getFileToParse();
-    AbstractFileParse* getParser(std::shared_ptr<File> fileToParse);
-    ParsedFiles* startParse(AbstractFileParse* parser, std::shared_ptr<File>);
-    void copyParsedFiles(ParsedFiles* files, std::shared_ptr<Directory> destination);
-    void copyWithNotificate(ParsedFiles* files, std::shared_ptr<Directory> destination);
-    void copyWithoutNotificate(ParsedFiles* files, std::shared_ptr<Directory> destination);
-    void setCopyStatusValues(ParsedFiles* parFiles, ParsedFilesStorage *files);
-    void showCopyStats();
+    const Directory* getDestination();
+    const File* getFileToParse();
+    const AbstractFileParse* getParser(const FilePtr &fileToParse) const;
+    const ParsedFiles* startParse(const AbstractFileParse &parser,const FilePtr &fileToParse) const;
+    void copyParsedFiles(const ParsedFiles *files, const DirectoryPtr &destination) const ;
+    void copyWithNotificate(const ParsedFiles *parFiles, const DirectoryPtr &destination) const;
+    void copyWithoutNotificate(const ParsedFiles *parsedFiles, const DirectoryPtr &destination) const;
+    void setCopyStatusValues(const ParsedFiles *parFiles, const ParsedFilesStorage &files) const;
+    void showCopyStats() const;
 };
 
 #endif /* CMD_H */

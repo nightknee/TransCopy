@@ -1,6 +1,6 @@
 #include "DiskObject.h"
 
-bool DiskObject::isExist(std::string objectName)
+bool DiskObject::isExist(const std::string &objectName)
 {
     fs::path p(objectName);
     

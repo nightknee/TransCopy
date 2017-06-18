@@ -4,7 +4,11 @@
 #include "DiskObject.h"
 #include "Exceptions/FileException.h"
 
+class File;
+
 namespace fs = boost::filesystem;
+
+typedef std::shared_ptr<File> FilePtr;
 
 /**
  * @class File
@@ -21,7 +25,7 @@ public:
      *
      * @return  If file exist return true
      */
-    static bool isExist(std::string fileName);
+    static bool isExist(const std::string &fileName);
     /**
             @brief  Constructor seted _path value
      */
@@ -31,11 +35,11 @@ public:
      * 
      * @throw  FileException
      */
-    File(std::string filePath);
+    File(const std::string &filePath);
     virtual ~File();               
     
-    std::string getFileName() const;
-    std::string getExntenstion() const;
+    const std::string& getFileName() const;
+    const std::string& getExntenstion() const;
     uintmax_t size() const;    
     
     /**
@@ -61,7 +65,6 @@ private:
             @brief File size in bytes
      */
     uintmax_t fileSize;
-
 };
 
 #endif // FILE_H

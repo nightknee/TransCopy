@@ -9,10 +9,10 @@ typedef boost::ptr_vector<File> ParsedFilesStorage;
 
 class ParsedFiles{
 public:
-    void addFile(const File *file);
-    bool isEmpty();
-    ParsedFilesStorage* getParsedFilesStorage();
-    uintmax_t size();
+    void addFile(File *file);
+    bool isEmpty() const;
+    ParsedFilesStorage* getParsedFilesStorage() const;
+    const uintmax_t& size() const;
 private:
     void appendToFileSize(const File *file);
     uintmax_t allFileSize;

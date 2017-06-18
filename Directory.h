@@ -8,11 +8,15 @@
 #include "File.h"
 #include "Exceptions/PathException.h"
 
+class Directory;
+
 namespace fs = boost::filesystem;
+
+typedef std::shared_ptr<Directory> DirectoryPtr;
 
 class Directory : public DiskObject {
 public:
-    Directory(std::string dirPath);          
+    Directory(const std::string &dirPath);          
     virtual ~Directory();
     
      /**
@@ -26,7 +30,7 @@ public:
      *  \ home\foo - true
      * @return 
      */
-    static bool isExist(std::string dirPath);
+    static bool isExist(const std::string &dirPath);
     
       /**
      * @brief Function copied files use native OS function to copy. If os is not define then function use standard functions

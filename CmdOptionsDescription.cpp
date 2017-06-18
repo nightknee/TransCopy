@@ -1,4 +1,4 @@
 #include "CmdOptionsDescription.h"
 
-CmdOptionsDescription::CmdOptionsDescription(std::string caption) : po::options_description::options_description(caption)
+CmdOptionsDescription::CmdOptionsDescription(const std::string &caption) : po::options_description::options_description(caption)
 {}

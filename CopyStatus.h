@@ -21,17 +21,17 @@ public:
      * @brief  Get variable _allFilesSize
      * @return  Copy of _allFilesSize
      */
-    uintmax_t getAllFilesSize();
+    const uintmax_t& getAllFilesSize();
     /**
      * @brief Set _allFilesSize
      * @param size New _allFilesSize value
      */
-    void setAllFilesSize(boost::uintmax_t size);
+    void setAllFilesSize(uintmax_t& size);
     /**
      * @brief Get variable _copiedFilesSize
      * @return Copy of _copiedFilesSize
      */
-    uintmax_t getCopiedFilesSize();
+    const uintmax_t& getCopiedFilesSize();
     /**
      * @brief Increase  _copiedFilesSize of value in param
      * @param size
@@ -50,7 +50,7 @@ public:
     /**
      * @brief  Set _numberOfAllFiles value
      */
-    void setNumberOfAllFiles(size_t);
+    void setNumberOfAllFiles(const size_t&);
     /**
      * @brief Get variable _copiedNumberFiles
      * @return Copy of _copiedNumberFiles
@@ -63,8 +63,8 @@ public:
 private:
     CopyStatus();
     ~CopyStatus();
-    void setToCopyFileSize(uintmax_t size);
-    void decreaseToCopyFileSize(uintmax_t size);
+    void setToCopyFileSize(uintmax_t &size);
+    void decreaseToCopyFileSize(uintmax_t &size);
     //Private variables
 private:
     /**

@@ -16,7 +16,7 @@
 class SysFileManager {
 public:
 
-    bool copy(std::string sourceFile, std::string destination) {
+    bool copy(const std::string &sourceFile, const std::string &destination) {
         int source = open(sourceFile.c_str(), O_RDONLY, 0);
         int dest = open(destination.c_str(), O_WRONLY | O_CREAT, 0644);
         if (source > -1 && dest > -1) {

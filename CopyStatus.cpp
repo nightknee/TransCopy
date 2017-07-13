@@ -1,11 +1,11 @@
 #include "CopyStatus.h"
 
 CopyStatus::CopyStatus() {
-    this->_allFilesSize = 0;
-    this->_copiedFilesSize = 0;
-    this->_toCopyFileSize = 0;
-    this->_numberOfAllFiles = 0;
-    this->_copiedFilesSize = 0;
+    this->allFilesSize = 0;
+    this->copiedFilesSize = 0;
+    this->toCopyFileSize = 0;
+    this->numberOfAllFiles = 0;
+    this->copiedFilesSize = 0;
 }
 
 CopyStatus::~CopyStatus() {
@@ -13,51 +13,53 @@ CopyStatus::~CopyStatus() {
 
 CopyStatus& CopyStatus::getCopyStatus() {
     static CopyStatus instance;
+    
     return instance;
 }
 
-boost::uintmax_t CopyStatus::getAllFilesSize() {
-    return this->_allFilesSize;
+const uintmax_t& CopyStatus::getAllFilesSize() {
+    return this->allFilesSize;
 }
 
-void CopyStatus::setAllFilesSize(boost::uintmax_t size) {
-    this->_allFilesSize = size;
-    this->_setToCopyFileSize(this->_allFilesSize);
+void CopyStatus::setAllFilesSize(uintmax_t &size){     
+    this->allFilesSize = size;
+    
+    this->setToCopyFileSize(this->allFilesSize);
 }
 
-void CopyStatus::_setToCopyFileSize(boost::uintmax_t size) {
-    this->_toCopyFileSize = size;
+void CopyStatus::setToCopyFileSize(uintmax_t &size){
+    this->toCopyFileSize = size;
 }
 
-boost::uintmax_t CopyStatus::getCopiedFilesSize() {
-    return this->_copiedFilesSize;
+const uintmax_t& CopyStatus::getCopiedFilesSize() {
+    return this->copiedFilesSize;
 }
 
-void CopyStatus::addCopiedFileSize(boost::uintmax_t size) {
-    this->_copiedFilesSize += size;
-    this->_decreaseToCopyFileSize(size);
+void CopyStatus::addCopiedFileSize(uintmax_t size) {
+    this->copiedFilesSize += size;
+    this->decreaseToCopyFileSize(size);
 }
 
-void CopyStatus::_decreaseToCopyFileSize(boost::uintmax_t size) {
-    this->_toCopyFileSize -= size;
+void CopyStatus::decreaseToCopyFileSize(uintmax_t &size) {
+    this->toCopyFileSize -= size;
 }
 
-boost::uintmax_t CopyStatus::getToCopyFileSize() {
-    return this->_toCopyFileSize;
+uintmax_t CopyStatus::getToCopyFileSize() {
+    return this->toCopyFileSize;
 }
 
-FileVector::size_type CopyStatus::getNumberOfAllFiles() {
-    return this->_numberOfAllFiles;
+size_t CopyStatus::getNumberOfAllFiles() {
+    return this->numberOfAllFiles;
 }
 
-void CopyStatus::setNumberOfAllFiles(FileVector::size_type size) {
-    this->_numberOfAllFiles = size;
+void CopyStatus::setNumberOfAllFiles(const size_t& size) {
+    this->numberOfAllFiles = size;
 }
 
-FileVector::size_type CopyStatus::getCopiedNumberFiles() {
-    return this->_copiedNumberFiles;
+size_t CopyStatus::getCopiedNumberFiles() {
+    return this->copiedNumberFiles;
 }
 
 void CopyStatus::increaseCopiedNumberFiles() {
-    this->_copiedNumberFiles++;
+    this->copiedNumberFiles++;
 }

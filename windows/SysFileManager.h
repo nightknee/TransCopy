@@ -15,7 +15,7 @@
 class SysFileManager {
 public:
 
-    bool copy(std::string sourceFile, std::string destination) {
+    bool copy(const std::string &sourceFile, const std::string &destination) {
         std::wstring wSourceFile = std::wstring(sourceFile.begin(), sourceFile.end());
         std::wstring wDestination = std::wstring(destination.begin(), destination.end());
         CopyFile(wSourceFile.c_str(), wDestination.c_str(), 1);

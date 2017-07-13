@@ -14,12 +14,9 @@ namespace fs = boost::filesystem;
 
 class DiskObject : public fs::path, protected SysFileManager {
 public:
-    static bool isExist(std::string objectName);
-    DiskObject(std::string path): fs::path(path){} 
+    static bool isExist(const std::string &objectName);
+    DiskObject(const std::string &path): fs::path(path){} 
     virtual ~DiskObject() {}
-
-private:
-
 };
 
 #endif /* DISKOBJECT_H */

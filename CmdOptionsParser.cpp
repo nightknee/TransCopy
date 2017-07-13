@@ -1,6 +1,6 @@
 #include "CmdOptionsParser.h"
 
-void CmdOptionsParser::parseCmdOptionsToConfiguration(int argc, char** argv, std::shared_ptr<CmdOptionsDescription> optionsDesc) {
+void CmdOptionsParser::parseCmdOptionsToConfiguration(int argc, char** argv, const std::shared_ptr<CmdOptionsDescription> &optionsDesc) {
     try {               
         
         boost::program_options::variables_map*  map =  TransCopyConfiguration::getBoostInstance();

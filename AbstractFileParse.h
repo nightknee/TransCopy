@@ -2,17 +2,8 @@
 #define AbstractPlaylistParse_h
 
 #include <string>
-#include <vector>
-#include <boost/ptr_container/ptr_vector.hpp>
-#include <boost/filesystem.hpp>
-#include <boost/regex.hpp>
 
-#include "File.h"
-#include "CopyStatus.h"
-
-typedef boost::ptr_vector<File> FileVector;
-
-namespace fs = boost::filesystem;
+#include "ParsedFiles.h"
 
 /**
  * @class AbstractFileParse
@@ -21,14 +12,10 @@ namespace fs = boost::filesystem;
  */
 class AbstractFileParse {
 public:
-    virtual bool parse(std::shared_ptr<File> file) = 0;
-    virtual FileVector* getParsedSongs() = 0;
-    virtual std::string getPath(std::string line) = 0;
-    virtual boost::uintmax_t getAllFilesSize() = 0;
+    virtual const ParsedFiles* parse(const FilePtr &file) const = 0;
+    virtual const std::string& parsingFileExtension() const = 0;
 protected:
-    FileVector _parsedFiles;
-    boost::uintmax_t _allFilesSize;
-    virtual void _appendToFileSize(boost::uintmax_t value) = 0;
+    std::string extension;
 };
 
 #endif // AbstractPlaylistParse

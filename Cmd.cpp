@@ -1,6 +1,6 @@
 #include "Cmd.h"
 
-int Cmd::run(int argc, char** argv, std::shared_ptr<CmdOptionsDescription> desc) {
+int Cmd::run(int argc, char** argv, const CmdOptionsDescriptionPtr &desc) {
     this->setConfigurationFromCmd(argc, argv, desc);
     
     this->startCopy();
@@ -8,12 +8,11 @@ int Cmd::run(int argc, char** argv, std::shared_ptr<CmdOptionsDescription> desc)
     return 0;
 }
 
-void Cmd::setConfigurationFromCmd(int argc, char** argv, std::shared_ptr<CmdOptionsDescription> desc) {
+void Cmd::setConfigurationFromCmd(int argc, char** argv, const CmdOptionsDescriptionPtr &desc) {
     CmdOptionsParser::parseCmdOptionsToConfiguration(argc, argv, this->getOptionsDescription(desc));
 }
 
-std::shared_ptr<CmdOptionsDescription> Cmd::getOptionsDescription(std::shared_ptr<CmdOptionsDescription>  desc) {    
-    
+const CmdOptionsDescriptionPtr& Cmd::getOptionsDescription(const CmdOptionsDescriptionPtr  &desc) {    
     desc->add_options()
             ("file-path,f", po::value<std::string>()->required(), "Path to list files")
             ("destination-path,d", po::value<std::string>()->required(), "Path when copy files")
@@ -23,49 +22,53 @@ std::shared_ptr<CmdOptionsDescription> Cmd::getOptionsDescription(std::shared_pt
 }
 
 void Cmd::startCopy() {
-    std::shared_ptr<File> fileToParse = this->getFileToParse();
-    std::shared_ptr<Directory> destination = this->getDestination();
-    AbstractFileParse* parser = this->getParser(fileToParse);
+    const FilePtr fileToParse = std::make_shared<File>(*(this->getFileToParse()));    
+    const DirectoryPtr destination = std::make_shared<Directory>(*(this->getDestination()));;
+    const AbstractFileParse *parser = this->getParser(fileToParse);
     
-    if (this->startParse(parser, fileToParse)) {
-        this->copyParsedFiles(parser, destination);
+    const ParsedFiles *files = this->startParse(*parser, fileToParse);
+    
+    if (!files->isEmpty()) {
+        this->copyParsedFiles(files, destination);
     }
+    
+    delete files;
 }
 
-std::shared_ptr<File> Cmd::getFileToParse() {
+const File* Cmd::getFileToParse() {
     File* file = new File(TransCopyConfiguration::getInstance()->getStringOptionValue(Cmd::OPTION_FILE_PATH));
     
-    return std::make_shared<File>(*file);
+    return file;
 }
 
-std::shared_ptr<Directory> Cmd::getDestination() {
+const Directory* Cmd::getDestination() {
     Directory* path = new Directory(TransCopyConfiguration::getInstance()->getStringOptionValue(Cmd::OPTION_DESTINATION_PATH));
     
-    return std::make_shared<Directory>(*path);  
+    return path;  
 }
 
-AbstractFileParse* Cmd::getParser(std::shared_ptr<File> fileToParse) {
+const AbstractFileParse* Cmd::getParser(const FilePtr &fileToParse) const {
     return FileParserContainer::getInstance().findParser(fileToParse->getExntenstion());
 }
 
-bool Cmd::startParse(AbstractFileParse* parser, std::shared_ptr<File> fileToParse) {
-    return parser->parse(fileToParse);
+const ParsedFiles* Cmd::startParse(const AbstractFileParse &parser,const FilePtr &fileToParse) const {
+    return parser.parse(fileToParse);
 }
 
-void Cmd::copyParsedFiles(AbstractFileParse* parser, std::shared_ptr<Directory> destination) {
+void Cmd::copyParsedFiles(const ParsedFiles *files, const DirectoryPtr &destination) const{
     if (TransCopyConfiguration::getInstance()->optionExist(Cmd::OPTION_NOTIFICATE)) {
-        this->copyWithNotificate(parser, destination);
+        this->copyWithNotificate(files, destination);
     } else {
-        this->copyWithoutNotificate(parser, destination);
+        this->copyWithoutNotificate(files, destination);
     }    
 }
 
-void Cmd::copyWithNotificate(AbstractFileParse* parser, std::shared_ptr<Directory> destination) {
-    FileVector *files = parser->getParsedSongs();
+void Cmd::copyWithNotificate(const ParsedFiles *parFiles, const DirectoryPtr &destination) const {
+    ParsedFilesStorage *files = parFiles->getParsedFilesStorage();
 
-    this->setCopyStatusValues(parser, files); 
+    this->setCopyStatusValues(parFiles, *files); 
 
-    for (FileVector::iterator i = files->begin(); i != files->end(); ++i) {  
+    for (ParsedFilesStorage::iterator i = files->begin(); i != files->end(); ++i) {  
         if (destination->copyFile(*i)) {            
             CopyStatus::getCopyStatus().increaseCopiedNumberFiles();
             CopyStatus::getCopyStatus().addCopiedFileSize(i->size());
@@ -76,24 +79,23 @@ void Cmd::copyWithNotificate(AbstractFileParse* parser, std::shared_ptr<Director
     std::cout << std::endl;
 }
 
-void Cmd::copyWithoutNotificate(AbstractFileParse* parser, std::shared_ptr<Directory> destination) {
-    FileVector *files = parser->getParsedSongs();
-
-    for (FileVector::iterator i = files->begin(); i != files->end(); ++i) {  
+void Cmd::copyWithoutNotificate(const ParsedFiles *parsedFiles, const DirectoryPtr &destination) const {
+    ParsedFilesStorage *files = parsedFiles->getParsedFilesStorage();
+    
+    for (ParsedFilesStorage::iterator i = files->begin(); i != files->end(); ++i) {  
         destination->copyFile(*i);            
     }
     std::cout << std::endl;
 }
 
-void Cmd::setCopyStatusValues(AbstractFileParse* parser, FileVector *files) {
-    CopyStatus::getCopyStatus().setAllFilesSize(parser->getAllFilesSize());
-    CopyStatus::getCopyStatus().setNumberOfAllFiles(files->size());
+void Cmd::setCopyStatusValues(const ParsedFiles *parFiles, const ParsedFilesStorage &files) const{    
+    CopyStatus::getCopyStatus().setAllFilesSize(const_cast<uintmax_t&>(parFiles->size()));
+    CopyStatus::getCopyStatus().setNumberOfAllFiles(files.size());
 }
 
-void Cmd::showCopyStats() {
+void Cmd::showCopyStats() const{
     std::cout << "\r";
     std::cout << "Copied: " << CopyStatus::getCopyStatus().getCopiedNumberFiles() << " of  " << CopyStatus::getCopyStatus().getNumberOfAllFiles() << " files ";
     std::cout << " Copied: " << CopyStatus::getCopyStatus().getCopiedFilesSize() << " of  " << CopyStatus::getCopyStatus().getAllFilesSize() << " bytes ";
     std::cout << "\r";
-
 }

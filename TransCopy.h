@@ -43,12 +43,6 @@ public:
      * @brief Write message about program,version,author
      */
     void messageRun();
-    /**
-     * @brief Pointer to File object represent file to parse
-     * @return Object File 
-     */
-    std::shared_ptr<File> getFileToParse();
-    void setFileToParse(std::shared_ptr<File> f);
 
     const std::shared_ptr<CmdOptionsDescription> getMainDescription();
     

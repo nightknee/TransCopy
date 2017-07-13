@@ -1,6 +1,8 @@
 #ifndef PlsParser_h
 #define PlsParser_h
 
+#include <boost/regex.hpp>
+
 #include "AbstractFileParse.h"
 
 /**
@@ -16,34 +18,20 @@ public:
      * @param file
      * @return true if parsing end succesfull
      */
-    bool parse(std::shared_ptr<File> file);
+    const ParsedFiles* parse(const FilePtr &file) const;
+    
+    const std::string& parsingFileExtension() const;
+private:
     /**
-     * @brief Return vector with all Files seted parsed file
-     * @return  Pointer to vector File class objects to copy
+     * @brief Regex patern to parse path 
      */
-    FileVector* getParsedSongs();
+    boost::regex expresion;
     /**
      * @brief Parse line in file and return full path to ile
      * @param line Content one line in file
      * @return Path ready to set in new File class object
      */
-    std::string getPath(std::string line);
-    bool validatePlaylist();
-    /**
-     * @brief  Return size of all files get it in parsed file
-     * @return  Size of all files
-     */
-    boost::uintmax_t getAllFilesSize();
-private:
-    /**
-     * @brief Regex patern to parse path 
-     */
-    boost::regex _expresion;
-    /**
-     * @brief  Append _allFilesSize
-     * @param value 
-     */
-    void _appendToFileSize(boost::uintmax_t value);
+    std::string getPath(const std::string &line) const;
 };
 
 #endif // PlsParser_h

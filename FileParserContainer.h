@@ -9,7 +9,8 @@
 #include "PlsParser.h"
 #include "Exceptions/BaseException.h"
 
-typedef std::map<std::string, AbstractFileParse*> playlistMap;
+typedef std::map<std::string, AbstractFileParse*> filesMap;
+typedef std::pair<std::string, AbstractFileParse*> insertedType;
 
 /**
  * @class FileParserContainer
@@ -25,7 +26,7 @@ public:
      * @return If function find parser then return patern, otherwise throw NotFoundParserException
      * @throw NotFoundParserException
      */
-    AbstractFileParse* findParser(std::string fileExtension);
+    AbstractFileParse* findParser(const std::string &fileExtension);
     /**
      * @brief  Return static object of class
      * @return Reference to FileParserContainer object
@@ -36,13 +37,13 @@ public:
      * @param playlistExtenstion Extenstion which parser can parse
      * @param newParser Pointer to new parser which extends AbstractFileParser
      */
-    void insertParser(std::string playlistExtenstion, AbstractFileParse* newParser);
+    void insertParser(const std::string &playlistExtenstion, AbstractFileParse* newParser);
 
 private:
     /**
            @brief  All parsers
      */
-    playlistMap _parsers;
+    filesMap parsers;
 };
 
 #endif // PlaylistParserContainer_h

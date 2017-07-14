@@ -26,7 +26,7 @@ public:
      * @brief Change all one backslach to double to correct use in CopyFile() function
      * @param path
      */
-    void preparePath(const std::string& path) {
+    void preparePath(std::string &path) {
         boost::algorithm::replace_all(path, "\\", "\\\\");
     }
 };

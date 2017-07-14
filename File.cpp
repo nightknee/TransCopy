@@ -29,7 +29,7 @@ bool File::isExist(const std::string &fileName){
 }
 
 void File::setBaseInformationsAboutFile() {    
-    this->preparePath(this->string());   
+    this->preparePath(const_cast<std::string&>(this->string()));
               
     this->fileSize = fs::file_size(*this);        
     this->fileExtension = this->extension().string();    

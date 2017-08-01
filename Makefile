@@ -64,7 +64,7 @@ CmdOptionsParser.o: CmdOptionsParser.cpp CmdOptionsParser.h Exceptions/CmdOption
 CmdOptionsDescription.o: CmdOptionsDescription.cpp CmdOptionsDescription.h
 	$(CC) -c CmdOptionsDescription.cpp -o $(BUILDDIR)CmdOptionsDescription.o $(CCFLAGS)
 
-DiskObject.o: DiskObject.h linux/SysFileManager.h windows/SysFileManager.h
+DiskObject.o: DiskObject.h
 	$(CC) -c DiskObject.cpp -o $(BUILDDIR)DiskObject.o $(CCFLAGS)
 
 Directory.o : Directory.h Directory.cpp DiskObject.o

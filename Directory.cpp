@@ -32,3 +32,7 @@ bool Directory::copyFile(File &file)
 std::string Directory::prepareNewFilePath(File &file) {
     return (this->string() + file.filename().string());
 }
+
+const char Directory::getSepratator() {
+    return Directory::preferred_separator;
+}

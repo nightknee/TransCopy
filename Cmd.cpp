@@ -42,7 +42,13 @@ const File* Cmd::getFileToParse() {
 }
 
 const Directory* Cmd::getDestination() {
-    Directory* path = new Directory(TransCopyConfiguration::getInstance()->getStringOptionValue(Cmd::OPTION_DESTINATION_PATH));
+    std::string destination = TransCopyConfiguration::getInstance()->getStringOptionValue(Cmd::OPTION_DESTINATION_PATH);
+    
+    if (this->neededToAddSeparator(destination)) {
+        destination += Directory::getSepratator();
+    }
+    
+    Directory* path = new Directory(destination);
     
     return path;  
 }
@@ -98,4 +104,12 @@ void Cmd::showCopyStats() const{
     std::cout << "Copied: " << CopyStatus::getCopyStatus().getCopiedNumberFiles() << " of  " << CopyStatus::getCopyStatus().getNumberOfAllFiles() << " files ";
     std::cout << " Copied: " << CopyStatus::getCopyStatus().getCopiedFilesSize() << " of  " << CopyStatus::getCopyStatus().getAllFilesSize() << " bytes ";
     std::cout << "\r";
+}
+
+bool Cmd::neededToAddSeparator(const std::string &dirPath) {
+	if (dirPath.back() == Directory::preferred_separator) {
+		return false;
+	}
+
+	return true;
 }

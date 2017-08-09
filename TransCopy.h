@@ -19,6 +19,7 @@
 #include "File.h"
 #include "Directory.h"
 #include "Cmd.h"
+#include "Output.h"
 
 /**
  * @class TransCopy
@@ -72,6 +73,8 @@ private:
     //Private variables	
 private:
     std::shared_ptr<CmdOptionsDescription> cmdDesc;
+    
+    Output *ostream;
 };
 
 #endif // TRANSCOPY_H

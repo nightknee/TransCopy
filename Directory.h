@@ -30,7 +30,9 @@ public:
      *  \ home\foo - true
      * @return 
      */
-    static bool isExist(const std::string &dirPath);
+    static bool isExist(const std::string &dirPath);       
+       
+    static const char getSepratator();
     
       /**
      * @brief Function copied files use native OS function to copy. If os is not define then function use standard functions

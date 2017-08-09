@@ -30,7 +30,8 @@ private:
     void copyWithNotificate(const ParsedFiles *parFiles, const DirectoryPtr &destination) const;
     void copyWithoutNotificate(const ParsedFiles *parsedFiles, const DirectoryPtr &destination) const;
     void setCopyStatusValues(const ParsedFiles *parFiles, const ParsedFilesStorage &files) const;
-    void showCopyStats() const;
+    void showCopyStats() const;    
+	bool neededToAddSeparator(const std::string &dirPath);
 };
 
 #endif /* CMD_H */

@@ -1,7 +1,7 @@
 #include "Cmd.h"
 
-int Cmd::run(int argc, char** argv, const CmdOptionsDescriptionPtr &desc) {
-    this->setConfigurationFromCmd(argc, argv, desc);
+int Cmd::run(int argc, char** argv, const TransCopy &trc) {
+    this->setConfigurationFromCmd(argc, argv, trc.getMainDescription());
     
     this->startCopy();
     
@@ -107,9 +107,9 @@ void Cmd::showCopyStats() const{
 }
 
 bool Cmd::neededToAddSeparator(const std::string &dirPath) {
-	if (dirPath.back() == Directory::preferred_separator) {
-		return false;
-	}
+    if (dirPath.back() == Directory::preferred_separator) {
+	return false;
+    }
 
-	return true;
+    return true;
 }

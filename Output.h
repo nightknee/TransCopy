@@ -5,7 +5,8 @@
 
 class Output {
 public:
-    Output& operator<<(const std::string& str) = 0;
+    virtual ~Output(){}
+    virtual Output& operator<<(const std::string& str) = 0;
 private:
 
 };

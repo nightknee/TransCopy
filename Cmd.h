@@ -17,7 +17,7 @@ public:
     const std::string OPTION_DESTINATION_PATH = "destination-path";
     const std::string OPTION_NOTIFICATE = "notificate";
     
-    virtual int run(int argc, char** argv, const CmdOptionsDescriptionPtr &desc);
+    virtual int run(int argc, char** argv, const TransCopy &trc);
 private:
     virtual void setConfigurationFromCmd(int argc, char** argv, const CmdOptionsDescriptionPtr &desc);
     const CmdOptionsDescriptionPtr& getOptionsDescription(const CmdOptionsDescriptionPtr &desc);

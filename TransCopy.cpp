@@ -2,7 +2,7 @@
 
 TransCopy::TransCopy() {
     this->messageRun();
- 
+    
     CmdOptionsDescription optionsDescription("Options");
     this->cmdDesc = this->setBaseCmdOptionsDescription(optionsDescription);   
 }
@@ -23,20 +23,20 @@ int TransCopy::run(int argc, char** argv) {
         if (TransCopyConfiguration::getInstance()->optionExist(TransCopy::OPTION_TERMINAL)) {
             Cmd cmdInstance;
             
-            return cmdInstance.run(argc, argv, this->getMainDescription());
+            return cmdInstance.run(argc, argv, *this);
         } else {
             Cmd cmdInstance;
             
-            return cmdInstance.run(argc, argv, this->getMainDescription());
+            return cmdInstance.run(argc, argv, *this);
         }
-    } catch (const BaseException *e) {
-        std::cout<<*this->cmdDesc<<std::endl;
+    } catch (const BaseException *e) {  
+        this->displayOptonsDescription();
         
         if (!TransCopyConfiguration::getInstance()->optionExist(TransCopy::OPTION_HELP)) {
             MainExceptionHandler::handleException(e);
         }       
     } catch (std::exception *e) {
-        std::cout<<*this->cmdDesc<<std::endl;
+        this->displayOptonsDescription();
         
         if (!TransCopyConfiguration::getInstance()->optionExist(TransCopy::OPTION_HELP)) {
             MainExceptionHandler::handleException(e);
@@ -47,10 +47,14 @@ int TransCopy::run(int argc, char** argv) {
 
 void TransCopy::setSettingsFromArgs(int argc, char** argv) {
     try {
-           CmdOptionsParser::parseCmdOptionsToConfiguration(argc, argv, this->cmdDesc);
+        CmdOptionsParser::parseCmdOptionsToConfiguration(argc, argv, this->cmdDesc);
     } catch (const CmdOptionsParserException *e) {
     
     }
+}
+
+void TransCopy::displayOptonsDescription() {
+    this->out<<*this->cmdDesc;    
 }
 
 std::string TransCopy::Name = "TransCopy";
@@ -66,6 +70,6 @@ void TransCopy::messageRun() {
             << "\t \t" << this->GitHub << std::endl;
 }
 
-const std::shared_ptr<CmdOptionsDescription> TransCopy::getMainDescription() {
+const std::shared_ptr<CmdOptionsDescription>& TransCopy::getMainDescription() const{
     return this->cmdDesc;
 }

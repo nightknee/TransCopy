@@ -19,6 +19,7 @@
 #include "File.h"
 #include "Directory.h"
 #include "Cmd.h"
+#include "DefaultOutput.h"
 
 /**
  * @class TransCopy
@@ -31,7 +32,7 @@ public:
     const std::string OPTION_HELP = "help";
     
     //Public functions
-    TransCopy();    
+    TransCopy(); 
     /**
      * @brief  Main program function called all function seted variables
      * @param argc From int main()
@@ -44,7 +45,7 @@ public:
      */
     void messageRun();
 
-    const std::shared_ptr<CmdOptionsDescription> getMainDescription();
+    const std::shared_ptr<CmdOptionsDescription>& getMainDescription() const;
     
     //Public variables: 
     static std::string Name;
@@ -69,9 +70,13 @@ private:
      */
     std::shared_ptr<CmdOptionsDescription> setBaseCmdOptionsDescription(CmdOptionsDescription& description);
     
+    void displayOptonsDescription();
+    
     //Private variables	
 private:
     std::shared_ptr<CmdOptionsDescription> cmdDesc;
+    
+    DefaultOutput out;
 };
 
 #endif // TRANSCOPY_H

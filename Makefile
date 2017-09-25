@@ -2,7 +2,7 @@ CC = g++
 
 CCDEPLOYFLAGS = -O3 -O2 -std=c++14
 CCDEBUGFLAGS = -g -O0 -Wall -std=c++14
-CCFLAGS = $(CCDEPLOYFLAGS)
+CCFLAGS = $(CCDEBUGFLAGS)
 
 LDSTATICLIBS = /usr/lib/libboost_program_options.a /usr/lib/libboost_system.a /usr/lib/libboost_filesystem.a /usr/lib/libboost_regex.a
 LDDYNAMICLIBS = -lboost_program_options -lboost_system -lboost_filesystem -lboost_regex
@@ -13,8 +13,8 @@ BUILDDIR = $(BUILDDIRNAME)/
 
 APPNAME = TransCopy
 
-all: bulidDirName TransCopy.o TransCopyConfiguration.o PlsParser.o PathException.o NotFoundParserException.o MainExceptionHandler.o main.o FileParserContainer.o FileException.o File.o CopyStatus.o CmdOptionsParserException.o CmdOptionsParsed.o CmdOptionsParser.o BaseException.o CmdOptionsDescription.o Directory.o Cmd.o ParsedFiles.o DefaultOutput.o
-	$(CC) $(CCFLAGS) $(BUILDDIR)TransCopy.o $(BUILDDIR)TransCopyConfiguration.o $(BUILDDIR)PlsParser.o $(BUILDDIR)PathException.o $(BUILDDIR)NotFoundParserException.o $(BUILDDIR)MainExceptionHandler.o $(BUILDDIR)main.o $(BUILDDIR)FileParserContainer.o $(BUILDDIR)File.o $(BUILDDIR)CopyStatus.o $(BUILDDIR)CmdOptionsParserException.o $(BUILDDIR)CmdOptionsParsed.o $(BUILDDIR)CmdOptionsParser.o $(BUILDDIR)BaseException.o $(BUILDDIR)CmdOptionsDescription.o $(BUILDDIR)DiskObject.o $(BUILDDIR)Directory.o $(BUILDDIR)FileException.o $(BUILDDIR)Cmd.o $(BUILDDIR)ParsedFiles.o $(BUILDDIR)DefaultOutput.o $(LDLIBS) -o $(APPNAME)
+all: bulidDirName TransCopy.o TransCopyConfiguration.o PlsParser.o PathException.o NotFoundParserException.o MainExceptionHandler.o main.o FileParserContainer.o FileException.o File.o CopyStatus.o CmdOptionsParserException.o CmdOptionsParsed.o CmdOptionsParser.o BaseException.o CmdOptionsDescription.o Directory.o Cmd.o ParsedFiles.o CmdOutput.o
+	$(CC) $(CCFLAGS) $(BUILDDIR)TransCopy.o $(BUILDDIR)TransCopyConfiguration.o $(BUILDDIR)PlsParser.o $(BUILDDIR)PathException.o $(BUILDDIR)NotFoundParserException.o $(BUILDDIR)MainExceptionHandler.o $(BUILDDIR)main.o $(BUILDDIR)FileParserContainer.o $(BUILDDIR)File.o $(BUILDDIR)CopyStatus.o $(BUILDDIR)CmdOptionsParserException.o $(BUILDDIR)CmdOptionsParsed.o $(BUILDDIR)CmdOptionsParser.o $(BUILDDIR)BaseException.o $(BUILDDIR)CmdOptionsDescription.o $(BUILDDIR)DiskObject.o $(BUILDDIR)Directory.o $(BUILDDIR)FileException.o $(BUILDDIR)Cmd.o $(BUILDDIR)ParsedFiles.o $(BUILDDIR)CmdOutput.o $(LDLIBS) -o $(APPNAME)
 
 TransCopy.o:  TransCopy.cpp TransCopy.h TransCopyConfiguration.h FileParserContainer.h AbstractFileParse.h MainExceptionHandler.h Exceptions/BaseException.h CopyStatus.h CmdOptionsParser.h CmdOptionsDescription.h CmdOptionsParsed.h
 	$(CC) -c TransCopy.cpp -o $(BUILDDIR)TransCopy.o $(CCFLAGS)
@@ -76,8 +76,8 @@ Cmd.o : Cmd.h Cmd.cpp Ui.h CmdOptionsParser.h CmdOptionsDescription.h TransCopy.
 ParsedFiles.o : ParsedFiles.h ParsedFiles.cpp
 	$(CC) -c ParsedFiles.cpp -o $(BUILDDIR)ParsedFiles.o $(CCFLAGS)		
 	
-DefaultOutput.o : DefaultOutput.h DefaultOutput.cpp Output.h
-	$(CC) -c DefaultOutput.cpp -o $(BUILDDIR)DefaultOutput.o $(CCFLAGS)		
+CmdOutput.o : CmdOutput.h CmdOutput.cpp Output.h
+	$(CC) -c CmdOutput.cpp -o $(BUILDDIR)CmdOutput.o $(CCFLAGS)		
 	
 bulidDirName:
 	@mkdir -p $(BUILDDIRNAME)

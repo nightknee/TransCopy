@@ -23,21 +23,17 @@ int TransCopy::run(int argc, char** argv) {
         if (TransCopyConfiguration::getInstance()->optionExist(TransCopy::OPTION_TERMINAL)) {
             Cmd cmdInstance;
             
-            return cmdInstance.run(argc, argv, *this);
+            return cmdInstance.run(argc, argv, this->getMainDescription());
         } else {
             Cmd cmdInstance;
             
-            return cmdInstance.run(argc, argv, *this);
+            return cmdInstance.run(argc, argv, this->getMainDescription());
         }
     } catch (const BaseException *e) {  
-        this->displayOptonsDescription();
-        
         if (!TransCopyConfiguration::getInstance()->optionExist(TransCopy::OPTION_HELP)) {
             MainExceptionHandler::handleException(e);
         }       
     } catch (std::exception *e) {
-        this->displayOptonsDescription();
-        
         if (!TransCopyConfiguration::getInstance()->optionExist(TransCopy::OPTION_HELP)) {
             MainExceptionHandler::handleException(e);
         }
@@ -53,17 +49,16 @@ void TransCopy::setSettingsFromArgs(int argc, char** argv) {
     }
 }
 
-void TransCopy::displayOptonsDescription() {
-    this->out<<*this->cmdDesc;    
-}
-
 std::string TransCopy::Name = "TransCopy";
 std::string TransCopy::Version = "0.01";
 std::string TransCopy::DevName = "Mateusz Karwan";
 std::string TransCopy::Mail = "nightknee@gmail.com";
 std::string TransCopy::GitHub = "https://github.com/nightknee/TransCopy";
 
-void TransCopy::messageRun() {
+const std::string TransCopy::OPTION_TERMINAL = "terminal";
+const std::string TransCopy::OPTION_HELP = "help";
+
+void TransCopy::messageRun() {    
     std::cout << "\t \t \t" << this->Name << "\t" << std::endl << std::endl
             << "\t \t \t" << this->Version << " \t" << std::endl << std::endl
             << "\t \t \t" << this->Mail << std::endl << std::endl

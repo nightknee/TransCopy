@@ -19,7 +19,6 @@
 #include "File.h"
 #include "Directory.h"
 #include "Cmd.h"
-#include "DefaultOutput.h"
 
 /**
  * @class TransCopy
@@ -28,8 +27,8 @@
  */
 class TransCopy {
 public:     
-    const std::string OPTION_TERMINAL = "terminal";
-    const std::string OPTION_HELP = "help";
+    static const std::string OPTION_TERMINAL;
+    static const std::string OPTION_HELP;
     
     //Public functions
     TransCopy(); 
@@ -74,9 +73,7 @@ private:
     
     //Private variables	
 private:
-    std::shared_ptr<CmdOptionsDescription> cmdDesc;
-    
-    DefaultOutput out;
+    std::shared_ptr<CmdOptionsDescription> cmdDesc;   
 };
 
 #endif // TRANSCOPY_H

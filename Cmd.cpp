@@ -1,9 +1,22 @@
 #include "Cmd.h"
 
-int Cmd::run(int argc, char** argv, const TransCopy &trc) {
-    this->setConfigurationFromCmd(argc, argv, trc.getMainDescription());
-    
-    this->startCopy();
+int Cmd::run(int argc, char** argv, const CmdOptionsDescriptionPtr &desc) {
+    try{
+        this->setConfigurationFromCmd(argc, argv, desc);
+
+        this->startCopy();
+    }
+    catch (const BaseException *e) {  
+       this->out<<*desc;      
+       if (!TransCopyConfiguration::getInstance()->optionExist(TransCopy::OPTION_HELP)) {
+        this->out<<e;
+       }
+    } catch (std::exception *e) {
+       this->out<<*desc;
+       if (!TransCopyConfiguration::getInstance()->optionExist(TransCopy::OPTION_HELP)) {
+        this->out<<e;
+       }
+    }
     
     return 0;
 }
@@ -113,3 +126,8 @@ bool Cmd::neededToAddSeparator(const std::string &dirPath) {
 
     return true;
 }
+
+const std::string Cmd::OPTION_FILE_PATH = "file-path";
+const std::string Cmd::OPTION_DESTINATION_PATH = "destination-path";
+const std::string Cmd::OPTION_NOTIFICATE = "notificate";
+    

@@ -1,9 +1,8 @@
 #include "TransCopy.h"
 
-TransCopy::TransCopy() {
-    this->messageRun();
-
+TransCopy::TransCopy() {    
     CmdOptionsDescription optionsDescription("Options");
+    
     this->cmdDesc = this->setBaseCmdOptionsDescription(optionsDescription);
 }
 
@@ -29,42 +28,32 @@ int TransCopy::run(int argc, char** argv) {
             return cmdInstance.run(argc, argv, this->getMainDescription());
         }
     }
-    catch (const BaseException *e) {
-        if (!TransCopyConfiguration::getInstance()->optionExist(TransCopy::OPTION_HELP)) {
-            MainExceptionHandler::handleException(e);
-        }
+    catch (const BaseException e) {
+        MainExceptionHandler::handleException(e);
     } 
-    catch (std::exception *e) {
-        if (!TransCopyConfiguration::getInstance()->optionExist(TransCopy::OPTION_HELP)) {
-            MainExceptionHandler::handleException(e);
-        }
+    catch (std::exception e) {
+        MainExceptionHandler::handleException(e);        
     }
+    
     return 0;
 }
 
 void TransCopy::setSettingsFromArgs(int argc, char** argv) {
     try {
         CmdOptionsParser::parseCmdOptionsToConfiguration(argc, argv, this->cmdDesc);
-    } catch (const CmdOptionsParserException *e) {
+    } catch (CmdOptionsParserException e) {
 
     }
 }
 
-std::string TransCopy::Name = "TransCopy";
-std::string TransCopy::Version = "0.01";
-std::string TransCopy::DevName = "Mateusz Karwan";
-std::string TransCopy::Mail = "nightknee@gmail.com";
-std::string TransCopy::GitHub = "https://github.com/nightknee/TransCopy";
+const std::string TransCopy::Name = "TransCopy";
+const std::string TransCopy::Version = "0.01";
+const std::string TransCopy::DevName = "Mateusz Karwan";
+const std::string TransCopy::Mail = "nightknee@gmail.com";
+const std::string TransCopy::GitHub = "https://github.com/nightknee/TransCopy";
 
 const std::string TransCopy::OPTION_TERMINAL = "terminal";
 const std::string TransCopy::OPTION_HELP = "help";
-
-void TransCopy::messageRun() {
-    std::cout << "\t \t \t" << this->Name << "\t" << std::endl << std::endl
-            << "\t \t \t" << this->Version << " \t" << std::endl << std::endl
-            << "\t \t \t" << this->Mail << std::endl << std::endl
-            << "\t \t" << this->GitHub << std::endl;
-}
 
 const std::shared_ptr<CmdOptionsDescription>& TransCopy::getMainDescription() const {
     return this->cmdDesc;

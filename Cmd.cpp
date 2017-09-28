@@ -2,42 +2,46 @@
 
 int Cmd::run(int argc, char** argv, const CmdOptionsDescriptionPtr &desc) {
     try {
+        this->runMessage();
+        
         this->desc = std::move(desc);
-
+        
         this->setConfigurationFromCmd(argc, argv, desc);
 
         this->startCopy();
     } 
-    catch (CmdOptionsParserException *e) {
+    catch (CmdOptionsParserException e) {
         this->displayOptionsDescription();
 
         if (!TransCopyConfiguration::getInstance()->optionExist(TransCopy::OPTION_HELP)) {
             this->out << e;
         }
     } 
-    catch (NotFoundParserException *e) {
+    catch (NotFoundParserException e) {
         this->displayOptionsDescription();
         this->out << e;
     } 
-    catch (PathException *e) {
+    catch (PathException e) {
         this->displayOptionsDescription();
         this->out << e;
     } 
-    catch (FileException *e) {
+    catch (FileException e) {
         this->displayOptionsDescription();
         this->out << e;
     } 
-    catch (const BaseException *e) {
+    catch (const BaseException e) {
         this->out << *desc;
-        if (!TransCopyConfiguration::getInstance()->optionExist(TransCopy::OPTION_HELP)) {
-            this->out << e;
-        }
+
+        this->out << "Unsupported error. Check log file.";
+
+        throw e;
     } 
-    catch (std::exception *e) {
+    catch (std::exception e) {
         this->out << *desc;
-        if (!TransCopyConfiguration::getInstance()->optionExist(TransCopy::OPTION_HELP)) {
-            this->out << e;
-        }
+        
+        this->out << "Unsupported error. Check log file.";
+        
+        throw e;
     }
 
     return 0;
@@ -156,3 +160,10 @@ bool Cmd::neededToAddSeparator(const std::string &dirPath) {
 const std::string Cmd::OPTION_FILE_PATH = "file-path";
 const std::string Cmd::OPTION_DESTINATION_PATH = "destination-path";
 const std::string Cmd::OPTION_NOTIFICATE = "notificate";
+
+void Cmd::runMessage() {
+    std::cout << "\t \t \t" << TransCopy::Name << "\t" << std::endl << std::endl
+            << "\t \t \t" << TransCopy::Version << " \t" << std::endl << std::endl
+            << "\t \t \t" << TransCopy::Mail << std::endl << std::endl
+            << "\t \t" << TransCopy::GitHub << std::endl;
+}

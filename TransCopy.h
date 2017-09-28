@@ -39,19 +39,15 @@ public:
      * @return Result of program
      */
     int run(int argc, char** argv);
-    /**
-     * @brief Write message about program,version,author
-     */
-    void messageRun();
 
     const std::shared_ptr<CmdOptionsDescription>& getMainDescription() const;
 
     //Public variables: 
-    static std::string Name;
-    static std::string Version;
-    static std::string DevName;
-    static std::string Mail;
-    static std::string GitHub;
+    static const std::string Name;
+    static const std::string Version;
+    static const std::string DevName;
+    static const std::string Mail;
+    static const std::string GitHub;
 
     //Private functions:
 private:

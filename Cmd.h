@@ -17,7 +17,7 @@ class Cmd : public Ui{
 public:
     static const std::string OPTION_FILE_PATH;
     static const std::string OPTION_DESTINATION_PATH;
-    static const std::string OPTION_NOTIFICATE;
+    static const std::string OPTION_NOTIFICATE;           
     
     virtual int run(int argc, char** argv, const CmdOptionsDescriptionPtr &desc) ;
 private:
@@ -35,7 +35,7 @@ private:
     void showCopyStats() const;    
     bool neededToAddSeparator(const std::string &dirPath);
     void displayOptionsDescription();
-    
+    void runMessage();
     CmdOutput out;
     
     CmdOptionsDescriptionPtr desc;

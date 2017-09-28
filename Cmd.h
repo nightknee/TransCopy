@@ -4,6 +4,7 @@
 #include "Ui.h"
 #include "CmdOptionsDescription.h"
 #include "CmdOptionsParser.h"
+#include "Exceptions/NotFoundParserException.h"
 #include "Directory.h"
 #include "File.h"
 #include "ParsedFiles.h"
@@ -33,8 +34,11 @@ private:
     void setCopyStatusValues(const ParsedFiles *parFiles, const ParsedFilesStorage &files) const;
     void showCopyStats() const;    
     bool neededToAddSeparator(const std::string &dirPath);
+    void displayOptionsDescription();
     
     CmdOutput out;
+    
+    CmdOptionsDescriptionPtr desc;
 };
 
 #endif /* CMD_H */

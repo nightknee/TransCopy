@@ -26,12 +26,12 @@
  * @brief Main program class
  */
 class TransCopy {
-public:     
+public:
     static const std::string OPTION_TERMINAL;
     static const std::string OPTION_HELP;
-    
+
     //Public functions
-    TransCopy(); 
+    TransCopy();
     /**
      * @brief  Main program function called all function seted variables
      * @param argc From int main()
@@ -45,7 +45,7 @@ public:
     void messageRun();
 
     const std::shared_ptr<CmdOptionsDescription>& getMainDescription() const;
-    
+
     //Public variables: 
     static std::string Name;
     static std::string Version;
@@ -68,12 +68,10 @@ private:
      * @return Object of Configuration structure
      */
     std::shared_ptr<CmdOptionsDescription> setBaseCmdOptionsDescription(CmdOptionsDescription& description);
-    
-    void displayOptonsDescription();
-    
+
     //Private variables	
 private:
-    std::shared_ptr<CmdOptionsDescription> cmdDesc;   
+    std::shared_ptr<CmdOptionsDescription> cmdDesc;
 };
 
 #endif // TRANSCOPY_H

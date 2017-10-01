@@ -36,7 +36,7 @@ private:
     bool neededToAddSeparator(const std::string &dirPath);
     void displayOptionsDescription();
     void runMessage();
-    CmdOutput out;
+    CmdOutput out;    
     
     CmdOptionsDescriptionPtr desc;
 };

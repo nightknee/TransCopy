@@ -9,6 +9,9 @@
 
 class CmdOutput : public Output {
 public:
+    static const std::string NEW_LINE;
+    static const std::string TAB;
+    
     virtual Output& operator<<(const std::string& str);
     void sendOutput(const std::string& str);
     

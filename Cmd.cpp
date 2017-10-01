@@ -14,32 +14,32 @@ int Cmd::run(int argc, char** argv, const CmdOptionsDescriptionPtr &desc) {
         this->displayOptionsDescription();
 
         if (!TransCopyConfiguration::getInstance()->optionExist(TransCopy::OPTION_HELP)) {
-            this->out << e;
+            this->out << e << CmdOutput::NEW_LINE;
         }
     } 
     catch (NotFoundParserException e) {
         this->displayOptionsDescription();
-        this->out << e;
+        this->out << e << CmdOutput::NEW_LINE;
     } 
     catch (PathException e) {
         this->displayOptionsDescription();
-        this->out << e;
+        this->out << e << CmdOutput::NEW_LINE;
     } 
     catch (FileException e) {
         this->displayOptionsDescription();
-        this->out << e;
+        this->out << e << CmdOutput::NEW_LINE;
     } 
     catch (const BaseException e) {
-        this->out << *desc;
+        this->out << *desc << CmdOutput::NEW_LINE;
 
-        this->out << "Unsupported error. Check log file.";
+        this->out << "Unsupported error. Check log file." << CmdOutput::NEW_LINE;
 
         throw e;
     } 
     catch (std::exception e) {
-        this->out << *desc;
+        this->out << *desc << CmdOutput::NEW_LINE;
         
-        this->out << "Unsupported error. Check log file.";
+        this->out << "Unsupported error. Check log file." << CmdOutput::NEW_LINE;
         
         throw e;
     }
@@ -48,7 +48,7 @@ int Cmd::run(int argc, char** argv, const CmdOptionsDescriptionPtr &desc) {
 }
 
 void Cmd::displayOptionsDescription() {
-    this->out << *desc;
+    this->out << *desc << CmdOutput::NEW_LINE;
 }
 
 void Cmd::setConfigurationFromCmd(int argc, char** argv, const CmdOptionsDescriptionPtr &desc) {
@@ -162,8 +162,8 @@ const std::string Cmd::OPTION_DESTINATION_PATH = "destination-path";
 const std::string Cmd::OPTION_NOTIFICATE = "notificate";
 
 void Cmd::runMessage() {
-    std::cout << "\t \t \t" << TransCopy::Name << "\t" << std::endl << std::endl
-            << "\t \t \t" << TransCopy::Version << " \t" << std::endl << std::endl
-            << "\t \t \t" << TransCopy::Mail << std::endl << std::endl
-            << "\t \t" << TransCopy::GitHub << std::endl;
+    this->out << CmdOutput::TAB << CmdOutput::TAB << CmdOutput::TAB << TransCopy::Name << CmdOutput::TAB << CmdOutput::NEW_LINE << CmdOutput::NEW_LINE
+            << CmdOutput::TAB << CmdOutput::TAB << CmdOutput::TAB << TransCopy::Version << CmdOutput::TAB << CmdOutput::NEW_LINE << CmdOutput::NEW_LINE
+            << CmdOutput::TAB << CmdOutput::TAB << CmdOutput::TAB << TransCopy::Mail << CmdOutput::NEW_LINE << CmdOutput::NEW_LINE
+            << CmdOutput::TAB << CmdOutput::TAB << TransCopy::GitHub << CmdOutput::NEW_LINE;            
 }

@@ -7,7 +7,7 @@ Output& CmdOutput::operator<<(const std::string& str) {
 }
 
 void CmdOutput::sendOutput(const std::string& str) {
-    std::cout << str << std::endl;
+    std::cout << str;
 }
 
 CmdOutput& CmdOutput::operator<<(const CmdOptionsDescription& desc) {
@@ -17,7 +17,7 @@ CmdOutput& CmdOutput::operator<<(const CmdOptionsDescription& desc) {
 }
 
 void CmdOutput::sendOutput(const CmdOptionsDescription& desc) {
-    std::cout << desc << std::endl;
+    std::cout << desc;
 }
 
 CmdOutput& CmdOutput::operator<<(const BaseException &e) {
@@ -27,7 +27,7 @@ CmdOutput& CmdOutput::operator<<(const BaseException &e) {
 }
 
 void CmdOutput::sendOutput(const BaseException &e) {
-    std::cout << e.what() << std::endl;
+    std::cout << e.what();
 }
 
 CmdOutput& CmdOutput::operator<<(std::exception &e) {
@@ -37,5 +37,8 @@ CmdOutput& CmdOutput::operator<<(std::exception &e) {
 }
 
 void CmdOutput::sendOutput(std::exception &e) {
-    std::cout << e.what() << std::endl;
+    std::cout << e.what();
 }
+
+const std::string CmdOutput::NEW_LINE = "\n";
+const std::string CmdOutput::TAB = "\t";

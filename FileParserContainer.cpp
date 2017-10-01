@@ -10,7 +10,7 @@ FileParserContainer::FileParserContainer() {
 AbstractFileParse* FileParserContainer::findParser(const std::string &fileExtension) {
     filesMap::iterator It = this->parsers.find(fileExtension);
     if (It == this->parsers.end()) {
-        throw new NotFoundParserException("Not found parser for " + fileExtension + " extension");
+        throw NotFoundParserException("Not found parser for " + fileExtension + " extension");
     }
     AbstractFileParse *parser = It->second;
     

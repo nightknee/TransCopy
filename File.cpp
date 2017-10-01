@@ -2,7 +2,7 @@
 
 File::File(const std::string &filePath): DiskObject(filePath){    
     if (!File::isExist(filePath)) {
-        throw new FileException(filePath + " file doesn't exist");
+        throw FileException(filePath + " file doesn't exist");
     }
     
     this->setBaseInformationsAboutFile();

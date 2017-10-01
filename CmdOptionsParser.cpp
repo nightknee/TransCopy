@@ -10,6 +10,6 @@ void CmdOptionsParser::parseCmdOptionsToConfiguration(int argc, char** argv, con
         po::notify(*map);
         
     } catch (const po::error &e) {
-        throw new CmdOptionsParserException(e.what());
+        throw CmdOptionsParserException(e.what());
     }
 }

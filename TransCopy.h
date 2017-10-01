@@ -19,7 +19,6 @@
 #include "File.h"
 #include "Directory.h"
 #include "Cmd.h"
-#include "DefaultOutput.h"
 
 /**
  * @class TransCopy
@@ -27,12 +26,12 @@
  * @brief Main program class
  */
 class TransCopy {
-public:     
-    const std::string OPTION_TERMINAL = "terminal";
-    const std::string OPTION_HELP = "help";
-    
+public:
+    static const std::string OPTION_TERMINAL;
+    static const std::string OPTION_HELP;
+
     //Public functions
-    TransCopy(); 
+    TransCopy();
     /**
      * @brief  Main program function called all function seted variables
      * @param argc From int main()
@@ -40,19 +39,15 @@ public:
      * @return Result of program
      */
     int run(int argc, char** argv);
-    /**
-     * @brief Write message about program,version,author
-     */
-    void messageRun();
 
     const std::shared_ptr<CmdOptionsDescription>& getMainDescription() const;
-    
+
     //Public variables: 
-    static std::string Name;
-    static std::string Version;
-    static std::string DevName;
-    static std::string Mail;
-    static std::string GitHub;
+    static const std::string Name;
+    static const std::string Version;
+    static const std::string DevName;
+    static const std::string Mail;
+    static const std::string GitHub;
 
     //Private functions:
 private:
@@ -69,14 +64,10 @@ private:
      * @return Object of Configuration structure
      */
     std::shared_ptr<CmdOptionsDescription> setBaseCmdOptionsDescription(CmdOptionsDescription& description);
-    
-    void displayOptonsDescription();
-    
+
     //Private variables	
 private:
     std::shared_ptr<CmdOptionsDescription> cmdDesc;
-    
-    DefaultOutput out;
 };
 
 #endif // TRANSCOPY_H

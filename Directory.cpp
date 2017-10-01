@@ -3,7 +3,7 @@
 
 Directory::Directory(const std::string &dirPath) : DiskObject(dirPath) {
     if (!Directory::isExist(dirPath)) {
-       throw new PathException(this->string() + " path doesn't exist"); 
+       throw PathException(this->string() + " path doesn't exist");
     }
 }
 

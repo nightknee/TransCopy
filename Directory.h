@@ -8,11 +8,7 @@
 #include "File.h"
 #include "Exceptions/PathException.h"
 
-class Directory;
-
 namespace fs = boost::filesystem;
-
-typedef std::shared_ptr<Directory> DirectoryPtr;
 
 class Directory : public DiskObject {
 public:
@@ -52,6 +48,8 @@ public:
 private:
     std::string prepareNewFilePath(File &file);
 };
+
+using DirectoryPtr = std::unique_ptr<Directory>;
 
 #endif /* DIRECTORY_H */
 

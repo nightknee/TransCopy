@@ -19,10 +19,10 @@ public:
     static const std::string OPTION_DESTINATION_PATH;
     static const std::string OPTION_NOTIFICATE;           
     
-    virtual int run(int argc, char** argv, const CmdOptionsDescriptionPtr &desc) ;
+    virtual int run(int argc, char** argv, cmdOptionsDescriptionPtr &desc) ;
 private:
-    virtual void setConfigurationFromCmd(int argc, char** argv, const CmdOptionsDescriptionPtr &desc);
-    const CmdOptionsDescriptionPtr& getOptionsDescription(const CmdOptionsDescriptionPtr &desc);
+    virtual void setConfigurationFromCmd(int argc, char** argv);
+    cmdOptionsDescriptionPtr&& getOptionsDescription();
     void startCopy();
     const Directory* getDestination();
     const File* getFileToParse();
@@ -38,7 +38,7 @@ private:
     void runMessage();
     CmdOutput out;    
     
-    CmdOptionsDescriptionPtr desc;
+    cmdOptionsDescriptionPtr desc;
 };
 
 #endif /* CMD_H */

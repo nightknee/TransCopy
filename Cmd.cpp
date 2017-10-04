@@ -1,12 +1,14 @@
 #include "Cmd.h"
 
-int Cmd::run(int argc, char** argv, const CmdOptionsDescriptionPtr &desc) {
+int Cmd::run(int argc, char** argv, cmdOptionsDescriptionPtr &desc) {
     try {
         this->runMessage();
         
-        this->desc = std::move(desc);
+        this->desc = std::move(desc);               
         
-        this->setConfigurationFromCmd(argc, argv, desc);
+        this->desc = this->getOptionsDescription();
+        
+        this->setConfigurationFromCmd(argc, argv);
 
         this->startCopy();
     } 
@@ -51,22 +53,22 @@ void Cmd::displayOptionsDescription() {
     this->out << *desc << CmdOutput::NEW_LINE;
 }
 
-void Cmd::setConfigurationFromCmd(int argc, char** argv, const CmdOptionsDescriptionPtr &desc) {
-    CmdOptionsParser::parseCmdOptionsToConfiguration(argc, argv, this->getOptionsDescription(desc));
+void Cmd::setConfigurationFromCmd(int argc, char** argv) {
+    CmdOptionsParser::parseCmdOptionsToConfiguration(argc, argv, this->desc);
 }
 
-const CmdOptionsDescriptionPtr& Cmd::getOptionsDescription(const CmdOptionsDescriptionPtr &desc) {
-    desc->add_options()
+cmdOptionsDescriptionPtr&& Cmd::getOptionsDescription() {
+    this->desc->add_options()
             ("file-path,f", po::value<std::string>()->required(), "Path to list files")
             ("destination-path,d", po::value<std::string>()->required(), "Path when copy files")
             ("notificate,n", "Show informations about progress copy");
 
-    return desc;
+    return std::move(this->desc);
 }
 
 void Cmd::startCopy() {
-    const FilePtr fileToParse = std::make_shared<File>(*(this->getFileToParse()));
-    const DirectoryPtr destination = std::make_shared<Directory>(*(this->getDestination()));
+    const FilePtr fileToParse = std::make_unique<File>(*(this->getFileToParse()));
+    const DirectoryPtr destination = std::make_unique<Directory>(*(this->getDestination()));
     const AbstractFileParse *parser = this->getParser(fileToParse);
 
     const ParsedFiles *files = this->startParse(*parser, fileToParse);

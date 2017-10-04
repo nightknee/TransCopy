@@ -6,12 +6,12 @@ TransCopy::TransCopy() {
     this->cmdDesc = this->setBaseCmdOptionsDescription(optionsDescription);
 }
 
-std::shared_ptr<CmdOptionsDescription> TransCopy::setBaseCmdOptionsDescription(CmdOptionsDescription& description) {
+cmdOptionsDescriptionPtr TransCopy::setBaseCmdOptionsDescription(CmdOptionsDescription& description) {
     description.add_options()
             ("help,h", "Help message")
             ("terminal,t", "Not running with GUI");
 
-    return std::make_shared<CmdOptionsDescription>(description);
+    return std::make_unique<CmdOptionsDescription>(description);
 }
 
 int TransCopy::run(int argc, char** argv) {
@@ -21,11 +21,11 @@ int TransCopy::run(int argc, char** argv) {
         if (TransCopyConfiguration::getInstance()->optionExist(TransCopy::OPTION_TERMINAL)) {
             Cmd cmdInstance;
 
-            return cmdInstance.run(argc, argv, this->getMainDescription());
+            return cmdInstance.run(argc, argv, this->cmdDesc);
         } else {
             Cmd cmdInstance;
 
-            return cmdInstance.run(argc, argv, this->getMainDescription());
+            return cmdInstance.run(argc, argv, this->cmdDesc);
         }
     }
     catch (const BaseException e) {
@@ -54,7 +54,3 @@ const std::string TransCopy::GitHub = "https://github.com/nightknee/TransCopy";
 
 const std::string TransCopy::OPTION_TERMINAL = "terminal";
 const std::string TransCopy::OPTION_HELP = "help";
-
-const std::shared_ptr<CmdOptionsDescription>& TransCopy::getMainDescription() const {
-    return this->cmdDesc;
-}

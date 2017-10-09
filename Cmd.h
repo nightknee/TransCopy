@@ -19,18 +19,18 @@ public:
     static const std::string OPTION_DESTINATION_PATH;
     static const std::string OPTION_NOTIFICATE;           
     
-    virtual int run(int argc, char** argv, const CmdOptionsDescriptionPtr &desc) ;
+    virtual int run(int argc, char** argv, cmdOptionsDescriptionPtr &desc) ;
 private:
-    virtual void setConfigurationFromCmd(int argc, char** argv, const CmdOptionsDescriptionPtr &desc);
-    const CmdOptionsDescriptionPtr& getOptionsDescription(const CmdOptionsDescriptionPtr &desc);
+    virtual void setConfigurationFromCmd(int argc, char** argv);
+    cmdOptionsDescriptionPtr&& addCmdOptions();
     void startCopy();
     const Directory* getDestination();
     const File* getFileToParse();
-    const AbstractFileParse* getParser(const FilePtr &fileToParse) const;
-    const ParsedFiles* startParse(const AbstractFileParse &parser,const FilePtr &fileToParse) const;
-    void copyParsedFiles(const ParsedFiles *files, const DirectoryPtr &destination) const ;
-    void copyWithNotificate(const ParsedFiles *parFiles, const DirectoryPtr &destination) const;
-    void copyWithoutNotificate(const ParsedFiles *parsedFiles, const DirectoryPtr &destination) const;
+    const AbstractFileParse* getParser(const filePtr &fileToParse) const;
+    const ParsedFiles* startParse(const AbstractFileParse &parser,const filePtr &fileToParse) const;
+    void copyParsedFiles(const ParsedFiles *files, const directoryPtr &destination) const ;
+    void copyWithNotificate(const ParsedFiles *parFiles, const directoryPtr &destination) const;
+    void copyWithoutNotificate(const ParsedFiles *parsedFiles, const directoryPtr &destination) const;
     void setCopyStatusValues(const ParsedFiles *parFiles, const ParsedFilesStorage &files) const;
     void showCopyStats() const;    
     bool neededToAddSeparator(const std::string &dirPath);
@@ -38,7 +38,7 @@ private:
     void runMessage();
     CmdOutput out;    
     
-    CmdOptionsDescriptionPtr desc;
+    cmdOptionsDescriptionPtr desc;
 };
 
 #endif /* CMD_H */

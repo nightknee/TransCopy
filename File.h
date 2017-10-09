@@ -4,11 +4,7 @@
 #include "DiskObject.h"
 #include "Exceptions/FileException.h"
 
-class File;
-
 namespace fs = boost::filesystem;
-
-typedef std::shared_ptr<File> FilePtr;
 
 /**
  * @class File
@@ -66,5 +62,7 @@ private:
      */
     uintmax_t fileSize;
 };
+
+using filePtr = std::unique_ptr<File>;
 
 #endif // FILE_H

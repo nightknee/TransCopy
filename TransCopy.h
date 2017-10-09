@@ -40,8 +40,6 @@ public:
      */
     int run(int argc, char** argv);
 
-    const std::shared_ptr<CmdOptionsDescription>& getMainDescription() const;
-
     //Public variables: 
     static const std::string Name;
     static const std::string Version;
@@ -63,11 +61,11 @@ private:
      * @param vm Map of seted options from cmd
      * @return Object of Configuration structure
      */
-    std::shared_ptr<CmdOptionsDescription> setBaseCmdOptionsDescription(CmdOptionsDescription& description);
+    cmdOptionsDescriptionPtr setBaseCmdOptionsDescription(CmdOptionsDescription& description);
 
     //Private variables	
 private:
-    std::shared_ptr<CmdOptionsDescription> cmdDesc;
+    cmdOptionsDescriptionPtr cmdDesc;
 };
 
 #endif // TRANSCOPY_H

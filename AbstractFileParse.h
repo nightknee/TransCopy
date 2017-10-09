@@ -12,7 +12,7 @@
  */
 class AbstractFileParse {
 public:
-    virtual const ParsedFiles* parse(const FilePtr &file) const = 0;
+    virtual const ParsedFiles* parse(const filePtr &file) const = 0;
     virtual const std::string& parsingFileExtension() const = 0;
 protected:
     std::string extension;

@@ -5,7 +5,7 @@ PlsParser::PlsParser() {
     this->extension = "pls";
 }
 
-const ParsedFiles* PlsParser::parse(const FilePtr &file) const{
+const ParsedFiles* PlsParser::parse(const filePtr &file) const{
     std::fstream *f = file->open(std::ios_base::in);
 
     int i = 0;

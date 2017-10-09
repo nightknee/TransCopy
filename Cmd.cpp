@@ -1,12 +1,14 @@
 #include "Cmd.h"
 
-int Cmd::run(int argc, char** argv, const CmdOptionsDescriptionPtr &desc) {
+int Cmd::run(int argc, char** argv, cmdOptionsDescriptionPtr &desc) {
     try {
         this->runMessage();
         
-        this->desc = std::move(desc);
+        this->desc = std::move(desc);               
         
-        this->setConfigurationFromCmd(argc, argv, desc);
+        this->desc = this->addCmdOptions();
+        
+        this->setConfigurationFromCmd(argc, argv);
 
         this->startCopy();
     } 
@@ -51,22 +53,22 @@ void Cmd::displayOptionsDescription() {
     this->out << *desc << CmdOutput::NEW_LINE;
 }
 
-void Cmd::setConfigurationFromCmd(int argc, char** argv, const CmdOptionsDescriptionPtr &desc) {
-    CmdOptionsParser::parseCmdOptionsToConfiguration(argc, argv, this->getOptionsDescription(desc));
+void Cmd::setConfigurationFromCmd(int argc, char** argv) {
+    CmdOptionsParser::parseCmdOptionsToConfiguration(argc, argv, this->desc);
 }
 
-const CmdOptionsDescriptionPtr& Cmd::getOptionsDescription(const CmdOptionsDescriptionPtr &desc) {
-    desc->add_options()
+cmdOptionsDescriptionPtr&& Cmd::addCmdOptions() {
+    this->desc->add_options()
             ("file-path,f", po::value<std::string>()->required(), "Path to list files")
             ("destination-path,d", po::value<std::string>()->required(), "Path when copy files")
             ("notificate,n", "Show informations about progress copy");
 
-    return desc;
+    return std::move(this->desc);
 }
 
 void Cmd::startCopy() {
-    const FilePtr fileToParse = std::make_shared<File>(*(this->getFileToParse()));
-    const DirectoryPtr destination = std::make_shared<Directory>(*(this->getDestination()));
+    const filePtr fileToParse = std::make_unique<File>(*(this->getFileToParse()));
+    const directoryPtr destination = std::make_unique<Directory>(*(this->getDestination()));
     const AbstractFileParse *parser = this->getParser(fileToParse);
 
     const ParsedFiles *files = this->startParse(*parser, fileToParse);
@@ -96,15 +98,15 @@ const Directory* Cmd::getDestination() {
     return path;
 }
 
-const AbstractFileParse* Cmd::getParser(const FilePtr &fileToParse) const {
+const AbstractFileParse* Cmd::getParser(const filePtr &fileToParse) const {
     return FileParserContainer::getInstance().findParser(fileToParse->getExntenstion());
 }
 
-const ParsedFiles* Cmd::startParse(const AbstractFileParse &parser, const FilePtr &fileToParse) const {
+const ParsedFiles* Cmd::startParse(const AbstractFileParse &parser, const filePtr &fileToParse) const {
     return parser.parse(fileToParse);
 }
 
-void Cmd::copyParsedFiles(const ParsedFiles *files, const DirectoryPtr &destination) const {
+void Cmd::copyParsedFiles(const ParsedFiles *files, const directoryPtr &destination) const {
     if (TransCopyConfiguration::getInstance()->optionExist(Cmd::OPTION_NOTIFICATE)) {
         this->copyWithNotificate(files, destination);
     } else {
@@ -112,7 +114,7 @@ void Cmd::copyParsedFiles(const ParsedFiles *files, const DirectoryPtr &destinat
     }
 }
 
-void Cmd::copyWithNotificate(const ParsedFiles *parFiles, const DirectoryPtr &destination) const {
+void Cmd::copyWithNotificate(const ParsedFiles *parFiles, const directoryPtr &destination) const {
     ParsedFilesStorage *files = parFiles->getParsedFilesStorage();
 
     this->setCopyStatusValues(parFiles, *files);
@@ -128,7 +130,7 @@ void Cmd::copyWithNotificate(const ParsedFiles *parFiles, const DirectoryPtr &de
     std::cout << std::endl;
 }
 
-void Cmd::copyWithoutNotificate(const ParsedFiles *parsedFiles, const DirectoryPtr &destination) const {
+void Cmd::copyWithoutNotificate(const ParsedFiles *parsedFiles, const directoryPtr &destination) const {
     ParsedFilesStorage *files = parsedFiles->getParsedFilesStorage();
 
     for (ParsedFilesStorage::iterator i = files->begin(); i != files->end(); ++i) {

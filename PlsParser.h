@@ -18,7 +18,7 @@ public:
      * @param file
      * @return true if parsing end succesfull
      */
-    const ParsedFiles* parse(const FilePtr &file) const;
+    const ParsedFiles* parse(const filePtr &file) const;
     
     const std::string& parsingFileExtension() const;
 private:

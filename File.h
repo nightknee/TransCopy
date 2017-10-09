@@ -63,6 +63,6 @@ private:
     uintmax_t fileSize;
 };
 
-using FilePtr = std::unique_ptr<File>;
+using filePtr = std::unique_ptr<File>;
 
 #endif // FILE_H

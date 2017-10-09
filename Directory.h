@@ -49,7 +49,7 @@ private:
     std::string prepareNewFilePath(File &file);
 };
 
-using DirectoryPtr = std::unique_ptr<Directory>;
+using directoryPtr = std::unique_ptr<Directory>;
 
 #endif /* DIRECTORY_H */
 

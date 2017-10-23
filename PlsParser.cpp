@@ -22,7 +22,7 @@ const ParsedFiles* PlsParser::parse(const filePtr &file) const{
         }
         path = this->getPath(line);
         try {
-            File* file = new File(path);
+            filePtr file = FileFactory::create(path);
             
             resultParsingFiles->addFile(file);            
         } catch (FileException* e) {
@@ -50,6 +50,6 @@ std::string PlsParser::getPath(const std::string &line) const{
     return path;
 }
 
-const std::string& PlsParser::parsingFileExtension() const{
-    return "."+this->extension;
+const std::string PlsParser::parsingFileExtension() const{
+    return "." + this->extension;
 }

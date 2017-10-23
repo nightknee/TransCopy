@@ -114,7 +114,7 @@ void Cmd::copyWithNotificate(const ParsedFiles *parFiles, const directoryPtr &de
     for (ParsedFilesStorage::iterator i = files->begin(); i != files->end(); ++i) {
         if (destination->copyFile(*i)) {
             CopyStatus::getCopyStatus().increaseCopiedNumberFiles();
-            CopyStatus::getCopyStatus().addCopiedFileSize(i->size());
+            CopyStatus::getCopyStatus().addCopiedFileSize((*i)->size());
 
             this->showCopyStats();
         }

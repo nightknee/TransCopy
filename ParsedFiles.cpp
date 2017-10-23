@@ -1,16 +1,15 @@
 #include "ParsedFiles.h"
 
-void ParsedFiles::addFile(File *file) {    
-    this->files.push_back(file);
-    
+void ParsedFiles::addFile(filePtr& file) {    
     this->appendToFileSize(file);
+    this->files.push_back(std::move(file));       
 }
 
 bool ParsedFiles::isEmpty() const{
     return this->files.size() <= 0 ? true : false;
 }
 
-void ParsedFiles::appendToFileSize(const File *file) {
+void ParsedFiles::appendToFileSize(filePtr& file) {
     this->allFileSize += file->size();
 }
 

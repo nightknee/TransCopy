@@ -16,12 +16,12 @@ bool Directory::isExist(const std::string &dirPath) {
     return DiskObject::isExist(dirPath) && fs::is_directory(p);
 }       
 
-bool Directory::copyFile(File &file)
+bool Directory::copyFile(filePtr& file)
 {    
     try {
         fs::path p(this->prepareNewFilePath(file));
 
-        fs::copy_file(file, p);
+        fs::copy_file(*file, p);
 
         return true;
     } catch (fs::filesystem_error) {
@@ -29,8 +29,8 @@ bool Directory::copyFile(File &file)
     }
 }
 
-std::string Directory::prepareNewFilePath(File &file) {
-    return (this->string() + file.filename().string());
+std::string Directory::prepareNewFilePath(filePtr& file) {
+    return (this->string() + file->filename().string());
 }
 
 const char Directory::getSepratator() {

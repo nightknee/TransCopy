@@ -4,6 +4,8 @@
 #include <boost/regex.hpp>
 
 #include "AbstractFileParse.h"
+#include "File.h"
+#include "FileFactory.h"
 
 /**
  * @class PlsParser
@@ -20,7 +22,7 @@ public:
      */
     const ParsedFiles* parse(const filePtr &file) const;
     
-    const std::string& parsingFileExtension() const;
+    const std::string parsingFileExtension() const;
 private:
     /**
      * @brief Regex patern to parse path 

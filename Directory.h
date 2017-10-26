@@ -44,9 +44,9 @@ public:
      * 
      * @return true if copied if succesful
      */
-    bool copyFile(File &file);
+    bool copyFile(filePtr& file);
 private:
-    std::string prepareNewFilePath(File &file);
+    std::string prepareNewFilePath(filePtr& file);
 };
 
 using directoryPtr = std::unique_ptr<Directory>;

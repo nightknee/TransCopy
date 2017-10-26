@@ -13,8 +13,8 @@ BUILDDIR = $(BUILDDIRNAME)/
 
 APPNAME = TransCopy
 
-all: bulidDirName TransCopy.o TransCopyConfiguration.o PlsParser.o PathException.o NotFoundParserException.o MainExceptionHandler.o main.o FileParserContainer.o FileException.o File.o CopyStatus.o CmdOptionsParserException.o CmdOptionsParsed.o CmdOptionsParser.o BaseException.o CmdOptionsDescription.o Directory.o Cmd.o ParsedFiles.o CmdOutput.o
-	$(CC) $(CCFLAGS) $(BUILDDIR)TransCopy.o $(BUILDDIR)TransCopyConfiguration.o $(BUILDDIR)PlsParser.o $(BUILDDIR)PathException.o $(BUILDDIR)NotFoundParserException.o $(BUILDDIR)MainExceptionHandler.o $(BUILDDIR)main.o $(BUILDDIR)FileParserContainer.o $(BUILDDIR)File.o $(BUILDDIR)CopyStatus.o $(BUILDDIR)CmdOptionsParserException.o $(BUILDDIR)CmdOptionsParsed.o $(BUILDDIR)CmdOptionsParser.o $(BUILDDIR)BaseException.o $(BUILDDIR)CmdOptionsDescription.o $(BUILDDIR)DiskObject.o $(BUILDDIR)Directory.o $(BUILDDIR)FileException.o $(BUILDDIR)Cmd.o $(BUILDDIR)ParsedFiles.o $(BUILDDIR)CmdOutput.o $(LDLIBS) -o $(APPNAME)
+all: bulidDirName TransCopy.o TransCopyConfiguration.o PlsParser.o PathException.o NotFoundParserException.o MainExceptionHandler.o main.o FileParserContainer.o FileException.o File.o CopyStatus.o CmdOptionsParserException.o CmdOptionsParsed.o CmdOptionsParser.o BaseException.o CmdOptionsDescription.o Directory.o Cmd.o ParsedFiles.o CmdOutput.o FileFactory.o DirectoryFactory.o
+	$(CC) $(CCFLAGS) $(BUILDDIR)TransCopy.o $(BUILDDIR)TransCopyConfiguration.o $(BUILDDIR)PlsParser.o $(BUILDDIR)PathException.o $(BUILDDIR)NotFoundParserException.o $(BUILDDIR)MainExceptionHandler.o $(BUILDDIR)main.o $(BUILDDIR)FileParserContainer.o $(BUILDDIR)File.o $(BUILDDIR)CopyStatus.o $(BUILDDIR)CmdOptionsParserException.o $(BUILDDIR)CmdOptionsParsed.o $(BUILDDIR)CmdOptionsParser.o $(BUILDDIR)BaseException.o $(BUILDDIR)CmdOptionsDescription.o $(BUILDDIR)DiskObject.o $(BUILDDIR)Directory.o $(BUILDDIR)FileException.o $(BUILDDIR)Cmd.o $(BUILDDIR)ParsedFiles.o $(BUILDDIR)CmdOutput.o $(BUILDDIR)FileFactory.o $(BUILDDIR)DirectoryFactory.o $(LDLIBS) -o $(APPNAME)
 
 TransCopy.o:  TransCopy.cpp TransCopy.h TransCopyConfiguration.h FileParserContainer.h AbstractFileParse.h MainExceptionHandler.h Exceptions/BaseException.h CopyStatus.h CmdOptionsParser.h CmdOptionsDescription.h CmdOptionsParsed.h
 	$(CC) -c TransCopy.cpp -o $(BUILDDIR)TransCopy.o $(CCFLAGS)
@@ -79,6 +79,10 @@ ParsedFiles.o : ParsedFiles.h ParsedFiles.cpp
 CmdOutput.o : CmdOutput.h CmdOutput.cpp Output.h
 	$(CC) -c CmdOutput.cpp -o $(BUILDDIR)CmdOutput.o $(CCFLAGS)		
 	
+FileFactory.o : FileFactory.h FileFactory.cpp File.o
+	$(CC) -c FileFactory.cpp -o $(BUILDDIR)FileFactory.o $(CCFLAGS)
+DirectoryFactory.o : DirectoryFactory.h DirectoryFactory.cpp Directory.o
+	$(CC) -c DirectoryFactory.cpp -o $(BUILDDIR)DirectoryFactory.o $(CCFLAGS)	
 bulidDirName:
 	@mkdir -p $(BUILDDIRNAME)
 

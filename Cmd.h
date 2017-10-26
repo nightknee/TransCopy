@@ -6,7 +6,9 @@
 #include "CmdOptionsParser.h"
 #include "Exceptions/NotFoundParserException.h"
 #include "Directory.h"
+#include "DirectoryFactory.h"
 #include "File.h"
+#include "FileFactory.h"
 #include "ParsedFiles.h"
 #include "FileParserContainer.h"
 #include "CopyStatus.h"
@@ -24,8 +26,7 @@ private:
     virtual void setConfigurationFromCmd(int argc, char** argv);
     cmdOptionsDescriptionPtr&& addCmdOptions();
     void startCopy();
-    const Directory* getDestination();
-    const File* getFileToParse();
+    const std::string getDirectoryPath();
     const AbstractFileParse* getParser(const filePtr &fileToParse) const;
     const ParsedFiles* startParse(const AbstractFileParse &parser,const filePtr &fileToParse) const;
     void copyParsedFiles(const ParsedFiles *files, const directoryPtr &destination) const ;

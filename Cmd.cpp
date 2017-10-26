@@ -67,8 +67,8 @@ cmdOptionsDescriptionPtr&& Cmd::addCmdOptions() {
 }
 
 void Cmd::startCopy() {
-    const filePtr fileToParse = std::make_unique<File>(*(this->getFileToParse()));
-    const directoryPtr destination = std::make_unique<Directory>(*(this->getDestination()));
+    const filePtr fileToParse = FileFactory::create(TransCopyConfiguration::getInstance()->getStringOptionValue(Cmd::OPTION_FILE_PATH));
+    const directoryPtr destination = DirectoryFactory::create(this->getDirectoryPath());
     const AbstractFileParse *parser = this->getParser(fileToParse);
 
     const ParsedFiles *files = this->startParse(*parser, fileToParse);
@@ -80,22 +80,14 @@ void Cmd::startCopy() {
     delete files;
 }
 
-const File* Cmd::getFileToParse() {
-    File* file = new File(TransCopyConfiguration::getInstance()->getStringOptionValue(Cmd::OPTION_FILE_PATH));
-
-    return file;
-}
-
-const Directory* Cmd::getDestination() {
+const std::string Cmd::getDirectoryPath() {
     std::string destination = TransCopyConfiguration::getInstance()->getStringOptionValue(Cmd::OPTION_DESTINATION_PATH);
 
     if (this->neededToAddSeparator(destination)) {
         destination += Directory::getSepratator();
     }
 
-    Directory* path = new Directory(destination);
-
-    return path;
+    return destination;
 }
 
 const AbstractFileParse* Cmd::getParser(const filePtr &fileToParse) const {
@@ -122,7 +114,7 @@ void Cmd::copyWithNotificate(const ParsedFiles *parFiles, const directoryPtr &de
     for (ParsedFilesStorage::iterator i = files->begin(); i != files->end(); ++i) {
         if (destination->copyFile(*i)) {
             CopyStatus::getCopyStatus().increaseCopiedNumberFiles();
-            CopyStatus::getCopyStatus().addCopiedFileSize(i->size());
+            CopyStatus::getCopyStatus().addCopiedFileSize((*i)->size());
 
             this->showCopyStats();
         }

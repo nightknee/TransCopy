@@ -6,16 +6,16 @@
 
 typedef std::vector<filePtr> ParsedFilesStorage;
 
-class ParsedFiles{
+class ParsedFiles {
 public:
     void addFile(filePtr& file);
     bool isEmpty() const;
     ParsedFilesStorage* getParsedFilesStorage() const;
     const uintmax_t& size() const;
 private:
-    void appendToFileSize(filePtr&  file);
+    void appendToFileSize(filePtr& file);
     uintmax_t allFileSize;
-    ParsedFilesStorage files;    
+    ParsedFilesStorage files;
 };
 
 #endif /* PARSEDFILES_H */

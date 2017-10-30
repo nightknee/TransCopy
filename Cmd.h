@@ -2,16 +2,10 @@
 #define CMD_H
 
 #include "Ui.h"
+#include "Exceptions/NotFoundParserException.h"
 #include "CmdOptionsDescription.h"
 #include "CmdOptionsParser.h"
-#include "Exceptions/NotFoundParserException.h"
-#include "Directory.h"
-#include "DirectoryFactory.h"
-#include "File.h"
-#include "FileFactory.h"
-#include "ParsedFiles.h"
-#include "FileParserContainer.h"
-#include "CopyStatus.h"
+#include "CopyHandler.h"
 #include "TransCopy.h"
 #include "CmdOutput.h"
 
@@ -27,13 +21,7 @@ private:
     cmdOptionsDescriptionPtr&& addCmdOptions();
     void startCopy();
     const std::string getDirectoryPath();
-    const AbstractFileParse* getParser(const filePtr &fileToParse) const;
-    const ParsedFiles* startParse(const AbstractFileParse &parser,const filePtr &fileToParse) const;
-    void copyParsedFiles(const ParsedFiles *files, const directoryPtr &destination) const ;
-    void copyWithNotificate(const ParsedFiles *parFiles, const directoryPtr &destination) const;
-    void copyWithoutNotificate(const ParsedFiles *parsedFiles, const directoryPtr &destination) const;
     void setCopyStatusValues(const ParsedFiles *parFiles, const ParsedFilesStorage &files) const;
-    void showCopyStats() const;    
     bool neededToAddSeparator(const std::string &dirPath);
     void displayOptionsDescription();
     void runMessage();

@@ -11,17 +11,11 @@ CopyStatus::CopyStatus() {
 CopyStatus::~CopyStatus() {
 }
 
-CopyStatus& CopyStatus::getCopyStatus() {
-    static CopyStatus instance;
-    
-    return instance;
-}
-
 const uintmax_t& CopyStatus::getAllFilesSize() {
     return this->allFilesSize;
 }
 
-void CopyStatus::setAllFilesSize(uintmax_t &size){     
+void CopyStatus::setAllFilesSize(const uintmax_t &size){     
     this->allFilesSize = size;
     
     this->setToCopyFileSize(this->allFilesSize);
@@ -48,7 +42,7 @@ uintmax_t CopyStatus::getToCopyFileSize() {
     return this->toCopyFileSize;
 }
 
-size_t CopyStatus::getNumberOfAllFiles() {
+const size_t& CopyStatus::getNumberOfAllFiles() {
     return this->numberOfAllFiles;
 }
 

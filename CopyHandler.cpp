@@ -23,7 +23,17 @@ void CopyHandler::copy() {
 void CopyHandler::copyParsedFiles(const ParsedFiles *parsedFiles, const directoryPtr &destination) {
     ParsedFilesStorage* parsedFilesStor = parsedFiles->getParsedFilesStorage();
     
+    this->copyStatus->setAllFilesSize(parsedFiles->size());
+    this->copyStatus->setNumberOfAllFiles(parsedFilesStor->size());
+    
     for (ParsedFilesStorage::iterator i = parsedFilesStor->begin(); i != parsedFilesStor->end(); ++i) {
-        if (destination->copyFile(*i));
+        if (destination->copyFile(*i)) {
+            this->copyStatus->increaseCopiedNumberFiles();
+            this->copyStatus->addCopiedFileSize((*i)->size());
+        }
     }
+}
+
+copyStatusPtr CopyHandler::getCopyStatus() {
+    return this->copyStatus;
 }

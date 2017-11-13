@@ -1,11 +1,11 @@
 CC = g++
 
 CCDEPLOYFLAGS = -O3 -O2 -std=c++14
-CCDEBUGFLAGS = -g -O0 -Wall -std=c++14
-CCFLAGS = $(CCDEPLOYFLAGS)
+CCDEBUGFLAGS = -g -O0 -Wall -std=c++14 
+CCFLAGS = $(CCDEBUGFLAGS)
 
-LDSTATICLIBS = /usr/lib/libboost_program_options.a /usr/lib/libboost_system.a /usr/lib/libboost_filesystem.a /usr/lib/libboost_regex.a
-LDDYNAMICLIBS = -lboost_program_options -lboost_system -lboost_filesystem -lboost_regex
+LDSTATICLIBS = /usr/lib/libboost_program_options.a /usr/lib/libboost_system.a /usr/lib/libboost_filesystem.a /usr/lib/libboost_regex.a -pthread
+LDDYNAMICLIBS = -lboost_program_options -lboost_system -lboost_filesystem -lboost_regex -pthread
 LDLIBS = $(LDDYNAMICLIBS)
 
 BUILDDIRNAME = Build

@@ -6,6 +6,7 @@
 #include "Output.h"
 #include "CmdOptionsDescription.h"
 #include "Exceptions/BaseException.h"
+#include "CopyStatus.h"
 
 class CmdOutput : public Output {
 public:
@@ -22,7 +23,10 @@ public:
     void sendOutput(const BaseException &e);
     
     virtual CmdOutput& operator<<(std::exception &e);
-    void sendOutput(std::exception &e);    
+    void sendOutput(std::exception &e); 
+    
+    virtual CmdOutput& operator<<(const copyStatusPtr &status);
+    void sendOutput(const copyStatusPtr &status);  
 };
 
 #endif /* DEFAULTOUTPUT_H */

@@ -8,6 +8,7 @@ typedef std::vector<filePtr> ParsedFilesStorage;
 
 class ParsedFiles {
 public:
+    ParsedFiles();
     void addFile(filePtr& file);
     bool isEmpty() const;
     ParsedFilesStorage* getParsedFilesStorage() const;

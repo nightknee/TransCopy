@@ -1,7 +1,11 @@
 #ifndef COPYSTATUS_H
 #define COPYSTATUS_H
 
-#include "CopyHandler.h"
+#include <stdint.h>
+#include <cstddef>
+#include <memory>
+
+class CopyHandler;
 
 /**
  * @class CopyStatus
@@ -11,6 +15,8 @@
 class CopyStatus {
     friend class CopyHandler;
 public:
+    CopyStatus();
+    ~CopyStatus();
     /**
      * @brief  Get variable _allFilesSize
      * @return  Copy of _allFilesSize
@@ -21,11 +27,13 @@ public:
      * @return Copy of _copiedFilesSize
      */
     const uintmax_t& getCopiedFilesSize();
+    
+    const uintmax_t& getFailedCopiedFilesSize();
     /**
      * @brief  Get variable _toCopyFileSize
      * @return  Copy of _toCopyFileSize
      */
-    boost::uintmax_t getToCopyFileSize();
+    uintmax_t getToCopyFileSize();
     /**
      * @brief  Get variable _numberOfAllFiles
      * @return Copy of _numberOfAllFiles
@@ -35,11 +43,11 @@ public:
      * @brief Get variable _copiedNumberFiles
      * @return Copy of _copiedNumberFiles
      */
-    size_t getCopiedNumberFiles();
+    const size_t& getCopiedNumberFiles();
+    
+    bool isFinished();
     //Private functions:
 private:
-    CopyStatus();
-    ~CopyStatus();
     void setToCopyFileSize(uintmax_t &size);
     void decreaseToCopyFileSize(uintmax_t &size);
     /**
@@ -51,12 +59,14 @@ private:
      * @brief Increase  _copiedFilesSize of value in param
      * @param size
      */
-    void addCopiedFileSize(boost::uintmax_t size);
+    void addCopiedFileSize(uintmax_t size);
     /**
      * @brief  Set _numberOfAllFiles value
      */
     void setNumberOfAllFiles(const size_t&);
     void increaseCopiedNumberFiles();
+    void increaseFailedCopiedNumberFiles();
+    void setFinishStatus(bool status);
     //Private variables
 private:
     /**
@@ -79,6 +89,10 @@ private:
             @biref Number of files was copied
      */
     size_t copiedNumberFiles;
+    
+    size_t failedCopiedNumberFiles;
+    
+    bool finished;
 };
 
 using copyStatusPtr = std::shared_ptr<CopyStatus>;

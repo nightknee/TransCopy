@@ -40,5 +40,17 @@ void CmdOutput::sendOutput(std::exception &e) {
     std::cout << e.what();
 }
 
+CmdOutput& CmdOutput::operator<<(const copyStatusPtr &status) {
+    this->sendOutput(status);
+    
+    return *this;
+}
+void CmdOutput::sendOutput(const copyStatusPtr &status) {
+    std::cout << "\r";
+    std::cout << "Copied: " << status->getCopiedNumberFiles() << " of  " << status->getNumberOfAllFiles() << " files " << "and " << status->getFailedCopiedFilesSize() << " failed coping files";
+    std::cout << " Copied: " << status->getCopiedFilesSize() << " of  " << status->getAllFilesSize() << " bytes ";
+    std::cout << "\r";
+}  
+
 const std::string CmdOutput::NEW_LINE = "\n";
 const std::string CmdOutput::TAB = "\t";

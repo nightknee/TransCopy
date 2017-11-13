@@ -1,6 +1,8 @@
 #ifndef CMD_H
 #define CMD_H
 
+#include <thread>
+
 #include "Ui.h"
 #include "Exceptions/NotFoundParserException.h"
 #include "CmdOptionsDescription.h"

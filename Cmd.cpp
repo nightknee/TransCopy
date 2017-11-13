@@ -69,7 +69,17 @@ cmdOptionsDescriptionPtr&& Cmd::addCmdOptions() {
 void Cmd::startCopy() {
     CopyHandler copyHandler(TransCopyConfiguration::getInstance()->getStringOptionValue(Cmd::OPTION_FILE_PATH), this->getDirectoryPath());
     
-    copyHandler.copy();
+    copyStatusPtr copyStats = copyHandler.getCopyStatus();
+    
+    std::thread t(&CopyHandler::copy, copyHandler);
+    
+    t.detach();
+    
+    while (!copyStats->isFinished()) {
+        this->out << copyStats;        
+    }        
+    
+    this->out << CmdOutput::NEW_LINE;
 }
 
 const std::string Cmd::getDirectoryPath() {

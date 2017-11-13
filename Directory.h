@@ -6,6 +6,7 @@
 
 #include "DiskObject.h"
 #include "File.h"
+#include "DiskObject.h"
 #include "Exceptions/PathException.h"
 
 namespace fs = boost::filesystem;

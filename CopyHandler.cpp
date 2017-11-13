@@ -2,7 +2,8 @@
 
 CopyHandler::CopyHandler(const std::string& filePath, const std::string& directoryPath) {
     this->filePath = std::move(filePath);
-    this->directoryPath = std::move(directoryPath);
+    this->directoryPath = std::move(directoryPath);   
+    this->copyStatus = copyStatusPtr{new CopyStatus};
 }
 
 CopyHandler::~CopyHandler() {
@@ -27,11 +28,16 @@ void CopyHandler::copyParsedFiles(const ParsedFiles *parsedFiles, const director
     this->copyStatus->setNumberOfAllFiles(parsedFilesStor->size());
     
     for (ParsedFilesStorage::iterator i = parsedFilesStor->begin(); i != parsedFilesStor->end(); ++i) {
-        if (destination->copyFile(*i)) {
-            this->copyStatus->increaseCopiedNumberFiles();
-            this->copyStatus->addCopiedFileSize((*i)->size());
+        if (!destination->copyFile(*i)) {
+            this->copyStatus->increaseFailedCopiedNumberFiles();
+            continue;
         }
+        
+        this->copyStatus->increaseCopiedNumberFiles();
+        this->copyStatus->addCopiedFileSize((*i)->size());
     }
+    
+    this->copyStatus->setFinishStatus(true);
 }
 
 copyStatusPtr CopyHandler::getCopyStatus() {

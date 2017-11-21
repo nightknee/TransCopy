@@ -1,5 +1,4 @@
 #include "Directory.h"
-#include "DiskObject.h"
 
 Directory::Directory(const std::string &dirPath) : DiskObject(dirPath) {
     if (!Directory::isExist(dirPath)) {
@@ -24,7 +23,7 @@ bool Directory::copyFile(filePtr& file)
         fs::copy_file(*file, p);
 
         return true;
-    } catch (fs::filesystem_error) {
+    } catch (fs::filesystem_error e) {       
         return false;
     }
 }

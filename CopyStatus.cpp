@@ -6,22 +6,19 @@ CopyStatus::CopyStatus() {
     this->toCopyFileSize = 0;
     this->numberOfAllFiles = 0;
     this->copiedFilesSize = 0;
+    this->copiedNumberFiles = 0;
+    this->failedCopiedNumberFiles = 0;
+    this->finished = false;
 }
 
 CopyStatus::~CopyStatus() {
-}
-
-CopyStatus& CopyStatus::getCopyStatus() {
-    static CopyStatus instance;
-    
-    return instance;
 }
 
 const uintmax_t& CopyStatus::getAllFilesSize() {
     return this->allFilesSize;
 }
 
-void CopyStatus::setAllFilesSize(uintmax_t &size){     
+void CopyStatus::setAllFilesSize(const uintmax_t &size){     
     this->allFilesSize = size;
     
     this->setToCopyFileSize(this->allFilesSize);
@@ -48,7 +45,7 @@ uintmax_t CopyStatus::getToCopyFileSize() {
     return this->toCopyFileSize;
 }
 
-size_t CopyStatus::getNumberOfAllFiles() {
+const size_t& CopyStatus::getNumberOfAllFiles() {
     return this->numberOfAllFiles;
 }
 
@@ -56,10 +53,26 @@ void CopyStatus::setNumberOfAllFiles(const size_t& size) {
     this->numberOfAllFiles = size;
 }
 
-size_t CopyStatus::getCopiedNumberFiles() {
+const size_t& CopyStatus::getCopiedNumberFiles() {
     return this->copiedNumberFiles;
+}
+
+const size_t& CopyStatus::getFailedCopiedFilesSize() {
+    return this->failedCopiedNumberFiles;
 }
 
 void CopyStatus::increaseCopiedNumberFiles() {
     this->copiedNumberFiles++;
+}
+
+void CopyStatus::increaseFailedCopiedNumberFiles() {
+    this->failedCopiedNumberFiles++;
+}
+
+bool CopyStatus::isFinished() {
+    return this->finished;
+}
+
+void CopyStatus::setFinishStatus(bool status) {    
+    this->finished = status;
 }

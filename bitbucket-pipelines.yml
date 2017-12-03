@@ -3,7 +3,6 @@ image: nightknee/transcopy-bitbucket-image:1.0.0
 pipelines:
   default:
     - step:
-        script: # Modify the commands below to build your repository.
-#          - ./configure
+        script:
           - make
-#          - make test
+          - make test

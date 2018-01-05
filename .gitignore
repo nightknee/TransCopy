@@ -9,4 +9,6 @@
 TransCopy.project
 TransCopy*
 *.pls
-
+/test/*
+!/test/test.cpp
+testDirectory/*

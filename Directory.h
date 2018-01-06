@@ -50,7 +50,7 @@ private:
     std::string prepareNewFilePath(filePtr& file);
 };
 
-using directoryPtr = std::unique_ptr<Directory>;
+using directoryPtr = std::shared_ptr<Directory>;
 
 #endif /* DIRECTORY_H */
 

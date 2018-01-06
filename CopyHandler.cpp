@@ -1,34 +1,37 @@
 #include "CopyHandler.h"
 
 CopyHandler::CopyHandler(const std::string& filePath, const std::string& directoryPath) {
-    this->filePath = std::move(filePath);
-    this->directoryPath = std::move(directoryPath);   
+    this->fileToParse = FileFactory::create(filePath);
+    this->destination = DirectoryFactory::create(directoryPath);   
     this->copyStatus = copyStatusPtr{new CopyStatus};
 }
 
-CopyHandler::~CopyHandler() {
-}
+CopyHandler::~CopyHandler() {}
 
 void CopyHandler::copy() {
-    const filePtr fileToParse = FileFactory::create(this->filePath);
-    const directoryPtr destination = DirectoryFactory::create(this->directoryPath);
-    const AbstractFileParse *parser = FileParserContainer::getInstance().findParser(fileToParse->getExntenstion());
+    const AbstractFileParse *parser = FileParserContainer::getInstance().findParser(this->fileToParse->getExntenstion());
 
-    const ParsedFiles* parsedFiles = parser->parse(fileToParse);
+    const ParsedFiles* parsedFiles = parser->parse(this->fileToParse);
 
     if (!parsedFiles->isEmpty()) {
-        this->copyParsedFiles(parsedFiles, destination);
+        this->copyParsedFiles(parsedFiles);
     }
 }
 
-void CopyHandler::copyParsedFiles(const ParsedFiles *parsedFiles, const directoryPtr &destination) {
+CopyHandler::CopyHandler(const CopyHandler& handler) {
+    this->copyStatus = handler.copyStatus;
+    this->fileToParse = handler.fileToParse;
+    this->destination = handler.destination;
+}
+
+void CopyHandler::copyParsedFiles(const ParsedFiles *parsedFiles) {
     ParsedFilesStorage* parsedFilesStor = parsedFiles->getParsedFilesStorage();
     
     this->copyStatus->setAllFilesSize(parsedFiles->size());
     this->copyStatus->setNumberOfAllFiles(parsedFilesStor->size());
     
     for (ParsedFilesStorage::iterator i = parsedFilesStor->begin(); i != parsedFilesStor->end(); ++i) {
-        if (!destination->copyFile(*i)) {
+        if (!this->destination->copyFile(*i)) {
             this->copyStatus->increaseFailedCopiedNumberFiles();
             continue;
         }

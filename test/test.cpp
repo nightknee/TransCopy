@@ -244,7 +244,7 @@ BOOST_AUTO_TEST_CASE( wrongFilePath )
 
 BOOST_AUTO_TEST_CASE( wrongDirectoryPath )
 {
-    BOOST_CHECK_THROW(new CopyHandler("plstest.pls", "teeestDirectory/"), FileException);
+    BOOST_CHECK_THROW(new CopyHandler("plstest.pls", "teeestDirectory/"), PathException);
 } 
 BOOST_AUTO_TEST_SUITE_END() 
         

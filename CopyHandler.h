@@ -15,14 +15,15 @@
 class CopyHandler {
 public:    
     CopyHandler(const std::string& filePath, const std::string& directoryPath);
+    CopyHandler(const CopyHandler& handler);
     void copy();
     copyStatusPtr getCopyStatus();
     ~CopyHandler();
 private:
-    void copyParsedFiles(const ParsedFiles *files, const directoryPtr &destination);
-    std::string filePath;
-    std::string directoryPath;
+    void copyParsedFiles(const ParsedFiles *files);
     copyStatusPtr copyStatus;
+    filePtr fileToParse;
+    directoryPtr destination;
 };
 
 #endif // COPYHANDLER_H

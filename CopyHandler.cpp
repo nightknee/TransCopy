@@ -3,7 +3,10 @@
 CopyHandler::CopyHandler(const std::string& filePath, const std::string& directoryPath) {
     this->fileToParse = FileFactory::create(filePath);
     this->destination = DirectoryFactory::create(directoryPath);   
-    this->copyStatus = copyStatusPtr{new CopyStatus};
+    
+    SizeFormatter formatter(FormatTo::GIGABYTES);
+    
+    this->copyStatus = copyStatusPtr{new CopyStatus{formatter}};
 }
 
 CopyHandler::~CopyHandler() {}

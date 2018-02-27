@@ -19,6 +19,7 @@
 #include "../AbstractFileParse.h"
 #include "../CopyHandler.h"
 #include "../CopyStatus.h"
+#include "../SizeFormatter.h"
 
 //Diskobject
 BOOST_AUTO_TEST_SUITE( TestDiskObject )
@@ -286,4 +287,12 @@ BOOST_AUTO_TEST_CASE(testNotFoundParserException)
     }
 }    
 BOOST_AUTO_TEST_SUITE_END()  
-        
+
+BOOST_AUTO_TEST_SUITE(testSizeFormatter)  
+BOOST_AUTO_TEST_CASE(testFormattedBytesToKilo)
+{
+    SizeFormatter formatter(FormatTo::KILOBYTES);
+    
+    BOOST_CHECK(formatter.formatBytes(1024) == "1KB");
+}    
+BOOST_AUTO_TEST_SUITE_END()        

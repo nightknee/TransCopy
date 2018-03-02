@@ -13,6 +13,8 @@ enum class FormatTo {
         SHORTEST
     };
 
+using ShortestSizeType = std::pair<FormatTo, double>;
+    
 class SizeFormatter{   
 public:
     SizeFormatter();
@@ -20,11 +22,15 @@ public:
     const std::string formatBytes(const uintmax_t bytes);
 private:        
     double formatToSize(const uintmax_t bytes);
-    double formatToShortestSize(const uintmax_t bytes);
-    
+    ShortestSizeType formatToShortestSize(const uintmax_t bytes);   
+    int getMaxLoops();    
+    FormatTo getMaxFormat();
+    FormatTo getFormatFromLoop(int loop);   
     std::string getSizeName(const FormatTo displayFormat);
+    int getPrecision(const FormatTo displayFormat);
+    
     FormatTo displayFormat;
-    static const int CONVERSION_VALUE = 1024;
+    static constexpr int CONVERSION_VALUE = 1000;
 };
 
 #endif /* SIZEFORMATTER_H */

@@ -1,6 +1,6 @@
 #include "CopyStatus.h"
 
-CopyStatus::CopyStatus() {
+CopyStatus::CopyStatus(SizeFormatter &formatter) : formatter(std::move(formatter)) {
     this->allFilesSize = 0;
     this->copiedFilesSize = 0;
     this->toCopyFileSize = 0;
@@ -8,7 +8,7 @@ CopyStatus::CopyStatus() {
     this->copiedFilesSize = 0;
     this->copiedNumberFiles = 0;
     this->failedCopiedNumberFiles = 0;
-    this->finished = false;
+    this->finished = false;    
 }
 
 CopyStatus::~CopyStatus() {
@@ -16,6 +16,10 @@ CopyStatus::~CopyStatus() {
 
 const uintmax_t& CopyStatus::getAllFilesSize() {
     return this->allFilesSize;
+}
+
+std::string CopyStatus::getFormattedAllFilesSize() {
+    return this->formatter.formatBytes(this->getAllFilesSize());
 }
 
 void CopyStatus::setAllFilesSize(const uintmax_t &size){     
@@ -32,6 +36,10 @@ const uintmax_t& CopyStatus::getCopiedFilesSize() {
     return this->copiedFilesSize;
 }
 
+std::string CopyStatus::getFormattedCopiedFilesSize() {
+    return this->formatter.formatBytes(this->getCopiedFilesSize());
+}
+
 void CopyStatus::addCopiedFileSize(uintmax_t size) {
     this->copiedFilesSize += size;
     this->decreaseToCopyFileSize(size);
@@ -43,6 +51,10 @@ void CopyStatus::decreaseToCopyFileSize(uintmax_t &size) {
 
 uintmax_t CopyStatus::getToCopyFileSize() {
     return this->toCopyFileSize;
+}
+
+std::string CopyStatus::getFormattedToCopyFileSize() {
+    return this->formatter.formatBytes(this->getToCopyFileSize());
 }
 
 const size_t& CopyStatus::getNumberOfAllFiles() {
@@ -57,7 +69,7 @@ const size_t& CopyStatus::getCopiedNumberFiles() {
     return this->copiedNumberFiles;
 }
 
-const size_t& CopyStatus::getFailedCopiedFilesSize() {
+const size_t& CopyStatus::getFailedCopiedFiles() {
     return this->failedCopiedNumberFiles;
 }
 

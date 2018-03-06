@@ -19,6 +19,7 @@
 #include "../AbstractFileParse.h"
 #include "../CopyHandler.h"
 #include "../CopyStatus.h"
+#include "../SizeFormatter.h"
 
 //Diskobject
 BOOST_AUTO_TEST_SUITE( TestDiskObject )
@@ -286,4 +287,39 @@ BOOST_AUTO_TEST_CASE(testNotFoundParserException)
     }
 }    
 BOOST_AUTO_TEST_SUITE_END()  
-        
+
+BOOST_AUTO_TEST_SUITE(testSizeFormatter)  
+BOOST_AUTO_TEST_CASE(testFormattedBytesToKilo)
+{
+    SizeFormatter formatter(FormatTo::KILOBYTES);
+    
+    BOOST_CHECK(formatter.formatBytes(1000) == "1KB");
+}    
+BOOST_AUTO_TEST_CASE(testShortestBytestToGigabytesFormatted)
+{
+    SizeFormatter formatter(FormatTo::SHORTEST);
+    
+    BOOST_CHECK(formatter.formatBytes(1891775158) == "1.89GB");
+}   
+
+BOOST_AUTO_TEST_CASE(testShortestBytestToBytesFormatted)
+{
+    SizeFormatter formatter(FormatTo::SHORTEST);
+    
+    BOOST_CHECK(formatter.formatBytes(850) == "850B");
+} 
+
+BOOST_AUTO_TEST_CASE(testShortestBytestToMegaBytesFormatted)
+{
+    SizeFormatter formatter(FormatTo::SHORTEST);
+    
+    BOOST_CHECK(formatter.formatBytes(354420000) == "354MB");
+}
+
+BOOST_AUTO_TEST_CASE(testShortestBytestToKiloBytesFormatted)
+{
+    SizeFormatter formatter(FormatTo::SHORTEST);
+    
+    BOOST_CHECK(formatter.formatBytes(459002) == "459KB");
+}
+BOOST_AUTO_TEST_SUITE_END()        

@@ -47,8 +47,8 @@ CmdOutput& CmdOutput::operator<<(const copyStatusPtr &status) {
 }
 void CmdOutput::sendOutput(const copyStatusPtr &status) {
     std::cout << "\r";
-    std::cout << "Copied: " << status->getCopiedNumberFiles() << " of  " << status->getNumberOfAllFiles() << " files " << "and " << status->getFailedCopiedFilesSize() << " failed coping files";
-    std::cout << " Copied: " << status->getCopiedFilesSize() << " of  " << status->getAllFilesSize() << " bytes ";
+    std::cout << "Copied: " << status->getCopiedNumberFiles() << " of  " << status->getNumberOfAllFiles() << " files " << "and " << status->getFailedCopiedFiles() << " failed coping files";
+    std::cout << " Copied: " << status->getFormattedCopiedFilesSize() << " of  " << status->getFormattedAllFilesSize();
     std::cout << "\r";
 }  
 

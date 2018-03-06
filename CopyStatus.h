@@ -4,6 +4,9 @@
 #include <stdint.h>
 #include <cstddef>
 #include <memory>
+#include <string>
+
+#include "SizeFormatter.h"
 
 class CopyHandler;
 
@@ -15,25 +18,33 @@ class CopyHandler;
 class CopyStatus {
     friend class CopyHandler;
 public:
-    CopyStatus();
+    CopyStatus(SizeFormatter &formatter);
     ~CopyStatus();
     /**
      * @brief  Get variable _allFilesSize
      * @return  Copy of _allFilesSize
      */
     const uintmax_t& getAllFilesSize();    
+    
+    std::string getFormattedAllFilesSize();
+    
     /**
      * @brief Get variable _copiedFilesSize
      * @return Copy of _copiedFilesSize
      */
     const uintmax_t& getCopiedFilesSize();
     
-    const uintmax_t& getFailedCopiedFilesSize();
+    std::string getFormattedCopiedFilesSize();
+    
+    const uintmax_t& getFailedCopiedFiles();
     /**
      * @brief  Get variable _toCopyFileSize
      * @return  Copy of _toCopyFileSize
      */
     uintmax_t getToCopyFileSize();
+    
+    std::string getFormattedToCopyFileSize();
+    
     /**
      * @brief  Get variable _numberOfAllFiles
      * @return Copy of _numberOfAllFiles
@@ -93,6 +104,8 @@ private:
     size_t failedCopiedNumberFiles;
     
     bool finished;
+    
+    SizeFormatter formatter;
 };
 
 using copyStatusPtr = std::shared_ptr<CopyStatus>;

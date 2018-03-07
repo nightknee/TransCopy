@@ -4,6 +4,8 @@ TransCopy::TransCopy() {
     CmdOptionsDescription optionsDescription("Options");
     
     this->cmdDesc = this->setBaseCmdOptionsDescription(optionsDescription);
+    
+    plog::init(plog::none, "log.txt");
 }
 
 cmdOptionsDescriptionPtr TransCopy::setBaseCmdOptionsDescription(CmdOptionsDescription& description) {

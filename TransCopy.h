@@ -18,6 +18,7 @@
 #include "File.h"
 #include "Directory.h"
 #include "Cmd.h"
+#include "Logger.h"
 
 /**
  * @class TransCopy

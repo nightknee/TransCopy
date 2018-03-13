@@ -63,6 +63,7 @@ private:
      */
     cmdOptionsDescriptionPtr setBaseCmdOptionsDescription(CmdOptionsDescription& description);
 
+    void initMainLogger();
     //Private variables	
 private:
     cmdOptionsDescriptionPtr cmdDesc;

@@ -5,7 +5,7 @@ TransCopy::TransCopy() {
     
     this->cmdDesc = this->setBaseCmdOptionsDescription(optionsDescription);
     
-    plog::init(plog::none, "log.txt");
+    this->initMainLogger();
 }
 
 cmdOptionsDescriptionPtr TransCopy::setBaseCmdOptionsDescription(CmdOptionsDescription& description) {
@@ -32,9 +32,13 @@ int TransCopy::run(int argc, char** argv) {
     }
     catch (const BaseException e) {
         MainExceptionHandler::handleException(e);
+        
+        LOGE << e.what();
     } 
     catch (std::exception e) {
-        MainExceptionHandler::handleException(e);        
+        MainExceptionHandler::handleException(e);      
+        
+        LOGF << e.what();
     }
     
     return 0;
@@ -46,6 +50,11 @@ void TransCopy::setSettingsFromArgs(int argc, char** argv) {
     } catch (CmdOptionsParserException e) {
 
     }
+}
+
+void TransCopy::initMainLogger() {
+    std::string logFileName = Logger::getLogFile("log.txt");
+    plog::init(plog::debug, logFileName.c_str());
 }
 
 const std::string TransCopy::Name = "TransCopy";

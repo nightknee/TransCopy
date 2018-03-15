@@ -6,6 +6,11 @@
 
 #include <plog/Log.h>
 
+enum LoggerInstances : int {
+    DEFAULT = PLOG_DEFAULT_INSTANCE,
+    DIRECTORY = 1
+};
+
 class Logger {
 public:   
     static std::string getLogFile(std::string fileName) {

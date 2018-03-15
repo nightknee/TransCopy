@@ -53,8 +53,8 @@ void TransCopy::setSettingsFromArgs(int argc, char** argv) {
 }
 
 void TransCopy::initMainLogger() {
-    std::string logFileName = Logger::getLogFile("log.txt");
-    plog::init(plog::debug, logFileName.c_str());
+    std::string logFileName = Logger::getLogFile("log.csv");
+    plog::init<plog::CsvFormatter>(plog::error, logFileName.c_str());
 }
 
 const std::string TransCopy::Name = "TransCopy";

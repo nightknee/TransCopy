@@ -6,8 +6,8 @@ PlsParser::PlsParser() {
 }
 
 const ParsedFiles* PlsParser::parse(const filePtr &file) const{
-    std::fstream *f = file->open(std::ios_base::in);
-
+    std::unique_ptr<std::fstream> f{file->open(std::ios_base::in)};
+    
     int i = 0;
 
     std::string line;
@@ -25,14 +25,12 @@ const ParsedFiles* PlsParser::parse(const filePtr &file) const{
             filePtr file = FileFactory::create(path);
             
             resultParsingFiles->addFile(file);            
-        } catch (FileException* e) {
+        } catch (FileException e) {
             continue;
         }
     }
 
     f->close();
-    
-    delete f;
     
     return resultParsingFiles;
 }

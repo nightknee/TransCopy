@@ -16,14 +16,18 @@ bool Directory::isExist(const std::string &dirPath) {
 }       
 
 bool Directory::copyFile(filePtr& file)
-{    
+{   
+    this->initLogger();
+    
     try {
         fs::path p(this->prepareNewFilePath(file));
 
         fs::copy_file(*file, p);
 
         return true;
-    } catch (fs::filesystem_error e) {       
+    } catch (fs::filesystem_error e) {
+        LOGE_(LoggerInstances::DIRECTORY) << e.what();        
+        
         return false;
     }
 }
@@ -34,4 +38,9 @@ std::string Directory::prepareNewFilePath(filePtr& file) {
 
 const char Directory::getSepratator() {
     return Directory::preferred_separator;
+}
+
+void Directory::initLogger() {
+    std::string logFileName = Logger::getLogFile("copied-files-log.txt");         
+    plog::init<LoggerInstances::DIRECTORY>(plog::error, logFileName.c_str());
 }

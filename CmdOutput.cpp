@@ -46,10 +46,9 @@ CmdOutput& CmdOutput::operator<<(const copyStatusPtr &status) {
     return *this;
 }
 void CmdOutput::sendOutput(const copyStatusPtr &status) {
-    std::cout << "\r";
     std::cout << "Copied: " << status->getCopiedNumberFiles() << " of  " << status->getNumberOfAllFiles() << " files " << "and " << status->getFailedCopiedFiles() << " failed coping files";
     std::cout << " Copied: " << status->getFormattedCopiedFilesSize() << " of  " << status->getFormattedAllFilesSize();
-    std::cout << "\r";
+    std::cout << "\r" << std::flush ;
 }  
 
 const std::string CmdOutput::NEW_LINE = "\n";

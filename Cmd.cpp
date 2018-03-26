@@ -77,7 +77,9 @@ void Cmd::startCopy() {
     
     while (!copyStats->isFinished()) {
         this->out << copyStats;        
-    }        
+    }   
+    
+    this->out << copyStats; 
     
     this->out << CmdOutput::NEW_LINE;
 }

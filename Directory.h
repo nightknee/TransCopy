@@ -8,6 +8,7 @@
 #include "File.h"
 #include "DiskObject.h"
 #include "Exceptions/PathException.h"
+#include "Logger.h"
 
 namespace fs = boost::filesystem;
 
@@ -48,6 +49,7 @@ public:
     bool copyFile(filePtr& file);
 private:
     std::string prepareNewFilePath(filePtr& file);
+    void initLogger();
 };
 
 using directoryPtr = std::shared_ptr<Directory>;

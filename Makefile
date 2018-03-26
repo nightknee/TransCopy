@@ -1,7 +1,7 @@
 CC = g++
 
-CCDEPLOYFLAGS = -O3 -O2 -std=c++14
-CCDEBUGFLAGS = -g -O0 -Wall -std=c++14 
+CCDEPLOYFLAGS = -O3 -O2 -std=c++14 -Iinclude
+CCDEBUGFLAGS = -g -O0 -Wall -std=c++14 -Iinclude
 CCFLAGS = $(CCDEPLOYFLAGS)
 
 CCTESTFLAGS = $(CCFLAGS) -lboost_unit_test_framework

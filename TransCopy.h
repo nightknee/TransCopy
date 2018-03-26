@@ -18,6 +18,7 @@
 #include "File.h"
 #include "Directory.h"
 #include "Cmd.h"
+#include "Logger.h"
 
 /**
  * @class TransCopy
@@ -62,6 +63,7 @@ private:
      */
     cmdOptionsDescriptionPtr setBaseCmdOptionsDescription(CmdOptionsDescription& description);
 
+    void initMainLogger();
     //Private variables	
 private:
     cmdOptionsDescriptionPtr cmdDesc;

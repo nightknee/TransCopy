@@ -36,7 +36,7 @@ public:
     
     std::string getFormattedCopiedFilesSize();
     
-    const uintmax_t& getFailedCopiedFiles();
+	const size_t& getFailedCopiedFiles();
     /**
      * @brief  Get variable _toCopyFileSize
      * @return  Copy of _toCopyFileSize

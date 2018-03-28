@@ -1,6 +1,8 @@
 #ifndef LOGGER_H
 #define LOGGER_H
 
+#pragma warning(disable : 4996)
+
 #include <string>
 #include <ctime>
 

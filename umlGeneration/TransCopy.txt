@@ -1,1 +1,0 @@
-./Debug/main.cpp.o ./Debug/TransCopy.cpp.o ./Debug/TransConfiguration.cpp.o

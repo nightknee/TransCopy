@@ -58,7 +58,7 @@ void TransCopy::initMainLogger() {
 }
 
 const std::string TransCopy::Name = "TransCopy";
-const std::string TransCopy::Version = "0.01";
+const std::string TransCopy::Version = "1.0.0";
 const std::string TransCopy::DevName = "Mateusz Karwan";
 const std::string TransCopy::Mail = "nightknee@gmail.com";
 const std::string TransCopy::GitHub = "https://github.com/nightknee/TransCopy";

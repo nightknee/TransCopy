@@ -1,6 +1,8 @@
 #ifndef QTGUI_H
 #define QTGUI_H
 
+#include <QApplication>
+
 #include "mainwindow.h"
 #include "Ui.h"
 
@@ -13,7 +15,7 @@ public:
     virtual int run(int argc, char** argv, cmdOptionsDescriptionPtr &desc) ;
 
 private:
-    virtual void setConfigurationFromCmd(int argc, char** argv) = 0;
+    virtual void setConfigurationFromCmd(int argc, char** argv);
 };
 
 #endif // QTGUI_H

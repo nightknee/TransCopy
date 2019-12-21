@@ -19,6 +19,7 @@
 #include "Directory.h"
 #include "Cmd.h"
 #include "Logger.h"
+#include "Gui/qtgui.h"
 
 /**
  * @class TransCopy

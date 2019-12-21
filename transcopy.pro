@@ -47,7 +47,6 @@ SOURCES += \
     TransCopy.cpp \
     TransCopyConfiguration.cpp \
     main.cpp \
-    mainwindow.cpp \
 
 HEADERS += \
     AbstractFileParse.h \
@@ -79,12 +78,10 @@ HEADERS += \
     SizeFormatter.h \
     TransCopy.h \
     TransCopyConfiguration.h \
-    Ui.h \
-    mainwindow.h
+    Ui.h
 
 FORMS += \
-    Gui/mainwindow.ui \
-    mainwindow.ui
+    Gui/mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

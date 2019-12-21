@@ -57,3 +57,67 @@ void MainWindow::hideElementsBeforeRun()
 
     this->ui->copyProgress->hide();
 }
+
+void MainWindow::initSingalsToSlots()
+{
+
+}
+
+void MainWindow::showLabelsAndProgressBar()
+{
+
+}
+
+void MainWindow::updateInformationAboutCopyProgress(copyStatusPtr status)
+{
+
+}
+
+void MainWindow::setValueToProgressBar(int value)
+{
+
+}
+
+QString MainWindow::getSourceFilePath()
+{
+    return QFileDialog::getOpenFileName(
+                this,
+                tr("Open file"),
+                "",
+                tr("Playlist files (*.pls)")
+           );
+}
+
+QString MainWindow::getDestinationPath()
+{
+    QString destinationPath;
+
+    QFileDialog destinationDialog(this);
+
+    destinationDialog.setFileMode(QFileDialog::Directory);
+
+    if (destinationDialog.exec()) {
+        destinationPath = destinationDialog.getOpenFileName();
+    }
+
+    return destinationPath;
+}
+
+void MainWindow::disableButtons()
+{
+    this->ui->sourceFileButton->setDisabled(true);
+    this->ui->destinationButton->setDisabled(true);
+    this->ui->startCopyButton->setDisabled(true);
+}
+
+void MainWindow::enableButtons()
+{
+    this->ui->sourceFileButton->setEnabled(true);
+    this->ui->destinationButton->setEnabled(true);
+    this->ui->startCopyButton->setEnabled(true);
+}
+
+void MainWindow::startCopy()
+{
+
+}

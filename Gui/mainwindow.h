@@ -2,8 +2,11 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QString>
+#include <QFileDialog>
 
 #include "ui_mainwindow.h"
+#include "CopyStatus.h"
 
 namespace Ui {
 class MainWindow;
@@ -25,6 +28,23 @@ private:
 
     void setLabels();
     void hideElementsBeforeRun();
+
+    void initSingalsToSlots();
+    void showLabelsAndProgressBar();
+
+    void updateInformationAboutCopyProgress(copyStatusPtr status);
+
+    void setValueToProgressBar(int value);
+
+    QString getSourceFilePath();
+
+    QString getDestinationPath();
+
+    void disableButtons();
+
+    void enableButtons();
+
+    void startCopy();
 };
 
 #endif // MAINWINDOW_H

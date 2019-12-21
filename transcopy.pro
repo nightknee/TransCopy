@@ -38,6 +38,8 @@ SOURCES += \
     File.cpp \
     FileFactory.cpp \
     FileParserContainer.cpp \
+    Gui/mainwindow.cpp \
+    Gui/qtgui.cpp \
     MainExceptionHandler.cpp \
     ParsedFiles.cpp \
     PlsParser.cpp \
@@ -67,6 +69,8 @@ HEADERS += \
     File.h \
     FileFactory.h \
     FileParserContainer.h \
+    Gui/mainwindow.h \
+    Gui/qtgui.h \
     Logger.h \
     MainExceptionHandler.h \
     Output.h \
@@ -79,6 +83,7 @@ HEADERS += \
     mainwindow.h
 
 FORMS += \
+    Gui/mainwindow.ui \
     mainwindow.ui
 
 # Default rules for deployment.

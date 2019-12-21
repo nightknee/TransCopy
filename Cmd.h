@@ -11,7 +11,7 @@
 #include "TransCopy.h"
 #include "CmdOutput.h"
 
-class Cmd : public Ui{
+class Cmd : public TransCopySpace::Ui{
 public:
     static const std::string OPTION_FILE_PATH;
     static const std::string OPTION_DESTINATION_PATH;

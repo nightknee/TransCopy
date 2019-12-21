@@ -23,6 +23,14 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void clickCopyButton();
+    void sourceFilePathChanged();
+    void destinationPathChanged();
+    void handleBeforeStartCopy();
+    void updateCopyProgress();
+    void handleFinishedCopy();
+
 private:
     Ui::MainWindow *ui;
 

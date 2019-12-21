@@ -19,6 +19,36 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::clickCopyButton()
+{
+
+}
+
+void MainWindow::sourceFilePathChanged()
+{
+
+}
+
+void MainWindow::destinationPathChanged()
+{
+
+}
+
+void MainWindow::handleBeforeStartCopy()
+{
+
+}
+
+void MainWindow::updateCopyProgress()
+{
+
+}
+
+void MainWindow::handleFinishedCopy()
+{
+
+}
+
 void MainWindow::setLabels()
 {
     this->ui->sourceFileButton->setText(tr("Source file"));

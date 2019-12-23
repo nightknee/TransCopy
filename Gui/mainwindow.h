@@ -7,6 +7,7 @@
 
 #include "ui_mainwindow.h"
 #include "CopyStatus.h"
+#include "copyworker.h"
 
 namespace Ui {
 class MainWindow;
@@ -30,6 +31,8 @@ private slots:
     void handleBeforeStartCopy();
     void updateCopyProgress();
     void handleFinishedCopy();
+    void getSourceFilePath();
+    void getDestinationPath();
 
 private:
     Ui::MainWindow *ui;
@@ -43,10 +46,6 @@ private:
     void updateInformationAboutCopyProgress(copyStatusPtr status);
 
     void setValueToProgressBar(int value);
-
-    QString getSourceFilePath();
-
-    QString getDestinationPath();
 
     void disableButtons();
 

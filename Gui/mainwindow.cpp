@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 
-
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -10,6 +9,8 @@ MainWindow::MainWindow(QWidget *parent) :
     this->setLabels();
 
     this->hideElementsBeforeRun();
+
+    this->initSingalsToSlots();
 
     this->setFixedSize(MainWindow::WINDOW_WEIGHT,MainWindow::WINDOW_HEIGHT);
 }
@@ -90,7 +91,12 @@ void MainWindow::hideElementsBeforeRun()
 
 void MainWindow::initSingalsToSlots()
 {
+    QObject::connect(this->ui->startCopyButton, SIGNAL(clicked()), this, SLOT(clickCopyButton()));
+    QObject::connect(this->ui->sourceFileButton, SIGNAL(clicked()), this, SLOT(getSourceFilePath()));
+    QObject::connect(this->ui->destinationButton, SIGNAL(clicked()), this, SLOT(getDestinationPath()));
 
+    QObject::connect(this->ui->sourceFilePath, SIGNAL(changed()), this, SLOT(sourceFilePathChanged()));
+    QObject::connect(this->ui->destinationPath, SIGNAL(changed()), this, SLOT(destinationPathChanged()));
 }
 
 void MainWindow::showLabelsAndProgressBar()
@@ -108,29 +114,31 @@ void MainWindow::setValueToProgressBar(int value)
 
 }
 
-QString MainWindow::getSourceFilePath()
+void MainWindow::getSourceFilePath()
 {
-    return QFileDialog::getOpenFileName(
+    QString path =  QFileDialog::getOpenFileName(
                 this,
                 tr("Open file"),
                 "",
                 tr("Playlist files (*.pls)")
            );
+
+    this->ui->sourceFilePath->setText(path);
 }
 
-QString MainWindow::getDestinationPath()
+void MainWindow::getDestinationPath()
 {
-    QString destinationPath;
+    QString destinationPathStr;
 
     QFileDialog destinationDialog(this);
 
     destinationDialog.setFileMode(QFileDialog::Directory);
 
     if (destinationDialog.exec()) {
-        destinationPath = destinationDialog.getOpenFileName();
+        destinationPathStr = destinationDialog.getOpenFileName();
     }
 
-    return destinationPath;
+    this->ui->destinationPath->setText(destinationPathStr);
 }
 
 void MainWindow::disableButtons()

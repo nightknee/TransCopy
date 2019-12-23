@@ -1,8 +1,8 @@
 #include "copyworker.h"
 
-CopyWorker::CopyWorker(const CopyHandler &copyHandler)
+CopyWorker::CopyWorker(const CopyHandler &copyHandler): copyHandler(copyHandler)
 {
-    this->copyHandler = copyHandler;
+
 }
 
 void CopyWorker::startCopy()

@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QString>
 #include <QFileDialog>
+#include <QThread>
 
 #include "ui_mainwindow.h"
 #include "CopyStatus.h"
@@ -43,7 +44,7 @@ private:
     void initSingalsToSlots();
     void showLabelsAndProgressBar();
 
-    void updateInformationAboutCopyProgress(copyStatusPtr status);
+    void updateInformationAboutCopyProgress();
 
     void setValueToProgressBar(int value);
 
@@ -52,6 +53,11 @@ private:
     void enableButtons();
 
     void startCopy();
+
+    QString sourcePath();
+    QString destinationPath();
+
+    copyStatusPtr status;
 };
 
 #endif // MAINWINDOW_H

@@ -7,5 +7,15 @@ CopyWorker::CopyWorker(const CopyHandler &copyHandler): copyHandler(copyHandler)
 
 void CopyWorker::startCopy()
 {
-    this->copyHandler.copy();
+    copyStatusPtr copyStats = this->copyHandler.getCopyStatus();
+
+    std::thread t(&CopyHandler::copy, this->copyHandler);
+
+    t.detach();
+
+    while (!copyStats->isFinished()) {
+        emit changeCopyStatus();
+    }
+
+    emit finishedCopy();
 }

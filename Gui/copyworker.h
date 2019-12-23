@@ -2,11 +2,13 @@
 #define COPYWORKER_H
 
 #include <QObject>
+#include <thread>
 
 #include "CopyHandler.h"
 
 class CopyWorker : public QObject
 {
+    Q_OBJECT
 public:
     CopyWorker(const CopyHandler &copyHandler);
 
@@ -17,7 +19,7 @@ private:
     CopyHandler copyHandler;
 
 signals:
-    void changeCopyStatus(copyStatusPtr copyStatus);
+    void changeCopyStatus();
     void finishedCopy();
 };
 

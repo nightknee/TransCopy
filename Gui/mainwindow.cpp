@@ -4,6 +4,8 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    this->status = nullptr;
+
     ui->setupUi(this);
 
     this->setLabels();
@@ -104,9 +106,11 @@ void MainWindow::showLabelsAndProgressBar()
 
 }
 
-void MainWindow::updateInformationAboutCopyProgress(copyStatusPtr status)
+void MainWindow::updateInformationAboutCopyProgress()
 {
-
+    if (!this->status) {
+        return;
+    }
 }
 
 void MainWindow::setValueToProgressBar(int value)
@@ -157,5 +161,31 @@ void MainWindow::enableButtons()
 
 void MainWindow::startCopy()
 {
+    CopyHandler copyHandler(
+                    this->sourcePath().toStdString(),
+                    this->destinationPath().toStdString()
+                );
 
+    this->status = copyHandler.getCopyStatus();
+
+    QThread copyThread;
+    CopyWorker *worker = new CopyWorker(copyHandler);
+    worker->moveToThread(&copyThread);
+
+    QObject::connect(worker, SIGNAL(CopyWorker::changeCopyStatus), this, SLOT(updateInformationAboutCopyProgress));
+    QObject::connect(worker, SIGNAL(CopyWorker::finishedCopy), this, SLOT(handleFinishedCopy));
+
+    QObject::connect(&copyThread, SIGNAL(QThread::start), worker, SLOT(CopyWorker::startCopy));
+
+    copyThread.start();
+}
+
+QString MainWindow::sourcePath()
+{
+    return this->ui->sourceFilePath->text();
+}
+
+QString MainWindow::destinationPath()
+{
+    return this->ui->destinationPath->text();
 }

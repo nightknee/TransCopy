@@ -38,6 +38,7 @@ SOURCES += \
     File.cpp \
     FileFactory.cpp \
     FileParserContainer.cpp \
+    Gui/copyworker.cpp \
     Gui/mainwindow.cpp \
     Gui/qtgui.cpp \
     MainExceptionHandler.cpp \
@@ -68,6 +69,7 @@ HEADERS += \
     File.h \
     FileFactory.h \
     FileParserContainer.h \
+    Gui/copyworker.h \
     Gui/mainwindow.h \
     Gui/qtgui.h \
     Logger.h \

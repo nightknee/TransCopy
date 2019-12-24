@@ -9,6 +9,8 @@ void CopyWorker::startCopy()
 {
     copyStatusPtr copyStats = this->copyHandler.getCopyStatus();
 
+    emit beforeCopy();
+
     std::thread t(&CopyHandler::copy, this->copyHandler);
 
     t.detach();

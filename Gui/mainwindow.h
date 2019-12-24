@@ -54,6 +54,9 @@ private:
 
     void startCopy();
 
+    void enableCopyButton();
+    void disableCopyButton();
+
     QString sourcePath();
     QString destinationPath();
 

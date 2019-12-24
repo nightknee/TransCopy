@@ -14,6 +14,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     this->initSingalsToSlots();
 
+    this->disableCopyButton();
+
 //    this->setFixedSize(MainWindow::WINDOW_WEIGHT,MainWindow::WINDOW_HEIGHT);
 }
 
@@ -24,7 +26,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::clickCopyButton()
 {
-
+    this->startCopy();
 }
 
 void MainWindow::sourceFilePathChanged()
@@ -39,7 +41,8 @@ void MainWindow::destinationPathChanged()
 
 void MainWindow::handleBeforeStartCopy()
 {
-
+    this->showLabelsAndProgressBar();
+    this->disableButtons();
 }
 
 void MainWindow::updateCopyProgress()
@@ -49,7 +52,8 @@ void MainWindow::updateCopyProgress()
 
 void MainWindow::handleFinishedCopy()
 {
-
+    this->enableButtons();
+    this->hideElementsBeforeRun();
 }
 
 void MainWindow::setLabels()
@@ -149,14 +153,14 @@ void MainWindow::disableButtons()
 {
     this->ui->sourceFileButton->setDisabled(true);
     this->ui->destinationButton->setDisabled(true);
-    this->ui->startCopyButton->setDisabled(true);
+    this->disableCopyButton();
 }
 
 void MainWindow::enableButtons()
 {
     this->ui->sourceFileButton->setEnabled(true);
     this->ui->destinationButton->setEnabled(true);
-    this->ui->startCopyButton->setEnabled(true);
+    this->enableCopyButton();
 }
 
 void MainWindow::startCopy()
@@ -172,12 +176,23 @@ void MainWindow::startCopy()
     CopyWorker *worker = new CopyWorker(copyHandler);
     worker->moveToThread(&copyThread);
 
+    QObject::connect(worker, SIGNAL(CopyWorker::beforeCopy), this, SLOT(handleBeforeStartCopy));
     QObject::connect(worker, SIGNAL(CopyWorker::changeCopyStatus), this, SLOT(updateInformationAboutCopyProgress));
     QObject::connect(worker, SIGNAL(CopyWorker::finishedCopy), this, SLOT(handleFinishedCopy));
 
     QObject::connect(&copyThread, SIGNAL(QThread::start), worker, SLOT(CopyWorker::startCopy));
 
     copyThread.start();
+}
+
+void MainWindow::enableCopyButton()
+{
+    this->ui->startCopyButton->setEnabled(true);
+}
+
+void MainWindow::disableCopyButton()
+{
+    this->ui->startCopyButton->setDisabled(true);
 }
 
 QString MainWindow::sourcePath()

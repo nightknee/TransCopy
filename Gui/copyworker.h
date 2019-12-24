@@ -19,6 +19,7 @@ private:
     CopyHandler copyHandler;
 
 signals:
+    void beforeCopy();
     void changeCopyStatus();
     void finishedCopy();
 };

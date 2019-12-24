@@ -29,9 +29,9 @@ void MainWindow::clickCopyButton()
     this->startCopy();
 }
 
-void MainWindow::sourceFilePathChanged()
+void MainWindow::sourceFilePathChanged(const QString &text)
 {
-    this->sourceFilePathStr = this->ui->sourceFilePath->text();
+    this->sourceFilePathStr = text;
 
     if (!File::isExist(this->sourceFilePathStr.toStdString())) {
         this->errorPathLabelText("File doesn't exist");
@@ -42,9 +42,9 @@ void MainWindow::sourceFilePathChanged()
     this->setSourcePathAsValid();
 }
 
-void MainWindow::destinationPathChanged()
+void MainWindow::destinationPathChanged(const QString &text)
 {
-    this->destinationPathStr = this->ui->destinationPath->text();
+    this->destinationPathStr = text;
 
     if (!Directory::isExist(this->destinationPathStr.toStdString())) {
         this->errorDestinationLabelText("Directory doesn't exist");
@@ -119,11 +119,11 @@ void MainWindow::initSingalsToSlots()
     QObject::connect(this->ui->sourceFileButton, SIGNAL(clicked()), this, SLOT(getSourceFilePath()));
     QObject::connect(this->ui->destinationButton, SIGNAL(clicked()), this, SLOT(getDestinationPath()));
 
-    QObject::connect(this->ui->sourceFilePath, SIGNAL(textChanged()), this, SLOT(sourceFilePathChanged()));
-    QObject::connect(this->ui->sourceFilePath, SIGNAL(textChanged()), this, SLOT(checkValidPath()));
+    QObject::connect(this->ui->sourceFilePath, SIGNAL(textChanged(QString)), this, SLOT(sourceFilePathChanged(QString)));
+    QObject::connect(this->ui->sourceFilePath, SIGNAL(textChanged(QString)), this, SLOT(checkValidPath(QString)));
 
-    QObject::connect(this->ui->destinationPath, SIGNAL(textChanged()), this, SLOT(destinationPathChanged()));
-    QObject::connect(this->ui->destinationPath, SIGNAL(textChanged()), this, SLOT(checkValidPath()));
+    QObject::connect(this->ui->destinationPath, SIGNAL(textChanged(QString)), this, SLOT(destinationPathChanged(QString)));
+    QObject::connect(this->ui->destinationPath, SIGNAL(textChanged(QString)), this, SLOT(checkValidPath(QString)));
 }
 
 void MainWindow::showLabelsAndProgressBar()
@@ -179,7 +179,7 @@ void MainWindow::getDestinationPath()
     this->ui->destinationPath->setText(destinationPathStr);
 }
 
-void MainWindow::checkValidPath()
+void MainWindow::checkValidPath(const QString &text)
 {
     if (!this->pathsAreValid()) {
         this->disableCopyButton();
@@ -246,11 +246,11 @@ void MainWindow::startCopy()
     CopyWorker *worker = new CopyWorker(copyHandler);
     worker->moveToThread(&copyThread);
 
-    QObject::connect(worker, SIGNAL(CopyWorker::beforeCopy), this, SLOT(handleBeforeStartCopy));
-    QObject::connect(worker, SIGNAL(CopyWorker::changeCopyStatus), this, SLOT(updateInformationAboutCopyProgress));
-    QObject::connect(worker, SIGNAL(CopyWorker::finishedCopy), this, SLOT(handleFinishedCopy));
+    QObject::connect(worker, SIGNAL(beforeCopy()), this, SLOT(handleBeforeStartCopy()));
+    QObject::connect(worker, SIGNAL(changeCopyStatus()), this, SLOT(updateInformationAboutCopyProgress()));
+    QObject::connect(worker, SIGNAL(finishedCopy()), this, SLOT(handleFinishedCopy()));
 
-    QObject::connect(&copyThread, SIGNAL(QThread::start), worker, SLOT(CopyWorker::startCopy));
+    QObject::connect(&copyThread, SIGNAL(started()), worker, SLOT(startCopy()));
 
     copyThread.start();
 }

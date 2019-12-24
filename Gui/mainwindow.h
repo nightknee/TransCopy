@@ -31,14 +31,15 @@ public:
 
 private slots:
     void clickCopyButton();
-    void sourceFilePathChanged();
-    void destinationPathChanged();
+    void sourceFilePathChanged(const QString &text);
+    void destinationPathChanged(const QString &text);
     void handleBeforeStartCopy();
     void updateCopyProgress();
     void handleFinishedCopy();
     void getSourceFilePath();
     void getDestinationPath();
-    void checkValidPath();
+    void checkValidPath(const QString &text);
+    void updateInformationAboutCopyProgress();
 
 private:
     Ui::MainWindow *ui;
@@ -59,9 +60,7 @@ private:
     void hideElementsBeforeRun();
 
     void initSingalsToSlots();
-    void showLabelsAndProgressBar();
-
-    void updateInformationAboutCopyProgress();
+    void showLabelsAndProgressBar();   
 
     void setValueToProgressBar(int value);
 

@@ -11,6 +11,8 @@
 #include "copyworker.h"
 #include "../Exceptions/NotFoundParserException.h"
 #include "FileParserContainer.h"
+#include "File.h"
+#include "Directory.h"
 
 namespace Ui {
 class MainWindow;
@@ -36,9 +38,22 @@ private slots:
     void handleFinishedCopy();
     void getSourceFilePath();
     void getDestinationPath();
+    void checkValidPath();
 
 private:
     Ui::MainWindow *ui;
+
+    QString sourceFilePathStr;
+    bool sourceFilePathIsValid = false;
+    void setSourcePathAsValid();
+    void setSourcePathInvalid();
+    bool sourcePathIsValid();
+
+    QString destinationPathStr;
+    bool destinationPathIsValid = false;
+    void setDestinationPathAsValid();
+    void setDestinationPathInvalid();
+    bool destinationIsValid();
 
     void setLabels();
     void hideElementsBeforeRun();
@@ -59,12 +74,14 @@ private:
     void enableCopyButton();
     void disableCopyButton();
 
+    bool pathsAreValid();
+
     QString sourcePath();
     QString destinationPath();
 
     void errorPathLabelText(const QString &text);
     void errorDestinationLabelText(const QString &text);
-    void clearErrorPathLabel();
+    void clearErrorSourcePathLabel();
     void clearErrorDestinationPathLabel();
 
     copyStatusPtr status;

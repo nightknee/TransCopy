@@ -31,18 +31,28 @@ void MainWindow::clickCopyButton()
 
 void MainWindow::sourceFilePathChanged()
 {
-    QString sourceFilePath = this->ui->sourceFilePath->text();
+    this->sourceFilePathStr = this->ui->sourceFilePath->text();
 
-    try {
-
-    } catch(NotFoundParserException e) {
-
+    if (!File::isExist(this->sourceFilePathStr.toStdString())) {
+        this->errorPathLabelText("File doesn't exist");
+        this->setSourcePathInvalid();
+        return;
     }
+
+    this->setSourcePathAsValid();
 }
 
 void MainWindow::destinationPathChanged()
 {
+    this->destinationPathStr = this->ui->destinationPath->text();
 
+    if (!Directory::isExist(this->destinationPathStr.toStdString())) {
+        this->errorDestinationLabelText("Directory doesn't exist");
+        this->setDestinationPathInvalid();
+        return;
+    }
+
+    this->setDestinationPathAsValid();
 }
 
 void MainWindow::handleBeforeStartCopy()
@@ -110,7 +120,10 @@ void MainWindow::initSingalsToSlots()
     QObject::connect(this->ui->destinationButton, SIGNAL(clicked()), this, SLOT(getDestinationPath()));
 
     QObject::connect(this->ui->sourceFilePath, SIGNAL(textChanged()), this, SLOT(sourceFilePathChanged()));
+    QObject::connect(this->ui->sourceFilePath, SIGNAL(textChanged()), this, SLOT(checkValidPath()));
+
     QObject::connect(this->ui->destinationPath, SIGNAL(textChanged()), this, SLOT(destinationPathChanged()));
+    QObject::connect(this->ui->destinationPath, SIGNAL(textChanged()), this, SLOT(checkValidPath()));
 }
 
 void MainWindow::showLabelsAndProgressBar()
@@ -158,15 +171,52 @@ void MainWindow::getDestinationPath()
 {
     QString destinationPathStr;
 
-    QFileDialog destinationDialog(this);
-
-    destinationDialog.setFileMode(QFileDialog::Directory);
-
-    if (destinationDialog.exec()) {
-        destinationPathStr = destinationDialog.getOpenFileName();
-    }
+   destinationPathStr = QFileDialog::getExistingDirectory(this,
+                                                          tr("Open Directory"),
+                                                          "",
+                                                          QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
 
     this->ui->destinationPath->setText(destinationPathStr);
+}
+
+void MainWindow::checkValidPath()
+{
+    if (!this->pathsAreValid()) {
+        this->disableCopyButton();
+        return;
+    }
+
+    this->enableCopyButton();
+}
+
+void MainWindow::setSourcePathAsValid()
+{
+    this->sourceFilePathIsValid = true;
+}
+
+void MainWindow::setSourcePathInvalid()
+{
+    this->sourceFilePathIsValid = false;
+}
+
+bool MainWindow::sourcePathIsValid()
+{
+    return this->sourceFilePathIsValid;
+}
+
+void MainWindow::setDestinationPathAsValid()
+{
+    this->destinationPathIsValid = true;
+}
+
+void MainWindow::setDestinationPathInvalid()
+{
+    this->destinationPathIsValid = false;
+}
+
+bool MainWindow::destinationIsValid()
+{
+    return this->destinationPathIsValid;
 }
 
 void MainWindow::disableButtons()
@@ -217,12 +267,12 @@ void MainWindow::disableCopyButton()
 
 QString MainWindow::sourcePath()
 {
-    return this->ui->sourceFilePath->text();
+    return this->sourceFilePathStr;
 }
 
 QString MainWindow::destinationPath()
 {
-    return this->ui->destinationPath->text();
+    return this->destinationPathStr;
 }
 
 void MainWindow::errorPathLabelText(const QString &text)
@@ -243,4 +293,10 @@ void MainWindow::clearErrorSourcePathLabel()
 void MainWindow::clearErrorDestinationPathLabel()
 {
     this->ui->destinationPathError->setText("");
+}
+
+
+bool MainWindow::pathsAreValid()
+{
+    return this->sourcePathIsValid() && this->destinationIsValid();
 }

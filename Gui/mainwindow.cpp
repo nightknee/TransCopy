@@ -14,7 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     this->initSingalsToSlots();
 
-    this->setFixedSize(MainWindow::WINDOW_WEIGHT,MainWindow::WINDOW_HEIGHT);
+//    this->setFixedSize(MainWindow::WINDOW_WEIGHT,MainWindow::WINDOW_HEIGHT);
 }
 
 MainWindow::~MainWindow()
@@ -97,8 +97,8 @@ void MainWindow::initSingalsToSlots()
     QObject::connect(this->ui->sourceFileButton, SIGNAL(clicked()), this, SLOT(getSourceFilePath()));
     QObject::connect(this->ui->destinationButton, SIGNAL(clicked()), this, SLOT(getDestinationPath()));
 
-    QObject::connect(this->ui->sourceFilePath, SIGNAL(changed()), this, SLOT(sourceFilePathChanged()));
-    QObject::connect(this->ui->destinationPath, SIGNAL(changed()), this, SLOT(destinationPathChanged()));
+    QObject::connect(this->ui->sourceFilePath, SIGNAL(textChanged()), this, SLOT(sourceFilePathChanged()));
+    QObject::connect(this->ui->destinationPath, SIGNAL(textChanged()), this, SLOT(destinationPathChanged()));
 }
 
 void MainWindow::showLabelsAndProgressBar()

@@ -18,8 +18,8 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 
-    constexpr static int WINDOW_WEIGHT = 1600;
-    constexpr static int WINDOW_HEIGHT = 1300;
+    constexpr static int WINDOW_WEIGHT = 820;
+    constexpr static int WINDOW_HEIGHT = 520;
 
 public:
     explicit MainWindow(QWidget *parent = nullptr);

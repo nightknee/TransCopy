@@ -242,17 +242,17 @@ void MainWindow::startCopy()
 
     this->status = copyHandler.getCopyStatus();
 
-    QThread copyThread;
+    QThread *copyThread = new QThread();
     CopyWorker *worker = new CopyWorker(copyHandler);
-    worker->moveToThread(&copyThread);
+    worker->moveToThread(copyThread);
 
     QObject::connect(worker, SIGNAL(beforeCopy()), this, SLOT(handleBeforeStartCopy()));
     QObject::connect(worker, SIGNAL(changeCopyStatus()), this, SLOT(updateInformationAboutCopyProgress()));
     QObject::connect(worker, SIGNAL(finishedCopy()), this, SLOT(handleFinishedCopy()));
 
-    QObject::connect(&copyThread, SIGNAL(started()), worker, SLOT(startCopy()));
+    QObject::connect(copyThread, SIGNAL(started()), worker, SLOT(startCopy()));
 
-    copyThread.start();
+    copyThread->start();
 }
 
 void MainWindow::enableCopyButton()

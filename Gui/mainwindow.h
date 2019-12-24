@@ -9,6 +9,8 @@
 #include "ui_mainwindow.h"
 #include "CopyStatus.h"
 #include "copyworker.h"
+#include "../Exceptions/NotFoundParserException.h"
+#include "FileParserContainer.h"
 
 namespace Ui {
 class MainWindow;
@@ -59,6 +61,11 @@ private:
 
     QString sourcePath();
     QString destinationPath();
+
+    void errorPathLabelText(const QString &text);
+    void errorDestinationLabelText(const QString &text);
+    void clearErrorPathLabel();
+    void clearErrorDestinationPathLabel();
 
     copyStatusPtr status;
 };

@@ -31,7 +31,13 @@ void MainWindow::clickCopyButton()
 
 void MainWindow::sourceFilePathChanged()
 {
+    QString sourceFilePath = this->ui->sourceFilePath->text();
 
+    try {
+
+    } catch(NotFoundParserException e) {
+
+    }
 }
 
 void MainWindow::destinationPathChanged()
@@ -43,11 +49,13 @@ void MainWindow::handleBeforeStartCopy()
 {
     this->showLabelsAndProgressBar();
     this->disableButtons();
+
+    this->ui->copyProgress->setRange(0, this->status->getNumberOfAllFiles());
 }
 
 void MainWindow::updateCopyProgress()
 {
-
+    this->ui->copyProgress->setValue(this->status->getCopiedNumberFiles());
 }
 
 void MainWindow::handleFinishedCopy()
@@ -107,7 +115,19 @@ void MainWindow::initSingalsToSlots()
 
 void MainWindow::showLabelsAndProgressBar()
 {
+    this->ui->allFilesLabel->show();
+    this->ui->allFilesValue->show();
 
+    this->ui->allFilesSizeLabel->show();
+    this->ui->allFilesSizeValue->show();
+
+    this->ui->copiedFilesLabel->show();
+    this->ui->copiedFilesValue->show();
+
+    this->ui->failedCopiedFilesLabel->show();
+    this->ui->failedCopiedFilesValue->show();
+
+    this->ui->copyProgress->show();
 }
 
 void MainWindow::updateInformationAboutCopyProgress()
@@ -203,4 +223,24 @@ QString MainWindow::sourcePath()
 QString MainWindow::destinationPath()
 {
     return this->ui->destinationPath->text();
+}
+
+void MainWindow::errorPathLabelText(const QString &text)
+{
+    this->ui->sourcePathError->setText(text);
+}
+
+void MainWindow::errorDestinationLabelText(const QString &text)
+{
+    this->ui->destinationPathError->setText(text);
+}
+
+void MainWindow::clearErrorSourcePathLabel()
+{
+    this->ui->sourcePathError->setText("");
+}
+
+void MainWindow::clearErrorDestinationPathLabel()
+{
+    this->ui->destinationPathError->setText("");
 }

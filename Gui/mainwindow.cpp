@@ -72,6 +72,8 @@ void MainWindow::handleFinishedCopy()
 {
     this->enableButtons();
     this->hideElementsBeforeRun();
+
+    this->status = nullptr;
 }
 
 void MainWindow::setLabels()
@@ -148,6 +150,10 @@ void MainWindow::updateInformationAboutCopyProgress()
     if (!this->status) {
         return;
     }
+
+    this->ui->copiedFilesValue->setText(QString::fromStdString(this->status->getFormattedCopiedFilesSize()));
+    this->ui->copiedFilesSizeValue->setText(QString::fromStdString(this->status->getFormattedCopiedFilesSize()));
+    this->ui->failedCopiedFilesValue->setText(QString::number(this->status->getFailedCopiedFiles()));
 }
 
 void MainWindow::setValueToProgressBar(int value)

@@ -21,7 +21,7 @@ public:
     ~CopyHandler();
 
     boost::signals2::signal <void(copyStatusPtr&)> afterCopyFile;
-    boost::signals2::signal <void()> finishedCopy;
+    boost::signals2::signal <void ()> finishedCopy;
 private:
     void copyParsedFiles(const ParsedFiles *files);
     copyStatusPtr copyStatus;

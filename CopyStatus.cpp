@@ -18,8 +18,9 @@ const uintmax_t& CopyStatus::getAllFilesSize() {
     return this->allFilesSize;
 }
 
-std::string CopyStatus::getFormattedAllFilesSize() {
-    return this->formatter.formatBytes(this->getAllFilesSize());
+std::string& CopyStatus::getFormattedAllFilesSize() {
+    this->allFilesSizeFormatted = this->formatter.formatBytes(this->getAllFilesSize());
+    return this->allFilesSizeFormatted;
 }
 
 void CopyStatus::setAllFilesSize(const uintmax_t &size){     
@@ -36,8 +37,10 @@ const uintmax_t& CopyStatus::getCopiedFilesSize() {
     return this->copiedFilesSize;
 }
 
-std::string CopyStatus::getFormattedCopiedFilesSize() {
-    return this->formatter.formatBytes(this->getCopiedFilesSize());
+std::string& CopyStatus::getFormattedCopiedFilesSize() {
+    this->copiedFilesSizeFromatted = this->formatter.formatBytes(this->getCopiedFilesSize());
+
+    return this->copiedFilesSizeFromatted;
 }
 
 void CopyStatus::addCopiedFileSize(uintmax_t size) {
@@ -53,8 +56,10 @@ uintmax_t CopyStatus::getToCopyFileSize() {
     return this->toCopyFileSize;
 }
 
-std::string CopyStatus::getFormattedToCopyFileSize() {
-    return this->formatter.formatBytes(this->getToCopyFileSize());
+std::string& CopyStatus::getFormattedToCopyFileSize() {
+    this->toCopyFileSizeFormatted = this->formatter.formatBytes(this->getToCopyFileSize());
+
+    return this->toCopyFileSizeFormatted;
 }
 
 const size_t& CopyStatus::getNumberOfAllFiles() {

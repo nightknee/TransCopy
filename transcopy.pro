@@ -15,7 +15,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
-LIBS += -lboost_program_options -lboost_system -lboost_filesystem -lboost_regex -pthread
+LIBS += -lboost_program_options -lboost_system -lboost_filesystem -lboost_regex -lboost_signals -pthread
 
 INCLUDEPATH += include\
 

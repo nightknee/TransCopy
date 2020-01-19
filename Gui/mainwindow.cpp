@@ -1,11 +1,10 @@
 #include "mainwindow.h"
 
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-    this->status = nullptr;
-
     ui->setupUi(this);
 
     this->setLabels();
@@ -16,12 +15,19 @@ MainWindow::MainWindow(QWidget *parent) :
 
     this->disableCopyButton();
 
+    qRegisterMetaType<copyStatusPtr>("copyStatusPtr");
+
 //    this->setFixedSize(MainWindow::WINDOW_WEIGHT,MainWindow::WINDOW_HEIGHT);
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+
+    if (this->copyThread) {
+        this->copyThread->quit();
+        this->copyThread->wait();
+    }
 }
 
 void MainWindow::clickCopyButton()
@@ -44,13 +50,13 @@ void MainWindow::sourceFilePathChanged(const QString &text)
 
 void MainWindow::destinationPathChanged(const QString &text)
 {
-    this->destinationPathStr = text;
-
-    if (!Directory::isExist(this->destinationPathStr.toStdString())) {
+    if (!Directory::isExist(text.toStdString())) {
         this->errorDestinationLabelText("Directory doesn't exist");
         this->setDestinationPathInvalid();
         return;
     }
+
+    this->destinationPathStr = this->validDestinationToCopy(text);
 
     this->setDestinationPathAsValid();
 }
@@ -60,20 +66,18 @@ void MainWindow::handleBeforeStartCopy()
     this->showLabelsAndProgressBar();
     this->disableButtons();
 
-    this->ui->copyProgress->setRange(0, this->status->getNumberOfAllFiles());
+//    this->ui->copyProgress->setRange(0, this->status->getNumberOfAllFiles());
 }
 
 void MainWindow::updateCopyProgress()
 {
-    this->ui->copyProgress->setValue(this->status->getCopiedNumberFiles());
+//    this->ui->copyProgress->setValue(this->status->getCopiedNumberFiles());
 }
 
 void MainWindow::handleFinishedCopy()
 {
     this->enableButtons();
-    this->hideElementsBeforeRun();
-
-    this->status = nullptr;
+    this->hideElementsBeforeRun();    
 }
 
 void MainWindow::setLabels()
@@ -145,15 +149,16 @@ void MainWindow::showLabelsAndProgressBar()
     this->ui->copyProgress->show();
 }
 
-void MainWindow::updateInformationAboutCopyProgress()
-{
-    if (!this->status) {
-        return;
-    }
+void MainWindow::updateInformationAboutCopyProgress(copyStatusPtr ptr)
+{   
+    this->copiedFilesValue.fromStdString(ptr->getFormattedCopiedFilesSize());
+    this->ui->copiedFilesValue->setText(this->copiedFilesValue);
 
-    this->ui->copiedFilesValue->setText(QString::fromStdString(this->status->getFormattedCopiedFilesSize()));
-    this->ui->copiedFilesSizeValue->setText(QString::fromStdString(this->status->getFormattedCopiedFilesSize()));
-    this->ui->failedCopiedFilesValue->setText(QString::number(this->status->getFailedCopiedFiles()));
+    this->copiedFilesSizeValue.fromStdString(ptr->getFormattedCopiedFilesSize());
+    this->ui->copiedFilesSizeValue->setText(this->copiedFilesSizeValue);
+
+    this->failedCopiedFilesValue.number(ptr->getFailedCopiedFiles());
+    this->ui->failedCopiedFilesValue->setText(this->failedCopiedFilesValue);
 }
 
 void MainWindow::setValueToProgressBar(int value)
@@ -180,7 +185,7 @@ void MainWindow::getDestinationPath()
    destinationPathStr = QFileDialog::getExistingDirectory(this,
                                                           tr("Open Directory"),
                                                           "",
-                                                          QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+                                                          QFileDialog::ShowDirsOnly);
 
     this->ui->destinationPath->setText(destinationPathStr);
 }
@@ -225,6 +230,18 @@ bool MainWindow::destinationIsValid()
     return this->destinationPathIsValid;
 }
 
+QString* MainWindow::validDestinationToCopy(const QString &destination)
+{
+    char separator = Directory::getSepratator();
+    QString *tempDestination = new QString(destination);
+
+    if (tempDestination->back() != separator) {
+        tempDestination->push_back(separator);
+    }
+
+    return tempDestination;
+}
+
 void MainWindow::disableButtons()
 {
     this->ui->sourceFileButton->setDisabled(true);
@@ -241,24 +258,24 @@ void MainWindow::enableButtons()
 
 void MainWindow::startCopy()
 {
-    CopyHandler copyHandler(
-                    this->sourcePath().toStdString(),
-                    this->destinationPath().toStdString()
-                );
-
-    this->status = copyHandler.getCopyStatus();
-
     QThread *copyThread = new QThread();
-    CopyWorker *worker = new CopyWorker(copyHandler);
+
+    CopyWorker *worker = new CopyWorker(
+                this->sourcePath().toStdString(),
+                this->destinationPath().toStdString()
+            );
+
     worker->moveToThread(copyThread);
 
     QObject::connect(worker, SIGNAL(beforeCopy()), this, SLOT(handleBeforeStartCopy()));
-    QObject::connect(worker, SIGNAL(changeCopyStatus()), this, SLOT(updateInformationAboutCopyProgress()));
+    QObject::connect(worker, &CopyWorker::changeCopyStatus, this, &MainWindow::updateInformationAboutCopyProgress);
     QObject::connect(worker, SIGNAL(finishedCopy()), this, SLOT(handleFinishedCopy()));
 
     QObject::connect(copyThread, SIGNAL(started()), worker, SLOT(startCopy()));
 
-    copyThread->start();
+    this->copyThread = copyThread;
+
+    this->copyThread->start();
 }
 
 void MainWindow::enableCopyButton()
@@ -276,9 +293,9 @@ QString MainWindow::sourcePath()
     return this->sourceFilePathStr;
 }
 
-QString MainWindow::destinationPath()
+const QString MainWindow::destinationPath()
 {
-    return this->destinationPathStr;
+    return *this->destinationPathStr;
 }
 
 void MainWindow::errorPathLabelText(const QString &text)

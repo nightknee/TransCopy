@@ -29,7 +29,7 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-private slots:
+public slots:
     void clickCopyButton();
     void sourceFilePathChanged(const QString &text);
     void destinationPathChanged(const QString &text);
@@ -39,7 +39,7 @@ private slots:
     void getSourceFilePath();
     void getDestinationPath();
     void checkValidPath(const QString &text);
-    void updateInformationAboutCopyProgress();
+    void updateInformationAboutCopyProgress(copyStatusPtr);
 
 private:
     Ui::MainWindow *ui;
@@ -50,11 +50,12 @@ private:
     void setSourcePathInvalid();
     bool sourcePathIsValid();
 
-    QString destinationPathStr;
+    QString* destinationPathStr;
     bool destinationPathIsValid = false;
     void setDestinationPathAsValid();
     void setDestinationPathInvalid();
     bool destinationIsValid();
+    QString* validDestinationToCopy(const QString& destination);
 
     void setLabels();
     void hideElementsBeforeRun();
@@ -76,14 +77,21 @@ private:
     bool pathsAreValid();
 
     QString sourcePath();
-    QString destinationPath();
+    const QString destinationPath();
 
     void errorPathLabelText(const QString &text);
     void errorDestinationLabelText(const QString &text);
     void clearErrorSourcePathLabel();
     void clearErrorDestinationPathLabel();
 
-    copyStatusPtr status;
+    QString allFilesValue;
+    QString copiedFilesValue;
+    QString copiedFilesSizeValue;
+    QString failedCopiedFilesValue;
+    int copyProgress;
+
+    QThread *copyThread = nullptr;
+
 };
 
 #endif // MAINWINDOW_H

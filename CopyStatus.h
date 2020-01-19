@@ -26,7 +26,7 @@ public:
      */
     const uintmax_t& getAllFilesSize();    
     
-    std::string getFormattedAllFilesSize();
+    std::string& getFormattedAllFilesSize();
     
     /**
      * @brief Get variable _copiedFilesSize
@@ -34,7 +34,7 @@ public:
      */
     const uintmax_t& getCopiedFilesSize();
     
-    std::string getFormattedCopiedFilesSize();
+    std::string& getFormattedCopiedFilesSize();
     
 	const size_t& getFailedCopiedFiles();
     /**
@@ -43,7 +43,7 @@ public:
      */
     uintmax_t getToCopyFileSize();
     
-    std::string getFormattedToCopyFileSize();
+    std::string& getFormattedToCopyFileSize();
     
     /**
      * @brief  Get variable _numberOfAllFiles
@@ -84,14 +84,23 @@ private:
             @biref Size of all files to copy
      */
     uintmax_t allFilesSize;
+
+    std::string allFilesSizeFormatted;
+
     /**
             @biref Size of file still wait to copy
      */
     uintmax_t toCopyFileSize;
+
+    std::string toCopyFileSizeFormatted;
+
     /**
             @biref Size of files was copied
      */
     uintmax_t copiedFilesSize;
+
+    std::string copiedFilesSizeFromatted;
+
     /**
             @biref All files to copy
      */

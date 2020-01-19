@@ -76,8 +76,8 @@ void Cmd::startCopy() {
     t.detach();
     
     while (!copyStats->isFinished()) {
-        this->out << copyStats;        
-    }   
+        this->out << copyStats;
+    }
     
     this->out << copyStats; 
     

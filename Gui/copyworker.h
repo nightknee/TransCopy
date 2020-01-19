@@ -10,17 +10,17 @@ class CopyWorker : public QObject
 {
     Q_OBJECT
 public:
-    CopyWorker(const CopyHandler &copyHandler);
+    CopyWorker(const std::string& filePath, const std::string& directoryPath);
 
 public slots:
     void startCopy();
 
 private:
-    CopyHandler copyHandler;
+    CopyHandler* copyHandler;
 
 signals:
     void beforeCopy();
-    void changeCopyStatus();
+    void changeCopyStatus(copyStatusPtr);
     void finishedCopy();
 };
 

@@ -2,6 +2,7 @@
 #define COPYHANDLER_H
 
 #include <string>
+#include <boost/signals2.hpp>
 
 #include "File.h"
 #include "FileFactory.h"
@@ -18,11 +19,13 @@ public:
     void copy();
     copyStatusPtr getCopyStatus();
     ~CopyHandler();
+
+//    boost::signals2::signal <void(copyStatusPtr)> afterCopyStatus;
 private:
     void copyParsedFiles(const ParsedFiles *files);
     copyStatusPtr copyStatus;
     filePtr fileToParse;
-    directoryPtr destination;
+    directoryPtr destination;    
 };
 
 #endif // COPYHANDLER_H

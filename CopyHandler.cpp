@@ -40,6 +40,7 @@ void CopyHandler::copyParsedFiles(const ParsedFiles *parsedFiles) {
     }
     
     this->copyStatus->setFinishStatus(true);
+    this->finishedCopy();
 }
 
 copyStatusPtr CopyHandler::getCopyStatus() {

@@ -4,6 +4,8 @@
 CopyWorker::CopyWorker(const std::string& filePath, const std::string& directoryPath)
 {
     this->copyHandler = new CopyHandler(filePath, directoryPath);
+
+    this->addCopyHandlerSlot();
 }
 
 void CopyWorker::startCopy()
@@ -16,11 +18,19 @@ void CopyWorker::startCopy()
 
     t.detach();
 
-    QString formatedToCopy;
+//    while (!copyStats->isFinished()) {
+//        emit changeCopyStatus(copyStats);
+//    }
 
-    while (!copyStats->isFinished()) {
-        emit changeCopyStatus(copyStats);
-    }
+//    emit finishedCopy();
+}
 
-    emit finishedCopy();
+void CopyWorker::addCopyHandlerSlot()
+{
+
+}
+
+void CopyWorker::handleAfetCopyFile(copyStatusPtr &status)
+{
+    emit changeCopyStatus(status);
 }

@@ -35,6 +35,8 @@ void CopyHandler::copyParsedFiles(const ParsedFiles *parsedFiles) {
         
         this->copyStatus->increaseCopiedNumberFiles();
         this->copyStatus->addCopiedFileSize((*i)->size());
+
+        this->afterCopyFile(this->copyStatus);
     }
     
     this->copyStatus->setFinishStatus(true);

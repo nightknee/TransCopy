@@ -12,7 +12,7 @@ void CopyWorker::startCopy()
 
     emit beforeCopy();
 
-    std::thread t(&CopyHandler::copy, this->copyHandler);
+    boost::thread t(&CopyHandler::copy, this->copyHandler);
 
     t.detach();
 

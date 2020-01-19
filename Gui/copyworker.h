@@ -2,7 +2,8 @@
 #define COPYWORKER_H
 
 #include <QObject>
-#include <thread>
+//#include <thread>
+#include <boost/thread.hpp>
 
 #include "CopyHandler.h"
 

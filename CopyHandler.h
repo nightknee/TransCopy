@@ -20,7 +20,7 @@ public:
     copyStatusPtr getCopyStatus();
     ~CopyHandler();
 
-//    boost::signals2::signal <void(copyStatusPtr)> afterCopyStatus;
+    boost::signals2::signal <void(copyStatusPtr)> afterCopyFile;
 private:
     void copyParsedFiles(const ParsedFiles *files);
     copyStatusPtr copyStatus;

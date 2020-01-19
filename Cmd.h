@@ -1,7 +1,8 @@
 #ifndef CMD_H
 #define CMD_H
 
-#include <thread>
+//#include <thread>
+#include <boost/thread.hpp>
 
 #include "Ui.h"
 #include "Exceptions/NotFoundParserException.h"

@@ -6,6 +6,7 @@ CopyWorker::CopyWorker(const std::string& filePath, const std::string& directory
     this->copyHandler = new CopyHandler(filePath, directoryPath);
 
     this->addCopyHandlerSlot();
+    this->addFinischCopyHandlerSlot();
 }
 
 void CopyWorker::startCopy()
@@ -17,12 +18,6 @@ void CopyWorker::startCopy()
     boost::thread t(&CopyHandler::copy, this->copyHandler);
 
     t.detach();
-
-//    while (!copyStats->isFinished()) {
-//        emit changeCopyStatus(copyStats);
-//    }
-
-//    emit finishedCopy();
 }
 
 void CopyWorker::addCopyHandlerSlot()
@@ -30,7 +25,17 @@ void CopyWorker::addCopyHandlerSlot()
 
 }
 
+void CopyWorker::addFinischCopyHandlerSlot()
+{
+
+}
+
 void CopyWorker::handleAfetCopyFile(copyStatusPtr &status)
 {
     emit changeCopyStatus(status);
+}
+
+void CopyWorker::handleFinishCopy()
+{
+    emit finishedCopy();
 }

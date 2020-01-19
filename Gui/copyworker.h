@@ -19,7 +19,10 @@ public slots:
 private:
     CopyHandler* copyHandler;
     void addCopyHandlerSlot();
+    void addFinischCopyHandlerSlot();
+
     void handleAfetCopyFile(copyStatusPtr&);
+    void handleFinishCopy();
 
 signals:
     void beforeCopy();

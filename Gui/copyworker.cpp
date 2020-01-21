@@ -30,7 +30,7 @@ void CopyWorker::addFinischCopyHandlerSlot()
     this->copyHandler->finishedCopy.connect(boost::bind(&CopyWorker::handleFinishCopy, this));
 }
 
-void CopyWorker::handleAfetCopyFile(copyStatusPtr &status)
+void CopyWorker::handleAfetCopyFile(copyStatusPtr status)
 {
     emit changeCopyStatus(status);
 }

@@ -21,7 +21,7 @@ private:
     void addCopyHandlerSlot();
     void addFinischCopyHandlerSlot();
 
-    void handleAfetCopyFile(copyStatusPtr&);
+    void handleAfetCopyFile(copyStatusPtr);
     void handleFinishCopy();
 
 signals:

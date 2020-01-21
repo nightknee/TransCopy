@@ -15,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     this->disableCopyButton();
 
-    qRegisterMetaType<copyStatusPtr>("copyStatusPtr");
+    qRegisterMetaType<copyStatusPtr>("copyStatusPtr");    
 
 //    this->setFixedSize(MainWindow::WINDOW_WEIGHT,MainWindow::WINDOW_HEIGHT);
 }
@@ -66,12 +66,12 @@ void MainWindow::handleBeforeStartCopy()
     this->showLabelsAndProgressBar();
     this->disableButtons();
 
-//    this->ui->copyProgress->setRange(0, this->status->getNumberOfAllFiles());
+//    this->ui->copyProgress->setRange(0, status->getNumberOfAllFiles());
 }
 
-void MainWindow::updateCopyProgress()
+void MainWindow::updateCopyProgress(int number)
 {
-//    this->ui->copyProgress->setValue(this->status->getCopiedNumberFiles());
+    this->ui->copyProgress->setValue(number);
 }
 
 void MainWindow::handleFinishedCopy()
@@ -149,16 +149,24 @@ void MainWindow::showLabelsAndProgressBar()
     this->ui->copyProgress->show();
 }
 
+#include <QDebug>
+
 void MainWindow::updateInformationAboutCopyProgress(copyStatusPtr ptr)
-{   
-    this->copiedFilesValue.fromStdString(ptr->getFormattedCopiedFilesSize());
-    this->ui->copiedFilesValue->setText(this->copiedFilesValue);
+{     
+//    this->copiedFilesValue = ptr->getFormattedCopiedFilesSize();
 
-    this->copiedFilesSizeValue.fromStdString(ptr->getFormattedCopiedFilesSize());
-    this->ui->copiedFilesSizeValue->setText(this->copiedFilesSizeValue);
+    qDebug() << QString::fromUtf8(ptr->getFormattedCopiedFilesSize().c_str());
 
-    this->failedCopiedFilesValue.number(ptr->getFailedCopiedFiles());
-    this->ui->failedCopiedFilesValue->setText(this->failedCopiedFilesValue);
+    this->ui->copiedFilesValue->setText(QString::fromUtf8(ptr->getFormattedCopiedFilesSize().c_str()));
+
+//    this->copiedFilesSizeValue.fromStdString(ptr->getFormattedCopiedFilesSize());
+    this->ui->copiedFilesSizeValue->setText(QString::fromUtf8(ptr->getFormattedCopiedFilesSize().c_str()));
+
+//    this->failedCopiedFilesValue.number(ptr->getFailedCopiedFiles());
+    this->ui->failedCopiedFilesValue->setText(QString::number(ptr->getFailedCopiedFiles()));
+
+    this->updateCopyProgress(ptr->getCopiedNumberFiles() / ptr->getNumberOfAllFiles() * 100);
+
 }
 
 void MainWindow::setValueToProgressBar(int value)
@@ -267,7 +275,7 @@ void MainWindow::startCopy()
 
     worker->moveToThread(copyThread);
 
-    QObject::connect(worker, SIGNAL(beforeCopy()), this, SLOT(handleBeforeStartCopy()));
+    QObject::connect(worker, &CopyWorker::beforeCopy, this, &MainWindow::handleBeforeStartCopy);
     QObject::connect(worker, &CopyWorker::changeCopyStatus, this, &MainWindow::updateInformationAboutCopyProgress);
     QObject::connect(worker, SIGNAL(finishedCopy()), this, SLOT(handleFinishedCopy()));
 

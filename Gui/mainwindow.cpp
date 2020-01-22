@@ -86,7 +86,10 @@ void MainWindow::setLabels()
     this->ui->destinationButton->setText(tr("Destination"));
 
     this->ui->allFilesLabel->setText(tr("All files:"));
-    this->ui->allFilesValue->setText(0);
+    this->ui->allFilesValue->setText("0");
+
+    this->ui->allFilesSizeLabel->setText(tr("All files size:"));
+    this->ui->allFilesSizeValue->setText("0");
 
     this->ui->copiedFilesLabel->setText(tr("Copied files:"));
     this->ui->copiedFilesValue->setText(tr("0"));
@@ -106,6 +109,9 @@ void MainWindow::hideElementsBeforeRun()
 {
     this->ui->allFilesLabel->hide();
     this->ui->allFilesValue->hide();
+
+    this->ui->allFilesSizeLabel->hide();
+    this->ui->allFilesSizeValue->hide();
 
     this->ui->copiedFilesLabel->hide();
     this->ui->copiedFilesValue->hide();
@@ -153,19 +159,23 @@ void MainWindow::updateInformationAboutCopyProgress(copyStatusPtr ptr)
 {     
 //    this->copiedFilesValue = ptr->getFormattedCopiedFilesSize();  
 
-    this->ui->copiedFilesValue->setText(QString::fromUtf8(ptr->getFormattedCopiedFilesSize().c_str()));   
+    this->ui->copiedFilesValue->setText(QString::number(ptr->getCopiedNumberFiles()));
 
 //    this->copiedFilesSizeValue.fromStdString(ptr->getFormattedCopiedFilesSize());
     this->ui->copiedFilesSizeValue->setText(QString::fromUtf8(ptr->getFormattedCopiedFilesSize().c_str()));
 
 //    this->failedCopiedFilesValue.number(ptr->getFailedCopiedFiles());
-    this->ui->failedCopiedFilesValue->setText(QString::number(ptr->getFailedCopiedFiles()));   
+    this->ui->failedCopiedFilesValue->setText(QString::number(ptr->getFailedCopiedFiles()));
 
-    this->ui->allFilesSizeValue->setText(QString::fromUtf8(ptr->getFormattedAllFilesSize().c_str()));
+//    this->ui->allFilesSizeValue->setText(QString::fromUtf8(ptr->getFormattedAllFilesSize().c_str()));
 
     int allFilesNumber = ptr->getNumberOfAllFiles();
 
+    this->ui->allFilesSizeValue->setText(QString::fromUtf8(ptr->getFormattedAllFilesSize().c_str()));
+
     this->ui->copyProgress->setRange(0, allFilesNumber);
+    this->ui->allFilesValue->setNum(allFilesNumber);
+
     this->updateCopyProgress(ptr->getCopiedNumberFiles());
 
 }

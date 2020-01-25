@@ -13,6 +13,7 @@ class CopyWorker : public QObject
 public:
     CopyWorker(const std::string& filePath, const std::string& directoryPath);
 
+    ~CopyWorker();
 public slots:
     void startCopy();
 

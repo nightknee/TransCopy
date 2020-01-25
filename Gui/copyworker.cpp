@@ -9,6 +9,11 @@ CopyWorker::CopyWorker(const std::string& filePath, const std::string& directory
     this->addFinischCopyHandlerSlot();
 }
 
+CopyWorker::~CopyWorker()
+{
+    delete this->copyHandler;
+}
+
 void CopyWorker::startCopy()
 {
     copyStatusPtr copyStats = this->copyHandler->getCopyStatus();

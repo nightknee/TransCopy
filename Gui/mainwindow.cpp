@@ -77,7 +77,7 @@ void MainWindow::updateCopyProgress(int number)
 void MainWindow::handleFinishedCopy()
 {
     this->enableButtons();
-    this->hideElementsBeforeRun();    
+    this->hideElementsBeforeRun();
 }
 
 void MainWindow::setLabels()
@@ -148,6 +148,9 @@ void MainWindow::showLabelsAndProgressBar()
 
     this->ui->copiedFilesLabel->show();
     this->ui->copiedFilesValue->show();
+
+    this->ui->copiedFilesSizeLabel->show();
+    this->ui->copiedFilesSizeValue->show();
 
     this->ui->failedCopiedFilesLabel->show();
     this->ui->failedCopiedFilesValue->show();

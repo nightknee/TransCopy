@@ -13,6 +13,9 @@
 #include "ParsedFiles.h"
 #include "CopyStatus.h"
 
+using copyHandlerAfterCopyFileSignal = boost::signals2::signal <void(copyStatusPtr&)>;
+using copyHandlerFinishedCopySignal = boost::signals2::signal <void ()>;
+
 class CopyHandler {
 public:    
     CopyHandler(const std::string& filePath, const std::string& directoryPath);
@@ -20,8 +23,8 @@ public:
     copyStatusPtr getCopyStatus();
     ~CopyHandler();
 
-    boost::signals2::signal <void(copyStatusPtr&)> afterCopyFile;
-    boost::signals2::signal <void ()> finishedCopy;
+    copyHandlerAfterCopyFileSignal afterCopyFile;
+    copyHandlerFinishedCopySignal finishedCopy;
 private:
     void copyParsedFiles(const ParsedFiles *files);
     copyStatusPtr copyStatus;

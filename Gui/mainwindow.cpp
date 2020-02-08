@@ -61,12 +61,15 @@ void MainWindow::destinationPathChanged(const QString &text)
     this->setDestinationPathAsValid();
 }
 
-void MainWindow::handleBeforeStartCopy()
+void MainWindow::handleBeforeStartCopy(copyStatusPtr ptr)
 {
     this->showLabelsAndProgressBar();
     this->disableButtons();
 
+    int allFilesNumber = ptr->getNumberOfAllFiles();
 
+    this->ui->allFilesValue->setNum(allFilesNumber);
+    this->ui->copyProgress->setRange(0, allFilesNumber);
 }
 
 void MainWindow::updateCopyProgress(int number)
@@ -164,17 +167,16 @@ void MainWindow::updateInformationAboutCopyProgress(copyStatusPtr ptr)
 
     this->ui->copiedFilesSizeValue->setText(QString::fromUtf8(ptr->getFormattedCopiedFilesSize().c_str()));
 
-    this->ui->failedCopiedFilesValue->setText(QString::number(ptr->getFailedCopiedFiles()));
-
-    int allFilesNumber = ptr->getNumberOfAllFiles();
+    this->ui->failedCopiedFilesValue->setText(QString::number(ptr->getFailedCopiedFiles()));   
 
     this->ui->allFilesSizeValue->setText(QString::fromUtf8(ptr->getFormattedAllFilesSize().c_str()));
 
-    this->ui->copyProgress->setRange(0, allFilesNumber);
-    this->ui->allFilesValue->setNum(allFilesNumber);
-
     this->updateCopyProgress(ptr->getCopiedNumberFiles());
 
+    int allFilesNumber = ptr->getNumberOfAllFiles();
+
+    this->ui->allFilesValue->setNum(allFilesNumber);
+    this->ui->copyProgress->setRange(0, allFilesNumber);
 }
 
 void MainWindow::getSourceFilePath()

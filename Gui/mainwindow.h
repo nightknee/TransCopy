@@ -33,7 +33,7 @@ public slots:
     void clickCopyButton();
     void sourceFilePathChanged(const QString &text);
     void destinationPathChanged(const QString &text);
-    void handleBeforeStartCopy();
+    void handleBeforeStartCopy(copyStatusPtr ptr);
     void updateCopyProgress(int number);
     void handleFinishedCopy();
     void getSourceFilePath();

@@ -38,7 +38,7 @@ public slots:
     void handleFinishedCopy();
     void getSourceFilePath();
     void getDestinationPath();
-    void checkValidPath(const QString &text);
+    void checkValidPath();
     void updateInformationAboutCopyProgress(copyStatusPtr);
 
 private:
@@ -63,8 +63,6 @@ private:
     void initSingalsToSlots();
     void showLabelsAndProgressBar();   
 
-    void setValueToProgressBar(int value);
-
     void disableButtons();
 
     void enableButtons();
@@ -84,10 +82,7 @@ private:
     void clearErrorSourcePathLabel();
     void clearErrorDestinationPathLabel();
 
-    QString allFilesValue;
-    QString copiedFilesValue;
-    QString copiedFilesSizeValue;
-    QString failedCopiedFilesValue;
+    QString allFilesValue;            
     int copyProgress;
 
     QThread *copyThread = nullptr;

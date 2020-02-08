@@ -132,10 +132,10 @@ void MainWindow::initSingalsToSlots()
     QObject::connect(this->ui->destinationButton, SIGNAL(clicked()), this, SLOT(getDestinationPath()));
 
     QObject::connect(this->ui->sourceFilePath, SIGNAL(textChanged(QString)), this, SLOT(sourceFilePathChanged(QString)));
-    QObject::connect(this->ui->sourceFilePath, SIGNAL(textChanged(QString)), this, SLOT(checkValidPath(QString)));
+    QObject::connect(this->ui->sourceFilePath, SIGNAL(textChanged(QString)), this, SLOT(checkValidPath()));
 
     QObject::connect(this->ui->destinationPath, SIGNAL(textChanged(QString)), this, SLOT(destinationPathChanged(QString)));
-    QObject::connect(this->ui->destinationPath, SIGNAL(textChanged(QString)), this, SLOT(checkValidPath(QString)));
+    QObject::connect(this->ui->destinationPath, SIGNAL(textChanged(QString)), this, SLOT(checkValidPath()));
 }
 
 void MainWindow::showLabelsAndProgressBar()
@@ -160,17 +160,11 @@ void MainWindow::showLabelsAndProgressBar()
 
 void MainWindow::updateInformationAboutCopyProgress(copyStatusPtr ptr)
 {     
-//    this->copiedFilesValue = ptr->getFormattedCopiedFilesSize();  
-
     this->ui->copiedFilesValue->setText(QString::number(ptr->getCopiedNumberFiles()));
 
-//    this->copiedFilesSizeValue.fromStdString(ptr->getFormattedCopiedFilesSize());
     this->ui->copiedFilesSizeValue->setText(QString::fromUtf8(ptr->getFormattedCopiedFilesSize().c_str()));
 
-//    this->failedCopiedFilesValue.number(ptr->getFailedCopiedFiles());
     this->ui->failedCopiedFilesValue->setText(QString::number(ptr->getFailedCopiedFiles()));
-
-//    this->ui->allFilesSizeValue->setText(QString::fromUtf8(ptr->getFormattedAllFilesSize().c_str()));
 
     int allFilesNumber = ptr->getNumberOfAllFiles();
 
@@ -180,11 +174,6 @@ void MainWindow::updateInformationAboutCopyProgress(copyStatusPtr ptr)
     this->ui->allFilesValue->setNum(allFilesNumber);
 
     this->updateCopyProgress(ptr->getCopiedNumberFiles());
-
-}
-
-void MainWindow::setValueToProgressBar(int value)
-{
 
 }
 
@@ -212,7 +201,7 @@ void MainWindow::getDestinationPath()
     this->ui->destinationPath->setText(destinationPathStr);
 }
 
-void MainWindow::checkValidPath(const QString &text)
+void MainWindow::checkValidPath()
 {
     if (!this->pathsAreValid()) {
         this->disableCopyButton();

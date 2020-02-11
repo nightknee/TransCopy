@@ -14,6 +14,7 @@
 #include "CopyStatus.h"
 
 using copyHandlerAfterCopyFileSignal = boost::signals2::signal <void(copyStatusPtr&)>;
+using copyHandlerBeforeStartCopySignal = boost::signals2::signal <void(copyStatusPtr&)>;
 using copyHandlerFinishedCopySignal = boost::signals2::signal <void ()>;
 
 class CopyHandler {
@@ -23,6 +24,7 @@ public:
     copyStatusPtr getCopyStatus();
     ~CopyHandler();
 
+    copyHandlerBeforeStartCopySignal beforeStartCopy;
     copyHandlerAfterCopyFileSignal afterCopyFile;
     copyHandlerFinishedCopySignal finishedCopy;
 private:

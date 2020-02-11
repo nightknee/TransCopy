@@ -27,6 +27,8 @@ void CopyHandler::copyParsedFiles(const ParsedFiles *parsedFiles) {
     this->copyStatus->setAllFilesSize(parsedFiles->size());
     this->copyStatus->setNumberOfAllFiles(parsedFilesStor->size());
     
+    this->beforeStartCopy(this->copyStatus);
+
     for (ParsedFilesStorage::iterator i = parsedFilesStor->begin(); i != parsedFilesStor->end(); ++i) {
         if (!this->destination->copyFile(*i)) {
             this->copyStatus->increaseFailedCopiedNumberFiles();

@@ -172,11 +172,6 @@ void MainWindow::updateInformationAboutCopyProgress(copyStatusPtr ptr)
     this->ui->allFilesSizeValue->setText(QString::fromUtf8(ptr->getFormattedAllFilesSize().c_str()));
 
     this->updateCopyProgress(ptr->getCopiedNumberFiles());
-
-    int allFilesNumber = ptr->getNumberOfAllFiles();
-
-    this->ui->allFilesValue->setNum(allFilesNumber);
-    this->ui->copyProgress->setRange(0, allFilesNumber);
 }
 
 void MainWindow::getSourceFilePath()

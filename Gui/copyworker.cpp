@@ -17,6 +17,8 @@ CopyWorker::~CopyWorker()
 
 void CopyWorker::startCopy()
 {
+    emit beforeRunCopyHandler();
+
     copyStatusPtr copyStats = this->copyHandler->getCopyStatus();
 
     boost::thread t(&CopyHandler::copy, this->copyHandler);

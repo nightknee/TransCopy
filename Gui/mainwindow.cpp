@@ -61,11 +61,14 @@ void MainWindow::destinationPathChanged(const QString &text)
     this->setDestinationPathAsValid();
 }
 
-void MainWindow::handleBeforeStartCopy(copyStatusPtr ptr)
+void MainWindow::handleBeforeRunCopyHandler()
 {
     this->showLabelsAndProgressBar();
     this->disableButtons();
+}
 
+void MainWindow::handleBeforeStartCopy(copyStatusPtr ptr)
+{
     int allFilesNumber = ptr->getNumberOfAllFiles();
 
     this->ui->allFilesValue->setNum(allFilesNumber);
@@ -275,6 +278,7 @@ void MainWindow::startCopy()
 
     worker->moveToThread(copyThread);
 
+    QObject::connect(worker, &CopyWorker::beforeRunCopyHandler, this, &MainWindow::handleBeforeRunCopyHandler);
     QObject::connect(worker, &CopyWorker::beforeCopy, this, &MainWindow::handleBeforeStartCopy);
     QObject::connect(worker, &CopyWorker::changeCopyStatus, this, &MainWindow::updateInformationAboutCopyProgress);
     QObject::connect(worker, SIGNAL(finishedCopy()), this, SLOT(handleFinishedCopy()));

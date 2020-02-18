@@ -28,6 +28,7 @@ private:
     void handleFinishCopy();
 
 signals:
+    void beforeRunCopyHandler();
     void beforeCopy(copyStatusPtr);
     void changeCopyStatus(copyStatusPtr);
     void finishedCopy();

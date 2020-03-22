@@ -17,7 +17,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 LIBS += -lboost_program_options -lboost_system -lboost_filesystem -lboost_regex -lboost_signals -lboost_thread
 
-INCLUDEPATH += include\
 
 SOURCES += \
     Cmd.cpp \

@@ -1,8 +1,8 @@
-image: nightknee/transcopy-bitbucket-image:1.0.0 
+image: nightknee/transcopy-bitbucket-image:1.0.1
 
 pipelines:
   default:
     - step:
         script:
+          - qmake
           - make
-          - make test

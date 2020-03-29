@@ -25,9 +25,9 @@ int TransCopy::run(int argc, char** argv) {
 
             return cmdInstance.run(argc, argv, this->cmdDesc);
         } else {
-            Cmd cmdInstance;
+            QtGui qtQuiInstance;
 
-            return cmdInstance.run(argc, argv, this->cmdDesc);
+            return qtQuiInstance.run(argc, argv, this->cmdDesc);
         }
     }
     catch (const BaseException e) {

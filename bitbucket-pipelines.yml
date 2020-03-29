@@ -4,5 +4,5 @@ pipelines:
   default:
     - step:
         script:
-          - /development/qt5_build/qtbase/bin/qmake QMAKE_LIBDIR=/usr/lib/x86_64-linux-gnu/
+          - qmake
           - make
